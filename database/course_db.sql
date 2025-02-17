@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 16, 2025 at 12:51 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost
+-- Generation Time: Feb 17, 2025 at 05:04 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `course_database`
+-- Database: `course_db`
 --
 
 -- --------------------------------------------------------
@@ -42,11 +42,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`u_id`, `u_first_name`, `u_last_name`, `u_email`, `u_password`, `is_approved`, `is_admin`) VALUES
-(1, 'Admin', '', '', 'admin', 1, 1),
+(1, 'Admin', '', '', '$2b$10$xLMFe8hBE4vxQ6r/kzorxefS0MhL3g1BO7dYsO/pb.QQSJhE3k6n6', 1, 1),
 (4, 'test', 'test', 'test@test.com', '$2b$10$fihH187/r4aU/HpD6YwFUOaw6rCjrhSyssQiE0IIqIf75S9xiTRzW', 1, 0),
 (19, 'james', 'baxter', 'test@gmail.com', '$2b$10$o78ryBTXGbRKy9lqe2TwveB8ndGGtOqI6ep.mGv1XSwzi95aaS/y6', 1, 0),
-(64, 'brad', 'wey', 'bradway@email.com', '$2b$10$/.5zQSfe3ZfbBlvHV/T04.1D7VBUWkzonEH4tL0xM0QfcItMkFYQG', 1, 0),
-(79, 'ETHAN', 'N', 'enova003@odu.edu', '$2b$10$PzKAAM9HIif/HsKIC/lY6.HZMQpmL58GpoyOH7bhZdEWeLKh70prG', 1, 0);
+(64, 'brad', 'wey', 'bradway@email.com', '$2b$10$xLMFe8hBE4vxQ6r/kzorxefS0MhL3g1BO7dYsO/pb.QQSJhE3k6n6', 1, 0),
+(79, 'SEAn', 'B', 'sbake021@odu.edu', '$2b$10$xLMFe8hBE4vxQ6r/kzorxefS0MhL3g1BO7dYsO/pb.QQSJhE3k6n6', 1, 0),
+(81, 'sean', 'baker', 'seancameronbaker@gmail.com', '$2b$10$xLMFe8hBE4vxQ6r/kzorxefS0MhL3g1BO7dYsO/pb.QQSJhE3k6n6', 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -67,7 +68,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `u_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `u_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
