@@ -1,211 +1,123 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+"use client";
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import ProfileForm from "./profileForm"; // Import the new form component
 
 export default function Profile() {
-  const [email, setEmail] = useState('');
   const [userData, setUserData] = useState(null);
   const [password, setPassword] = useState("");
-  const [passwordConfirm, confirmPassword] = useState("");
-  const [nowPassword, currentPassword] = useState("");
-  const [firstName, changeFirstName] = useState("");
-  const [lastName, changeLastName] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  const router = useRouter();
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const userEmail = params.get('email');
-    if (userEmail) {
-      setEmail(userEmail);
-      fetchData(userEmail);
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("You must be logged in to view this page.");
+      router.push("/login"); // Redirect to login if no token
+      return;
     }
+
+    fetchUserData(token);
   }, []);
 
-  const fetchData = async (email) => {
+  const fetchUserData = async (token) => {
     try {
-      const response = await axios.get(`http://localhost:8080/user/${email}`);
-      setUserData(response.data[0]); 
+      const response = await axios.get("http://localhost:8080/user/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setUserData(response.data);
+      setFirstName(response.data.u_first_name);
+      setLastName(response.data.u_last_name);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching user data:", error);
+      alert("Session expired. Please log in again.");
+      localStorage.removeItem("token");
+      router.push("/login");
     }
   };
 
   const submitPassword = async () => {
-    if(password == passwordConfirm){
-        await changePassword();
-        //alert("submit password works");
+    if (password !== passwordConfirm) {
+      alert("New password and confirmation do not match.");
+      return;
     }
-    else{
-      alert("The values you entered for your new password and confirm new password do not match");
-    }
+
+    changePassword();
   };
 
   const submitName = async () => {
-    await changeName();
-  }
+    changeName();
+  };
 
   const changeName = async () => {
-    const formBody = JSON.stringify({
-      u_first_name: firstName,
-      u_last_name: lastName,
-    })
+    const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.put(`http://localhost:8080/user/id/${userData.u_id}`, formBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(response);
+      const response = await axios.put(
+        `http://localhost:8080/user/update-name`,
+        { u_first_name: firstName, u_last_name: lastName },
+        { headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" } }
+      );
 
-      if(response.status == 200){
-        alert("Your name was successfully changed");
-        window.location.href = `http://localhost:3000/profile?email=${email}`;
+      if (response.status === 200) {
+        alert("Your name was successfully updated.");
+        fetchUserData(token); // Refresh user data
+      } else {
+        alert("Error: Unable to update name.");
       }
-
-      else{
-        alert("Error: your name was unable to be changed")
-      }
-
     } catch (error) {
       console.error(error);
+      alert("An error occurred while updating your name.");
     }
-  }
+  };
 
   const changePassword = async () => {
-    const formBody = JSON.stringify({
-      u_password: password,
-    });
-   
-   // alert("Change password works");
+    const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.put(`http://localhost:8080/user/${userData.u_email}`, formBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(response);
+      const response = await axios.put(
+        `http://localhost:8080/user/update-password`,
+        { currentPassword, newPassword: password },
+        { headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" } }
+      );
 
-      if(response.status == 200){
-        alert("Your password was successfully changed");
-        window.location.href = `http://localhost:3000/profile?email=${email}`;
+      if (response.status === 200) {
+        alert("Your password was successfully changed.");
+        setPassword("");
+        setPasswordConfirm("");
+        setCurrentPassword("");
+      } else {
+        alert("Error: Unable to change password.");
       }
-
-      else{
-        alert("Error: your password was unable to be changed")
-      }
-
     } catch (error) {
       console.error(error);
+      alert("An error occurred while changing your password.");
     }
-}
+  };
 
   return (
-    <main className="max-w-2xl mx-auto p-6 text-black">
-        {userData ? (
-        <>
-        <section className="mb-6">
-          <ul>
-              <li className="mb-2 text-center"><strong>Email:</strong> {userData.u_email} </li>
-              <li className="mb-2 text-center"><strong>Name:</strong> {userData.u_first_name} {userData.u_last_name} </li>
-          </ul>
-        </section>
-
-        <div className="flex">
-            <div className="w-1/2 mr-8">
-                <section className="mb-6">
-                    <h2 className="mb-2 text-center"><strong>Change Password?</strong></h2>
-                    <div className="flex flex-col space-y-4">
-                        
-                        {/* current password */}
-                        <label htmlFor="current-password" className="block">Current Password:</label>
-                        <input 
-                        type="password" 
-                        id="current-password" 
-                        name="current-password" 
-                        onChange={(e) => {
-                          currentPassword(e.target.value);
-                        }}
-                        className="border border-gray-300 rounded-full px-3 py-2" 
-                        required/>
-                        {/* end current password */}
-                        
-                        {/* new password */}
-                        <label htmlFor="new-password" className="block">New Password:</label>
-                        <input 
-                        type="password" 
-                        id="new-password" 
-                        name="new-password" 
-                        onChange={(e) => {
-                          setPassword(e.target.value);
-                        }}
-                        className="border border-gray-300 rounded-full px-3 py-2" 
-                        required/>
-                        {/* end new password */}
-
-                        {/* confirm new password */}
-                        <label htmlFor="confirm-password" className="block">Confirm New Password:</label>
-                        <input
-                         type="password" 
-                         id="confirm-password" 
-                         name="confirm-password" 
-                         onChange={(e) => {
-                          confirmPassword(e.target.value);
-                        }}
-                         className="border border-gray-300 rounded-full px-3 py-2" 
-                         required/>
-                         {/* end confirm new password */}
-
-                        <button  
-                        className="bg-amber-900 text-white px-4 py-2 rounded-full hover:bg-amber-800"
-                        onClick={submitPassword}
-                        >
-                          Change Password
-                        </button>
-                    </div>
-               </section>
-            </div>
-
-            <div className="w-1/2 mt-12">
-                <section className="mb-6">
-                    <h2 className="mb-2 text-center"><strong>Change Name?</strong></h2>
-                    <div className="flex flex-col space-y-4">
-
-                        {/* firstName */}
-                        <label htmlFor="firstName" className="block">First Name:</label>
-                        <input 
-                        type="text" 
-                        id="firstName" 
-                        name="First Name" 
-                        className="border border-gray-300 rounded-full px-3 py-2" 
-                        required
-                        onChange={(e) => {
-                          changeFirstName(e.target.value);
-                        }}/>
-                        {/* end firstName */}
-
-                        {/* lastName */}
-                        <label htmlFor="lastName" className="block">Last Name:</label>
-                        <input type="text" id="lastName" name="Last Name" 
-                        className="border border-gray-300 rounded-full px-3 py-2"
-                         required
-                         onChange={(e) => {
-                          changeLastName(e.target.value);
-                         }}/>
-                        {/* end lastName */}
-
-                        <button type="submit" 
-                        className="bg-amber-900 text-white px-4 py-2 rounded-full hover:bg-amber-800"
-                        onClick={submitName}
-                        >
-                          Update Information
-                        </button>
-                    </div>
-                </section>
-            </div>
-
-        </div>
-        </>
-        ) : null}
-    </main>
+    <ProfileForm
+      userData={userData}
+      firstName={firstName}
+      lastName={lastName}
+      setFirstName={setFirstName}
+      setLastName={setLastName}
+      password={password}
+      setPassword={setPassword}
+      passwordConfirm={passwordConfirm}
+      setPasswordConfirm={setPasswordConfirm}
+      currentPassword={currentPassword}
+      setCurrentPassword={setCurrentPassword}
+      submitPassword={submitPassword}
+      submitName={submitName}
+    />
   );
 }
