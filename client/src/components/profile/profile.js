@@ -7,7 +7,7 @@ import ProfileForm from "./profileForm"; // Import the new form component
 
 export default function Profile() {
   const [userData, setUserData] = useState(null);
-  const [password, setPassword] = useState("");
+  const [newPassword, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -25,7 +25,7 @@ export default function Profile() {
     }
 
     fetchUserData(token);
-  }, []);
+  }, [token]);
 
   const fetchUserData = async (token) => {
     try {
@@ -44,14 +44,6 @@ export default function Profile() {
     }
   };
 
-  const submitPassword = async () => {
-    if (password !== passwordConfirm) {
-      alert("New password and confirmation do not match.");
-      return;
-    }
-
-    changePassword();
-  };
 
   const submitName = async () => {
     changeName();
@@ -80,18 +72,23 @@ export default function Profile() {
   };
 
   const changePassword = async () => {
+    if (newPassword !== passwordConfirm) {
+      alert("New password and confirmation do not match.");
+      return;
+    }
+
     const token = localStorage.getItem("token");
 
     try {
       const response = await axios.put(
         `http://localhost:8080/user/update-password`,
-        { currentPassword, newPassword: password },
+        { currentPassword, newPassword },
         { headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" } }
       );
 
       if (response.status === 200) {
         alert("Your password was successfully changed.");
-        setPassword("");
+        setPasswordNew("");
         setPasswordConfirm("");
         setCurrentPassword("");
       } else {
@@ -110,13 +107,12 @@ export default function Profile() {
       lastName={lastName}
       setFirstName={setFirstName}
       setLastName={setLastName}
-      password={password}
-      setPassword={setPassword}
+      newPassword={newPassword}
+      setPassword={setPasswordNew}
       passwordConfirm={passwordConfirm}
       setPasswordConfirm={setPasswordConfirm}
       currentPassword={currentPassword}
       setCurrentPassword={setCurrentPassword}
-      submitPassword={submitPassword}
       submitName={submitName}
     />
   );
