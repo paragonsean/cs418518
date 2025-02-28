@@ -54,51 +54,39 @@ router.post("/", async (req, res) => {
 });
 
 // ─────────────────────────────────────────────────────────────
-// ✅ PUT: Approve User by Email (After Email Verification)
-//    PUT /user/approve
+// ✅ POST: Verify User by Email
+//    POST /user/verify
 // ─────────────────────────────────────────────────────────────
-router.put("/approve", (req, res) => {
-  const { u_email, verification_code } = req.body;
+router.post('/verify', async (req, res) => {
+  const { u_email, verification_code } = req.body; // Use u_email for consistency
 
   if (!u_email || !verification_code) {
     return res.status(400).json({ message: "Email and verification code are required." });
   }
 
-  // ✅ Check if user exists and is waiting for approval
-  database.execute(
-    "SELECT * FROM user WHERE u_email = ? AND is_verified = 0",
-    [u_email],
-    (err, result) => {
-      if (err) {
-        console.error("Database error:", err);
-        return res.status(500).json({ message: "Internal server error" });
-      }
+  try {
+    const result = await database.execute(
+      "SELECT * FROM user WHERE u_email = ? AND verification_code = ? AND is_verified = 0", // Check for unverified user
+      [u_email, verification_code]
+    );
 
-      if (result.length === 0) {
-        return res.status(404).json({ message: "User not found or already verified." });
-      }
-
-      const user = result[0];
-
-      // ✅ Check if the verification code matches
-      if (user.verification_code !== verification_code) {
-        return res.status(401).json({ message: "Invalid verification code." });
-      }
-
-      // ✅ Approve the user
-      database.execute(
-        "UPDATE user SET is_verified = 1 WHERE u_email = ?",
-        [u_email],
-        (err, updateResult) => {
-          if (err) {
-            console.error("Error approving user:", err);
-            return res.status(500).json({ message: "Internal server error" });
-          }
-          res.status(200).json({ message: "User successfully verified and approved!" });
-        }
-      );
+    if (result[0].length === 0) { // No matching unverified user found
+      return res.status(401).json({ message: "Invalid email or verification code." });
     }
-  );
+
+    // Update user's verification status
+    await database.execute(
+      "UPDATE user SET is_verified = 1 WHERE u_email = ?",
+      [u_email]
+    );
+
+    return res.status(200).json({ message: "User successfully verified!" });
+
+  } catch (error) {
+    console.error("Verification error:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 });
+
 
 module.exports = router;
