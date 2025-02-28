@@ -1,29 +1,21 @@
 const express = require("express");
-const app = express();
-const port = 8080;
-const bodyparser = require("body-parser");
 const cors = require("cors");
 
-const myLogger = function (req, res, next) {
-  console.log("LOGGED");
-  next();
-};
+const app = express();
+const port = 8080;
 
-app.use(myLogger);
-app.use(bodyparser.json());
+//  Allow frontend to communicate with backend
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3000", //  Allows frontend access
+    methods: ["GET", "POST", "PUT", "DELETE"], //  Allows these HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], //  Ensures JWT works
+    credentials: true, //  Allows cookies and authentication
   })
 );
 
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000/",
-//   })
-// );
+app.use(express.json());
 
-//  localhost:8080/user
 app.use("/user", require("./routes/user"));
 app.use("/login", require("./routes/login"));
 
@@ -31,12 +23,7 @@ app.listen(port, () => {
   console.log(`Server is listening at port ${port}`);
 });
 
-//Root get API
+// Root get API (for testing)
 app.get("/", (req, res) => {
-  res.send("Calling get api");
-});
-
-//Root post API
-app.post("/", (req, res) => {
-  res.send("Calling post api");
+  res.send("Server is running!");
 });

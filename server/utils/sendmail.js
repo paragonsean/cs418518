@@ -1,38 +1,58 @@
 const nodemailer = require("nodemailer");
 
-async function sendEmail(email, mailSubject, body) {
+// ✅ Universal Email Sending Function
+async function sendEmail(email, subject, body) {
   try {
-    if (!process.env.SMTP_MAIL || !process.env.SMTP_PASSWORD) {
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
       throw new Error("SMTP credentials are missing in environment variables.");
     }
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false, // True for 465, false for 587
-      requireTLS: true,
+      service: "Gmail",
       auth: {
-        user: process.env.SMTP_MAIL,
-        pass: process.env.SMTP_PASSWORD,
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
     const mailOptions = {
-      from: process.env.SMTP_MAIL,
+      from: process.env.EMAIL_USER,
       to: email,
-      subject: mailSubject,
+      subject: subject,
       html: body,
     };
 
     const result = await transporter.sendMail(mailOptions);
-    console.log(`Email sent successfully to ${email}: ${result.response}`);
-    
-    return { success: true, response: result.response }; // ✅ Return structured response
+    console.log(`✅ Email sent successfully to ${email}: ${result.response}`);
 
+    return { success: true, response: result.response };
   } catch (error) {
-    console.error(`Error sending email to ${email}:`, error);
-    return { success: false, error: error.message }; //  Always return an object
+    console.error(`❌ Error sending email to ${email}:`, error);
+    return { success: false, error: error.message };
   }
 }
 
-module.exports = { sendEmail };
+// ✅ Function to send verification email
+async function sendVerificationEmail(userEmail, verificationCode) {
+  try {
+    console.log(`📨 Sending verification email to: ${userEmail}`);
+
+    const subject = "Verify Your Account";
+    const body = `<p>Your verification code is: <strong>${verificationCode}</strong></p><p>Enter this to verify your account.</p>`;
+
+    const emailResult = await sendEmail(userEmail, subject, body);
+
+    if (emailResult.success) {
+      console.log(`✅ Verification email sent to ${userEmail}`);
+    } else {
+      console.error(`❌ Failed to send verification email:`, emailResult.error);
+    }
+
+    return emailResult;
+  } catch (error) {
+    console.error("❌ Error in sendVerificationEmail:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+module.exports = { sendEmail, sendVerificationEmail };

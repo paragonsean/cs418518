@@ -1,3 +1,4 @@
+//src/app/admin/page.js
 "use client";
 import Admin from "@/components/admin/Admin"; // Use the refactored Admin component
 

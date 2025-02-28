@@ -24,7 +24,7 @@ const logLogin = (userId, email, ip, userAgent, cookies, timestamp) => {
 
   // Append log entry to file
   fs.appendFile(logFilePath, logEntry, (err) => {
-    if (err) console.error("❌ Error writing to log file:", err);
+    if (err) console.error(" Error writing to log file:", err);
   });
 };
 
