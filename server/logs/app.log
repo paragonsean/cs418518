@@ -1,0 +1,1533 @@
+[2025-03-02T10:35:56.048Z] INFO: User found by ID: 1
+[2025-03-02T10:35:56.049Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:35:56.050Z] INFO: User found by ID: 1
+[2025-03-02T10:35:56.050Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:35:58.770Z] INFO: User found by ID: 1
+[2025-03-02T10:35:58.771Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:35:58.775Z] INFO: User found by ID: 1
+[2025-03-02T10:35:58.775Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:35:58.779Z] INFO: User found by ID: 1
+[2025-03-02T10:35:58.779Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:35:58.781Z] INFO: User found by ID: 1
+[2025-03-02T10:35:58.781Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:36:05.295Z] INFO: User found: seancameronbaker@gmail.com
+[2025-03-02T10:36:05.366Z] INFO:  OTP updated for user ID 1
+[2025-03-02T10:36:07.826Z] INFO: 📩 OTP sent successfully to seancameronbaker@gmail.com
+[2025-03-02T10:36:07.826Z] INFO:  OTP sent successfully to seancameronbaker@gmail.com
+[2025-03-02T10:36:21.988Z] INFO:  User found with valid OTP - Email: seancameronbaker@gmail.com
+[2025-03-02T10:36:21.991Z] INFO:  OTP cleared for user ID 1
+[2025-03-02T10:36:21.992Z] INFO:  OTP verification successful - User logged in: seancameronbaker@gmail.com
+[2025-03-02T10:36:22.065Z] INFO: User found by ID: 1
+[2025-03-02T10:36:22.065Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:36:22.066Z] INFO: User found by ID: 1
+[2025-03-02T10:36:22.066Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:36:22.068Z] INFO: User found by ID: 1
+[2025-03-02T10:36:22.068Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:36:22.068Z] INFO: User found by ID: 1
+[2025-03-02T10:36:22.068Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:36:24.996Z] INFO: User found by ID: 1
+[2025-03-02T10:36:24.996Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:36:24.997Z] INFO: User found by ID: 1
+[2025-03-02T10:36:24.997Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:36:24.999Z] INFO: User found by ID: 1
+[2025-03-02T10:36:25.000Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:36:25.000Z] INFO: User found by ID: 1
+[2025-03-02T10:36:25.000Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:43:22.453Z] INFO: User found by ID: 1
+[2025-03-02T10:43:22.454Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:43:22.455Z] INFO: User found by ID: 1
+[2025-03-02T10:43:22.455Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:43:22.460Z] INFO: User found by ID: 1
+[2025-03-02T10:43:22.461Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:43:22.462Z] INFO: User found by ID: 1
+[2025-03-02T10:43:22.462Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:43:23.853Z] INFO: User found by ID: 1
+[2025-03-02T10:43:23.853Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:43:23.853Z] INFO: User found by ID: 1
+[2025-03-02T10:43:23.853Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:43:23.855Z] INFO: User found by ID: 1
+[2025-03-02T10:43:23.856Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:43:23.856Z] INFO: User found by ID: 1
+[2025-03-02T10:43:23.856Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:43:23.859Z] INFO: User found by ID: 1
+[2025-03-02T10:43:23.859Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:43:23.859Z] INFO: User found by ID: 1
+[2025-03-02T10:43:23.859Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:43:23.861Z] INFO: User found by ID: 1
+[2025-03-02T10:43:23.861Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:43:23.862Z] INFO: User found by ID: 1
+[2025-03-02T10:43:23.862Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:43:23.883Z] INFO: User found by ID: 1
+[2025-03-02T10:43:23.883Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:43:23.884Z] INFO: User found by ID: 1
+[2025-03-02T10:43:23.884Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:43:26.051Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-02T10:43:26.051Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-02T10:43:26.061Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-02T10:43:26.061Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-02T10:44:16.310Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.310Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.311Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.311Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.313Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.313Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.318Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.318Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.324Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.325Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.325Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.325Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.336Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.337Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.338Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.338Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.340Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.340Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.340Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.341Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.344Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.344Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.345Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.345Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.348Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.348Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.348Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.349Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.352Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.352Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.353Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.354Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.358Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.358Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.363Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.363Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.371Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.371Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.375Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.375Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.380Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.380Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.383Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.383Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.390Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.390Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.396Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.396Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.411Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.411Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.414Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.414Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.422Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.422Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.424Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.424Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.431Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.431Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.433Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.433Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.438Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.438Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.440Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.440Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.447Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.447Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.450Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.451Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.457Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.458Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.460Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.460Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.467Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.468Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.471Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.471Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.483Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.483Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.485Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.485Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.490Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.491Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.493Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.494Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.564Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.564Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.568Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.568Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.601Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.601Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.603Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.604Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.615Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.616Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.621Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.621Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.628Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.628Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.629Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.629Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.632Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.632Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.633Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.633Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.636Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.637Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.638Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.639Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.642Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.643Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.644Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.644Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.649Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.649Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.650Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.650Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.653Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.653Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.654Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.654Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.658Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.659Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.659Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.659Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.664Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.664Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.665Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.665Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.668Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.668Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.668Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.668Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.679Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.679Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.681Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.682Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.689Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.689Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.690Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.690Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.696Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.697Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.698Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.698Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.702Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.702Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.703Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.703Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.707Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.707Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.708Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.708Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.710Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.710Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.710Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.710Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.714Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.714Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.715Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.715Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.718Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.718Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.718Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.718Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.721Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.721Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.722Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.722Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.724Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.724Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.724Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.724Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.727Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.727Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.728Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.728Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.730Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.730Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.731Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.731Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.734Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.734Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.735Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.735Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.737Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.737Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.738Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.739Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.741Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.741Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.742Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.742Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.746Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.746Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.747Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.747Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.749Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.750Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.750Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.750Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.754Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.754Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.755Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.755Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.761Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.761Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.762Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.762Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.764Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.764Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.765Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.765Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.767Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.767Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.767Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.767Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.771Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.771Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.772Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.772Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.773Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.773Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.774Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.774Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.777Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.777Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.777Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.777Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.779Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.779Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.780Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.780Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.782Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.782Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.782Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.782Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.784Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.784Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.784Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.784Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.786Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.786Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.786Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.787Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.788Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.788Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.788Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.788Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.790Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.790Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.791Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.791Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.792Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.792Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.793Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.793Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.794Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.795Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.795Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.795Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.797Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.797Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.798Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.798Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.799Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.799Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.799Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.799Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.801Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.801Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.801Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.801Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.803Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.803Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.804Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.804Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.805Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.805Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.806Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.806Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.807Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.807Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.807Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.808Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.809Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.809Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.809Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.809Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.811Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.811Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.812Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.812Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.813Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.813Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.814Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.814Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.815Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.815Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.816Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.816Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.817Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.817Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.817Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.817Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.820Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.820Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.820Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.820Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.822Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.822Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.822Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.822Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.824Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.824Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.824Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.824Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.826Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.826Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.827Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.827Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.828Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.828Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.829Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.829Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.831Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.831Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.831Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.831Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.832Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.832Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.833Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.833Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.835Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.835Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.835Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.835Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.836Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.836Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.836Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.836Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.838Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.838Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.839Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.839Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.840Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.840Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.840Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.841Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.842Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.842Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.842Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.842Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.844Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.844Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.844Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.844Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.846Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.846Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.846Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.846Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.848Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.848Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.848Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.849Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.850Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.850Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.850Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.850Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.852Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.852Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.852Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.852Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.853Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.853Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.854Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.854Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.856Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.856Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.856Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.856Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.857Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.858Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.858Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.858Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.860Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.860Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.860Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.860Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.861Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.861Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.862Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.862Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.864Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.864Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.864Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.864Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.865Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.865Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.866Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.866Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.867Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.867Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.867Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.867Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.869Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.869Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.869Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.869Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.870Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.871Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.871Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.871Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.873Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.873Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.873Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.874Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.875Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.875Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.875Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.875Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.878Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.878Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.878Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.878Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.880Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.880Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.880Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.880Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.883Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.883Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.883Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.883Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.884Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.884Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.885Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.885Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.887Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.887Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.887Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.887Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.888Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.888Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.889Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.889Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.890Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.891Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.891Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.891Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.892Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.892Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.893Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.893Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.895Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.895Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.895Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.895Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.896Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.896Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.897Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.897Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.898Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.898Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.898Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.898Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.900Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.900Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.901Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.901Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.902Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.902Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.903Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.903Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.904Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.904Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.905Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.905Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.906Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.906Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.906Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.906Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.908Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.908Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.909Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.909Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.910Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.910Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.910Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.910Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.912Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.912Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.913Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.913Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.914Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.914Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.914Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.914Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.916Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.916Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.916Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.916Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.918Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.918Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.918Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.918Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.920Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.920Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.920Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.920Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.922Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.922Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.922Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.923Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.924Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.924Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.924Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.924Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.926Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.926Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.926Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.926Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.927Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.927Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.928Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.928Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.929Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.929Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.930Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.930Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.931Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.931Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.932Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.932Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.934Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.934Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.934Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.934Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.935Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.935Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.936Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.936Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.938Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.938Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.938Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.938Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.939Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.939Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.940Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.940Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.942Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.942Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.942Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.942Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.943Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.943Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.943Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.943Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.945Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.945Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.946Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.946Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.947Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.947Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.947Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.947Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.949Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.949Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.950Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.950Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.951Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.951Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.952Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.952Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.953Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.953Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.953Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.954Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.955Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.955Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.956Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.956Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.957Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.957Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.958Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.958Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.960Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.960Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.960Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.960Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.961Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.961Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.961Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.962Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.963Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.963Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.964Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.964Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.965Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.965Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.965Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.965Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.967Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.967Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.967Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.967Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.969Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.969Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.969Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.969Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.971Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.971Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.971Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.971Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.972Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.973Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.973Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.973Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.974Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.974Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.975Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.975Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.977Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.977Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.977Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.977Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.979Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.979Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.979Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.979Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.981Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.981Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.982Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.982Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.983Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.983Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.983Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.983Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.987Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.987Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.987Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.987Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.988Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.988Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.989Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.989Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.991Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.991Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.991Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.991Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.992Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.992Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.992Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.992Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.994Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.994Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.995Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.995Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.996Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.996Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.996Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.996Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:16.998Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.999Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:16.999Z] INFO: User found by ID: 1
+[2025-03-02T10:44:16.999Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.000Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.000Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.001Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.001Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.003Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.003Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.003Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.003Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.005Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.005Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.005Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.005Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.007Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.007Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.008Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.008Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.009Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.009Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.009Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.009Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.011Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.011Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.011Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.012Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.013Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.013Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.013Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.013Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.015Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.015Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.015Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.015Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.017Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.017Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.017Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.017Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.019Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.019Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.020Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.020Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.021Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.021Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.021Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.021Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.023Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.023Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.023Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.023Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.025Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.025Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.025Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.025Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.027Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.027Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.028Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.028Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.029Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.029Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.029Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.030Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.031Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.031Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.032Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.032Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.033Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.033Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.034Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.034Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.035Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.035Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.036Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.036Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.037Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.037Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.038Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.038Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.039Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.039Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.040Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.040Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.041Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.041Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.041Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.041Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.043Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.043Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.043Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.043Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.045Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.045Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.045Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.045Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.047Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.047Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.047Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.047Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.048Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.048Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.049Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.049Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.051Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.051Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.051Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.051Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.052Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.052Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.053Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.053Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.055Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.055Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.055Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.055Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.056Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.056Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.057Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.057Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.059Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.059Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.059Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.059Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.061Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.061Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.061Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.061Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.063Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.063Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.063Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.063Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.065Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.065Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.065Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.065Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.067Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.067Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.067Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.068Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.069Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.069Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.069Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.069Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.071Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.071Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.071Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.071Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.072Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.072Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.073Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.073Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.074Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.074Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.075Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.075Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.076Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.076Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.076Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.076Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.079Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.079Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.079Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.079Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.081Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.081Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.081Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.081Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.084Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.084Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.084Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.084Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.087Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.087Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.088Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.088Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.089Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.089Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.090Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.090Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.092Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.092Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.093Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.093Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.094Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.094Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.094Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.094Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.096Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.096Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.097Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.097Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.099Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.099Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.100Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.100Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.101Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.101Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.101Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.101Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.103Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.103Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.104Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.104Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.105Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.105Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.105Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.105Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.107Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.107Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.107Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.107Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.108Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.108Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.109Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.109Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.111Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.111Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.111Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.111Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.112Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.112Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.113Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.113Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.115Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.115Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.115Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.115Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.117Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.117Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.117Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.117Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.119Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.119Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.119Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.119Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.120Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.121Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.121Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.121Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.122Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.122Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.123Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.123Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.125Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.125Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.125Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.125Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.127Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.127Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.127Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.127Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.129Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.129Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.129Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.130Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.132Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.132Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.132Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.132Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.142Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.142Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.142Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.142Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.147Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.147Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.147Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.147Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.152Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.152Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.152Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.152Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.157Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.158Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.158Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.158Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.163Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.163Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.164Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.164Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.169Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.169Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.169Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.169Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.174Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.174Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.175Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.175Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.179Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.180Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.180Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.180Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.185Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.185Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.186Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.186Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.191Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.191Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.192Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.192Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.197Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.197Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.198Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.198Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.204Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.204Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.205Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.205Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.209Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.209Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.211Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.211Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.217Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.217Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.217Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.217Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.222Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.222Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.223Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.223Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.228Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.228Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.230Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.230Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.235Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.235Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.235Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.235Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.240Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.240Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.241Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.241Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.246Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.246Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.247Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.247Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.253Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.253Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.254Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.254Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.259Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.259Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.263Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.263Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.268Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.268Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.269Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.269Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.274Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.274Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.275Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.275Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.280Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.280Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.281Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.281Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.286Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.286Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.286Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.286Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.292Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.292Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.294Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.294Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.299Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.299Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.302Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.302Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.308Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.308Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.309Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.309Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.316Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.316Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.316Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.316Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.323Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.323Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.323Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.324Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.329Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.329Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.330Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.330Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.336Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.336Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.337Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.337Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.342Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.343Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.344Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.344Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.349Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.349Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.350Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.350Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.356Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.356Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.356Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.356Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.362Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.362Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.363Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.363Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.367Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.367Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.368Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.368Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.373Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.373Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.373Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.373Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.378Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.378Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.379Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.379Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.402Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.402Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.407Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.410Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.458Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.459Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.464Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.464Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.485Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.485Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.486Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.486Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.497Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.497Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.498Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.498Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.504Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.504Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.505Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.505Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.512Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.512Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.512Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.513Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.518Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.518Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.518Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.518Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.523Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.523Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.524Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.524Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.529Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.529Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.530Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.530Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.535Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.535Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.535Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.535Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.541Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.541Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.541Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.542Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.546Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.546Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.547Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.547Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.551Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.551Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.552Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.552Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.557Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.557Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.558Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.558Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.562Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.562Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.563Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.563Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.569Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.569Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.570Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.570Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.577Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.577Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.578Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.578Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.583Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.583Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.584Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.584Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.590Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.590Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.591Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.591Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.596Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.596Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.597Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.597Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.602Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.602Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.602Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.602Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.607Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.607Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.608Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.608Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.612Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.612Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.613Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.613Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.617Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.617Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.617Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.617Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.621Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.621Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.622Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.622Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.629Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.629Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.629Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.629Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.634Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.634Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.634Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.634Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.640Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.640Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.641Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.641Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.647Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.647Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.648Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.648Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.653Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.653Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.654Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.654Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.659Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.659Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.659Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.659Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.669Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.669Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.670Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.670Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.675Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.675Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.679Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.679Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.685Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.685Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.685Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.685Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.691Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.691Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.691Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.691Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.697Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.697Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.698Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.698Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.703Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.703Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.704Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.704Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.710Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.710Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.712Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.712Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.718Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.718Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.718Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.719Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.725Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.725Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.728Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.728Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.734Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.734Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.734Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.734Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.740Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.740Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.741Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.741Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.747Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.747Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.747Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.747Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.753Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.753Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.754Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.754Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.760Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.760Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.762Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.762Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.768Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.768Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.769Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.769Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.774Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.774Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.774Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.774Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.779Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.779Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.779Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.779Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.784Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.784Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.784Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.784Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.789Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.789Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.789Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.789Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.796Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.796Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.796Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.796Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.801Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.801Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.802Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.802Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.807Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.807Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.807Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.807Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.812Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.813Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.813Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.813Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.819Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.819Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.820Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.821Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.827Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.827Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.827Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.827Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.832Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.832Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.832Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.832Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.837Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.837Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.837Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.837Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.842Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.842Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.843Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.843Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.848Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.848Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.848Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.848Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.852Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.852Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.852Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.852Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.857Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.857Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.857Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.857Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.865Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.865Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.871Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.871Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.882Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.882Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.886Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.886Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.896Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.896Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.898Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.898Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.918Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.918Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.921Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.921Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.929Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.929Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.933Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.934Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.944Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.944Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.951Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.952Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.963Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.963Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.966Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.966Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.975Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.975Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.976Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.977Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:17.988Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.988Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:17.991Z] INFO: User found by ID: 1
+[2025-03-02T10:44:17.991Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.007Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.008Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.028Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.034Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.047Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.047Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.055Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.055Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.097Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.097Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.099Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.099Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.114Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.114Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.124Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.124Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.132Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.132Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.133Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.133Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.140Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.140Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.141Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.141Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.150Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.151Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.153Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.153Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.162Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.162Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.164Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.164Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.179Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.179Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.181Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.181Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.192Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.192Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.194Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.194Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.209Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.209Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.213Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.213Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.223Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.223Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.223Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.223Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.263Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.263Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.264Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.264Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:18.268Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.268Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:18.269Z] INFO: User found by ID: 1
+[2025-03-02T10:44:18.269Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:19.165Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.165Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:19.166Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.166Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:19.167Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.167Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:19.168Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.168Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:19.262Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.262Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:19.263Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.263Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:19.264Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.264Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:19.265Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.265Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:19.266Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.266Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:19.266Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.266Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:19.267Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.267Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:19.268Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.268Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:19.284Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.284Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:44:19.284Z] INFO: User found by ID: 1
+[2025-03-02T10:44:19.284Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:44:20.199Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-02T10:44:20.199Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-02T10:44:20.200Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-02T10:44:20.200Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-02T10:45:15.273Z] INFO: User found by ID: 1
+[2025-03-02T10:45:15.274Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:45:15.275Z] INFO: User found by ID: 1
+[2025-03-02T10:45:15.275Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:45:15.285Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-02T10:45:15.286Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-02T10:45:16.799Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-02T10:45:16.799Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-02T10:45:16.799Z] INFO: User found by ID: 1
+[2025-03-02T10:45:16.799Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:45:16.800Z] INFO: User found by ID: 1
+[2025-03-02T10:45:16.800Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:45:28.336Z] INFO: User found by ID: 1
+[2025-03-02T10:45:28.337Z] INFO: User authenticated: seancameronbaker@gmail.com
+[2025-03-02T10:45:28.338Z] INFO: User found by ID: 1
+[2025-03-02T10:45:28.338Z] INFO: Retrieved user profile for User ID: 1
+[2025-03-02T10:45:28.342Z] INFO:  Retrieved all courses from the database.
+[2025-03-02T10:45:28.343Z] INFO:  Retrieved all courses from the database.
