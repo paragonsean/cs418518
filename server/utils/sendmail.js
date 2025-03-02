@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-// ✅ Universal Email Sending Function
+// Universal Email Sending Function
 async function sendEmail(email, subject, body) {
   try {
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
@@ -23,16 +23,16 @@ async function sendEmail(email, subject, body) {
     };
 
     const result = await transporter.sendMail(mailOptions);
-    console.log(`✅ Email sent successfully to ${email}: ${result.response}`);
+    console.log(`Email sent successfully to ${email}: ${result.response}`);
 
     return { success: true, response: result.response };
   } catch (error) {
-    console.error(`❌ Error sending email to ${email}:`, error);
+    console.error(`Error sending email to ${email}:`, error);
     return { success: false, error: error.message };
   }
 }
 
-// ✅ Function to send verification email
+// Function to send verification email
 async function sendVerificationEmail(userEmail, verificationCode) {
   try {
     console.log(`📨 Sending verification email to: ${userEmail}`);
@@ -43,14 +43,14 @@ async function sendVerificationEmail(userEmail, verificationCode) {
     const emailResult = await sendEmail(userEmail, subject, body);
 
     if (emailResult.success) {
-      console.log(`✅ Verification email sent to ${userEmail}`);
+      console.log(`Verification email sent to ${userEmail}`);
     } else {
-      console.error(`❌ Failed to send verification email:`, emailResult.error);
+      console.error(`Failed to send verification email:`, emailResult.error);
     }
 
     return emailResult;
   } catch (error) {
-    console.error("❌ Error in sendVerificationEmail:", error);
+    console.error("Error in sendVerificationEmail:", error);
     return { success: false, error: error.message };
   }
 }

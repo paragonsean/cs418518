@@ -9,7 +9,7 @@ const CoursesList = () => {
   const { courses, fetchCourses, loading, error, handleTogglePrereq } = useCourses();
 
   useEffect(() => {
-    console.log("🔥 CoursesList Re-rendered, courses:", courses); // ✅ Debugging log
+    console.log("🔥 CoursesList Re-rendered, courses:", courses); // Debugging log
   }, [courses]);
 
   return (

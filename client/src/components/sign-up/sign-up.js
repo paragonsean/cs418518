@@ -13,7 +13,7 @@ export default function SignUp() {
 
   const router = useRouter();
 
-  // ✅ Password Strength Validator
+  // Password Strength Validator
   const isPasswordStrong = (password) => {
     return password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password) && /[^A-Za-z0-9]/.test(password);
   };
@@ -48,7 +48,7 @@ export default function SignUp() {
       const data = await res.json();
 
       if (res.status === 201) {
-        // ✅ Redirect user to verification page with email param
+        // Redirect user to verification page with email param
         router.push(`/verify?email=${email}`);
       } else {
         setMessage(data.message || "An error occurred. Please try again.");

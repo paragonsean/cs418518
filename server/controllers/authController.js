@@ -50,7 +50,7 @@ import {
           message: "Registration successful! Check your email for verification."
         });
       } catch (error) {
-        console.error("❌ Error in registration:", error);
+        console.error("Error in registration:", error);
         return res.status(500).json({ status: "failed", message: "Server error" });
       }
     }
@@ -89,7 +89,7 @@ import {
           message: "OTP sent. Please verify."
         });
       } catch (error) {
-        console.error("❌ Error during login:", error);
+        console.error("Error during login:", error);
         return res.status(500).json({ status: "failed", message: "Server error" });
       }
     }
@@ -127,7 +127,7 @@ import {
           token
         });
       } catch (error) {
-        console.error("❌ Error verifying OTP:", error);
+        console.error("Error verifying OTP:", error);
         return res.status(500).json({ status: "failed", message: "Server error" });
       }
     }
@@ -159,7 +159,7 @@ import {
           message: "Email verified successfully!"
         });
       } catch (error) {
-        console.error("❌ JWT Verification Error:", error.message);
+        console.error("JWT Verification Error:", error.message);
         return res.status(400).json({ status: "failed", message: "Invalid or expired token" });
       }
     }
@@ -191,7 +191,7 @@ import {
           message: "Password reset email sent!"
         });
       } catch (error) {
-        console.error("❌ Error sending reset email:", error);
+        console.error("Error sending reset email:", error);
         return res.status(500).json({ status: "failed", message: "Server error" });
       }
     }
@@ -225,7 +225,7 @@ import {
           message: "Password reset successfully!"
         });
       } catch (error) {
-        console.error("❌ Error resetting password:", error);
+        console.error("Error resetting password:", error);
         return res.status(400).json({ status: "failed", message: "Invalid or expired token" });
       }
     }

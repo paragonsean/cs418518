@@ -1,7 +1,7 @@
 export default function LoginForm({ 
   email, setEmail, 
   password, setPassword, 
-  otp, setOtp, // ✅ Ensure setOtp is included
+  otp, setOtp, // Ensure setOtp is included
   message, label, 
   onSubmit, step 
 }) {
@@ -25,7 +25,7 @@ export default function LoginForm({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-              disabled={step === 2} // ✅ Disable email input after login step
+              disabled={step === 2} // Disable email input after login step
             />
           </div>
 
@@ -57,7 +57,7 @@ export default function LoginForm({
                 type="text"
                 required
                 value={otp}
-                onChange={(e) => setOtp(e.target.value)} // ✅ FIXED: Ensure setOtp updates state
+                onChange={(e) => setOtp(e.target.value)} // FIXED: Ensure setOtp updates state
                 className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
               />
             </div>
@@ -67,7 +67,7 @@ export default function LoginForm({
           {step === 1 && (
             <button 
               className="btn-primary w-full py-2 rounded-md text-white bg-blue-600 hover:bg-blue-700"
-              onClick={onSubmit} // ✅ Calls userLogin
+              onClick={onSubmit} // Calls userLogin
             >
               Login
             </button>
@@ -77,7 +77,7 @@ export default function LoginForm({
           {step === 2 && (
             <button 
               className="btn-primary w-full py-2 rounded-md text-white bg-green-600 hover:bg-green-700"
-              onClick={onSubmit} // ✅ Calls verifyOtp
+              onClick={onSubmit} // Calls verifyOtp
             >
               Verify OTP
             </button>

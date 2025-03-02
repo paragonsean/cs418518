@@ -22,7 +22,7 @@ const usePassword = () => {
       setError(null);
       return { status: "success", message: "Reset link sent successfully!" };
     } catch (error) {
-      setError("❌ Error sending reset password link.");
+      setError("Error sending reset password link.");
       return { status: "error", message: String(error) };
     }
   };
@@ -41,7 +41,7 @@ const usePassword = () => {
       setError(null);
       return { status: "success", message: "Password reset successfully!" };
     } catch (error) {
-      setError("❌ Error resetting password.");
+      setError("Error resetting password.");
       return { status: "error", message: String(error) };
     }
   };
@@ -65,7 +65,7 @@ const usePassword = () => {
       }
       return { status: "success", message: "Password changed successfully!" };
     } catch (error) {
-      setError("❌ Error changing password.");
+      setError("Error changing password.");
       return { status: "error", message: String(error) };
     }
   };
@@ -89,7 +89,7 @@ const usePassword = () => {
         return { status: "error", message: response.message };
       }
     } catch (error) {
-      setError("❌ Error verifying OTP.");
+      setError("Error verifying OTP.");
       return { status: "error", message: String(error) };
     }
   };

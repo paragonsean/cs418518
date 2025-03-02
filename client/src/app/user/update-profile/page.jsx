@@ -1,9 +1,9 @@
 "use client";
 import { useFormik } from "formik";
-import { updateProfileSchema } from "@/validation/schemas"; // ✅ Adjust schema import
+import { updateProfileSchema } from "@/validation/schemas"; // Adjust schema import
 import { useState, useEffect } from "react";
-import useProfile from "@/hooks/useProfile"; // ✅ Import the custom hook
-import logger from "@/utils/logger"; // ✅ Import logger for debugging
+import useProfile from "@/hooks/useProfile"; // Import the custom hook
+import logger from "@/utils/logger"; // Import logger for debugging
 
 const UpdateProfile = () => {
   const { handleChangePassword, updateProfile, getProfile } = useProfile();
@@ -11,7 +11,7 @@ const UpdateProfile = () => {
   const [serverSuccessMessage, setServerSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // ✅ Formik Initial Values
+  // Formik Initial Values
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -26,15 +26,15 @@ const UpdateProfile = () => {
       setServerSuccessMessage("");
 
       try {
-        // ✅ Update Profile Info (Name)
+        // Update Profile Info (Name)
         const profileUpdate = await updateProfile({
           firstName: values.firstName,
           lastName: values.lastName,
         });
 
-        let passwordUpdate = { status: "success" }; // ✅ Default to success if no password update
+        let passwordUpdate = { status: "success" }; // Default to success if no password update
 
-        // ✅ Update Password (if provided)
+        // Update Password (if provided)
         if (values.password && values.password_confirmation) {
           passwordUpdate = await handleChangePassword({
             password: values.password,
@@ -46,20 +46,20 @@ const UpdateProfile = () => {
           profileUpdate.status === "success" &&
           passwordUpdate.status === "success"
         ) {
-          setServerSuccessMessage("✅ Profile updated successfully.");
+          setServerSuccessMessage("Profile updated successfully.");
         } else {
           setServerErrorMessage(profileUpdate.message || passwordUpdate.message);
         }
       } catch (error) {
-        logger.error("❌ Error updating profile:", error);
-        setServerErrorMessage("❌ An error occurred while updating.");
+        logger.error("Error updating profile:", error);
+        setServerErrorMessage("An error occurred while updating.");
       } finally {
         setLoading(false);
       }
     },
   });
 
-  // ✅ Fetch User Profile on Mount
+  // Fetch User Profile on Mount
   useEffect(() => {
     const fetchUser = async () => {
       setLoading(true);
@@ -73,17 +73,17 @@ const UpdateProfile = () => {
             password_confirmation: "",
           });
         } else {
-          setServerErrorMessage("❌ Failed to fetch user details.");
+          setServerErrorMessage("Failed to fetch user details.");
         }
       } catch (error) {
-        setServerErrorMessage("❌ Unable to load user profile.");
+        setServerErrorMessage("Unable to load user profile.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchUser();
-  }, []); // ✅ Only run once on mount
+  }, []); // Only run once on mount
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">

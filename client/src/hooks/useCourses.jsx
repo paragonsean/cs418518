@@ -1,4 +1,4 @@
-"use client"; // ✅ Ensure 'use client' directive
+"use client"; // Ensure 'use client' directive
 import { useState, useEffect } from "react";
 import { getAllCourses, togglePrereqStatus } from "@/utils/courseActions";
 import logger from "@/utils/logger";
@@ -27,10 +27,10 @@ const useCourses = () => {
 
       setCourses(response.data);
       setError(null);
-      logger.info("✅ Courses loaded successfully", response.data);
+      logger.info("Courses loaded successfully", response.data);
     } catch (err) {
       setError(err.message);
-      logger.error("❌ Error fetching courses:", err);
+      logger.error("Error fetching courses:", err);
     } finally {
       setLoading(false);
     }
@@ -44,12 +44,12 @@ const useCourses = () => {
         throw new Error(response.message || "Failed to toggle prerequisite.");
       }
 
-      logger.info(`✅ Toggled prerequisite for ${courseName}`);
+      logger.info(`Toggled prerequisite for ${courseName}`);
       fetchCourses();
       return true;
     } catch (err) {
       setError(err.message);
-      logger.error("❌ Error toggling prerequisite:", err);
+      logger.error("Error toggling prerequisite:", err);
       return false;
     }
   };
@@ -57,4 +57,4 @@ const useCourses = () => {
   return { courses, fetchCourses, loading, error, handleTogglePrereq };
 };
 
-export default useCourses; // ✅ Ensure this is the correct export
+export default useCourses; // Ensure this is the correct export

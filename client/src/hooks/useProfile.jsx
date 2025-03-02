@@ -12,7 +12,7 @@ const useProfile = () => {
 
   // 🔐 Change Password
   const handleChangePassword = async (values) => {
-    setError(null); // ✅ Reset error before new request
+    setError(null); // Reset error before new request
     const changePasswordUrl = urlJoin(authUrl, "/changepassword");
 
     try {
@@ -38,11 +38,11 @@ const useProfile = () => {
     }
   };
 
-  // 🆔 Get User Profile
+  // Get User Profile
   const getProfile = async () => {
     const token = Cookies.get("jwt-token");
     if (!token) {
-      console.error("🚨 No JWT Token found in cookies!");
+      console.error("No JWT Token found in cookies!");
       return { status: "error", message: "No token found" };
     }
 
@@ -51,10 +51,10 @@ const useProfile = () => {
       const profileUrl = urlJoin(authUrl, "loggeduser");
       const data = await publicRequest(profileUrl, "GET", null, token);
 
-      console.log("✅ Profile Response:", data);
+      console.log("Profile Response:", data);
       return data;
     } catch (error) {
-      console.error("❌ Get profile error:", error);
+      console.error("Get profile error:", error);
       return { status: "error", message: "Failed to fetch profile" };
     }
   };
@@ -80,7 +80,7 @@ const useProfile = () => {
     getProfile,
     handleChangePassword,
     updateProfile,
-    setError, // ✅ Exposing setError for better handling
+    setError, // Exposing setError for better handling
   };
 };
 

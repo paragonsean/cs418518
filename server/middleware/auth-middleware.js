@@ -28,7 +28,7 @@ export default function checkUserAuth(pool) {
 
       next();
     } catch (error) {
-      console.error("❌ Auth error:", error);
+      console.error("Auth error:", error);
       return res.status(401).json({ status: "failed", message: "Invalid or expired token" });
     }
   };
