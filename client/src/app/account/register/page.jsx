@@ -41,14 +41,18 @@ const Register = () => {
         setErrors([]);
 
         //  Show success toast notification
-        toast.success("🎉 Registration successful! Check your email to verify your account.");
+        toast.success(
+          "🎉 Registration successful! Check your email to verify your account.",
+        );
 
         //  Redirect to login after 3 seconds
         setTimeout(() => {
           router.push("/account/login");
         }, 3000);
       } else {
-        const errorMessages = Array.isArray(data.errors) ? data.errors : [data.message];
+        const errorMessages = Array.isArray(data.errors)
+          ? data.errors
+          : [data.message];
         setErrors(errorMessages);
 
         //  Show error toast notifications
@@ -79,7 +83,10 @@ const Register = () => {
             <p className="text-gray-700 mb-4">{successMessage}</p>
             <p className="text-sm text-gray-600">
               Already verified?{" "}
-              <Link href="/account/login" className="text-indigo-500 hover:text-indigo-600">
+              <Link
+                href="/account/login"
+                className="text-indigo-500 hover:text-indigo-600"
+              >
                 Login
               </Link>
             </p>
@@ -90,7 +97,9 @@ const Register = () => {
             <form onSubmit={formik.handleSubmit}>
               {/* First Name */}
               <div className="mb-4">
-                <label htmlFor="firstName" className="block font-medium mb-2">First Name</label>
+                <label htmlFor="firstName" className="block font-medium mb-2">
+                  First Name
+                </label>
                 <input
                   type="text"
                   id="firstName"
@@ -102,13 +111,17 @@ const Register = () => {
                   placeholder="Enter your first name"
                 />
                 {formik.touched.firstName && formik.errors.firstName && (
-                  <div className="text-sm text-red-500 px-2">{formik.errors.firstName}</div>
+                  <div className="text-sm text-red-500 px-2">
+                    {formik.errors.firstName}
+                  </div>
                 )}
               </div>
 
               {/* Last Name */}
               <div className="mb-4">
-                <label htmlFor="lastName" className="block font-medium mb-2">Last Name</label>
+                <label htmlFor="lastName" className="block font-medium mb-2">
+                  Last Name
+                </label>
                 <input
                   type="text"
                   id="lastName"
@@ -120,13 +133,17 @@ const Register = () => {
                   placeholder="Enter your last name"
                 />
                 {formik.touched.lastName && formik.errors.lastName && (
-                  <div className="text-sm text-red-500 px-2">{formik.errors.lastName}</div>
+                  <div className="text-sm text-red-500 px-2">
+                    {formik.errors.lastName}
+                  </div>
                 )}
               </div>
 
               {/* Email */}
               <div className="mb-4">
-                <label htmlFor="email" className="block font-medium mb-2">Email</label>
+                <label htmlFor="email" className="block font-medium mb-2">
+                  Email
+                </label>
                 <input
                   type="email"
                   id="email"
@@ -138,13 +155,17 @@ const Register = () => {
                   placeholder="Enter your email"
                 />
                 {formik.touched.email && formik.errors.email && (
-                  <div className="text-sm text-red-500 px-2">{formik.errors.email}</div>
+                  <div className="text-sm text-red-500 px-2">
+                    {formik.errors.email}
+                  </div>
                 )}
               </div>
 
               {/* Password */}
               <div className="mb-4">
-                <label htmlFor="password" className="block font-medium mb-2">Password</label>
+                <label htmlFor="password" className="block font-medium mb-2">
+                  Password
+                </label>
                 <input
                   type="password"
                   id="password"
@@ -156,13 +177,20 @@ const Register = () => {
                   placeholder="Enter your password"
                 />
                 {formik.touched.password && formik.errors.password && (
-                  <div className="text-sm text-red-500 px-2">{formik.errors.password}</div>
+                  <div className="text-sm text-red-500 px-2">
+                    {formik.errors.password}
+                  </div>
                 )}
               </div>
 
               {/* Confirm Password */}
               <div className="mb-6">
-                <label htmlFor="password_confirmation" className="block font-medium mb-2">Confirm Password</label>
+                <label
+                  htmlFor="password_confirmation"
+                  className="block font-medium mb-2"
+                >
+                  Confirm Password
+                </label>
                 <input
                   type="password"
                   id="password_confirmation"
@@ -173,9 +201,12 @@ const Register = () => {
                   className="w-full border-gray-300 rounded-md shadow-xs p-2 focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200"
                   placeholder="Confirm your password"
                 />
-                {formik.touched.password_confirmation && formik.errors.password_confirmation && (
-                  <div className="text-sm text-red-500 px-2">{formik.errors.password_confirmation}</div>
-                )}
+                {formik.touched.password_confirmation &&
+                  formik.errors.password_confirmation && (
+                    <div className="text-sm text-red-500 px-2">
+                      {formik.errors.password_confirmation}
+                    </div>
+                  )}
               </div>
 
               {/* Submit Button */}
@@ -200,7 +231,10 @@ const Register = () => {
             {/* Redirect to Login */}
             <p className="text-sm text-gray-600 p-1 text-center">
               Already a user?{" "}
-              <Link href="/account/login" className="text-indigo-500 hover:text-indigo-600">
+              <Link
+                href="/account/login"
+                className="text-indigo-500 hover:text-indigo-600"
+              >
                 Login
               </Link>
             </p>

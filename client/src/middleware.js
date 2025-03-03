@@ -22,8 +22,6 @@ export default async function middleware(request) {
     "/account/reset-password-link",
     "/account/send-password-reset-email",
     "/user/verify-otp",
-    
-    
   ];
 
   //  Allow access to `/verify-email` without authentication
@@ -43,7 +41,9 @@ export default async function middleware(request) {
   const isAuthPath = authPaths.some((path) => pathname.startsWith(path));
 
   //  Allow access to Next.js static files (avoid middleware blocking static assets)
-  if (pathname.startsWith("/_next")) {return NextResponse.next();}
+  if (pathname.startsWith("/_next")) {
+    return NextResponse.next();
+  }
 
   //  Redirect logged-in users away from authentication pages
   if (validJWT && isAuthPath) {

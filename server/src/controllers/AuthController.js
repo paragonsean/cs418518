@@ -142,9 +142,7 @@ class AuthController {
   static async verifyOTP(req, res) {
     const { email, otp } = req.body;
     if (!email || !otp) {
-      logger.warn(
-        `OTP verification failed - Missing fields (email: ${email})`,
-      );
+      logger.warn(`OTP verification failed - Missing fields (email: ${email})`);
       return res
         .status(400)
         .json({ status: "failed", message: "Email and OTP are required" });
@@ -153,9 +151,7 @@ class AuthController {
     try {
       const user = await AuthModel.findByEmailAndOTP(email, otp);
       if (!user) {
-        logger.warn(
-          `OTP verification failed - Invalid OTP (email: ${email})`,
-        );
+        logger.warn(`OTP verification failed - Invalid OTP (email: ${email})`);
         return res
           .status(401)
           .json({ status: "failed", message: "Invalid or expired OTP" });

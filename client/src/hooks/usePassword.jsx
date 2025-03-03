@@ -51,7 +51,9 @@ const usePassword = () => {
     const changePasswordUrl = urlJoin(authUrl, "/changepassword");
     try {
       const token = Cookies.get("jwt-token");
-      if (!token) {throw new Error("No token found");}
+      if (!token) {
+        throw new Error("No token found");
+      }
 
       const response = await publicRequest(
         changePasswordUrl,

@@ -94,12 +94,10 @@ class UserController {
         logger.warn(
           `Profile update failed - Missing fields (User ID: ${userId})`,
         );
-        return res
-          .status(400)
-          .json({
-            status: "failed",
-            message: "First Name and Last Name are required",
-          });
+        return res.status(400).json({
+          status: "failed",
+          message: "First Name and Last Name are required",
+        });
       }
 
       const updateResult = await UserModel.updateUserProfile(userId, {

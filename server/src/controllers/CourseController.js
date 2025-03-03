@@ -75,9 +75,7 @@ class CourseController {
     try {
       const newPrereqValue = await CoursesModel.togglePrereqStatus(Course_Name);
       if (newPrereqValue === null) {
-        logger.warn(
-          `Course not found for prerequisite toggle: ${Course_Name}`,
-        );
+        logger.warn(`Course not found for prerequisite toggle: ${Course_Name}`);
         return res
           .status(404)
           .json({ status: "failed", message: "Course not found" });
