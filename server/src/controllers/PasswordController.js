@@ -12,7 +12,7 @@ class PasswordController {
   static async verifyEmail(req, res) {
     const { token } = req.query;
     if (!token) {
-      logger.warn("⚠️ Email verification failed - Missing verification token");
+      logger.warn("Email verification failed - Missing verification token");
       return res
         .status(400)
         .json({ status: "failed", message: "Missing verification token" });
@@ -21,7 +21,7 @@ class PasswordController {
     try {
       const decoded = verifyToken(token);
       if (!decoded || !decoded.email) {
-        logger.warn("⚠️ Email verification failed - Invalid or expired token");
+        logger.warn("Email verification failed - Invalid or expired token");
         return res
           .status(400)
           .json({ status: "failed", message: "Invalid or expired token" });
@@ -31,7 +31,7 @@ class PasswordController {
       const user = await UserModel.findByEmail(email);
       if (!user) {
         logger.warn(
-          `⚠️ Email verification failed - No user found (email: ${email})`,
+          `Email verification failed - No user found (email: ${email})`,
         );
         return res
           .status(400)
@@ -58,7 +58,7 @@ class PasswordController {
   static async sendUserPasswordResetEmail(req, res) {
     const { email } = req.body;
     if (!email) {
-      logger.warn("⚠️ Password reset request failed - Missing email");
+      logger.warn("Password reset request failed - Missing email");
       return res
         .status(400)
         .json({ status: "failed", message: "Email is required" });
@@ -68,14 +68,12 @@ class PasswordController {
       const user = await UserModel.findByEmail(email);
       if (!user) {
         logger.warn(
-          `⚠️ Password reset request failed - No user found (email: ${email})`,
+          `Password reset request failed - No user found (email: ${email})`,
         );
-        return res
-          .status(400)
-          .json({
-            status: "failed",
-            message: "No account found with this email",
-          });
+        return res.status(400).json({
+          status: "failed",
+          message: "No account found with this email",
+        });
       }
 
       // Generate Reset Token (1 hour)
@@ -105,7 +103,7 @@ class PasswordController {
     const { newPassword } = req.body;
 
     if (!token || !newPassword) {
-      logger.warn("⚠️ Password reset failed - Missing token or password");
+      logger.warn("Password reset failed - Missing token or password");
       return res.status(400).json({
         status: "failed",
         message: "Token and new password are required",
@@ -115,7 +113,7 @@ class PasswordController {
     try {
       const decoded = verifyToken(token);
       if (!decoded || !decoded.email) {
-        logger.warn("⚠️ Password reset failed - Invalid or expired token");
+        logger.warn("Password reset failed - Invalid or expired token");
         return res.status(400).json({
           status: "failed",
           message: "Invalid or expired token",

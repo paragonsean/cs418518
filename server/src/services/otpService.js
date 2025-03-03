@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 
 //  Generate a 6-digit OTP
 export const generateOTP = () => {
@@ -8,18 +8,18 @@ export const generateOTP = () => {
 //  Send OTP via Email
 export const sendOTPEmail = async (email, otp) => {
   const transporter = nodemailer.createTransport({
-    service: 'gmail', 
+    service: "gmail",
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
+      pass: process.env.EMAIL_PASS,
+    },
   });
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
     subject: "Your OTP Code",
-    text: `Your One-Time Password (OTP) is: ${otp}. It is valid for 10 minutes.`
+    text: `Your One-Time Password (OTP) is: ${otp}. It is valid for 10 minutes.`,
   };
 
   try {

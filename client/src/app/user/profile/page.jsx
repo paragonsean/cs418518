@@ -46,11 +46,19 @@ const Profile = () => {
       <Card className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         <CardHeader className="text-center">
           <Avatar className="mx-auto w-16 h-16">
-            <AvatarImage src={`https://api.dicebear.com/6.x/identicon/svg?seed=${user?.u_email}`} />
-            <AvatarFallback>{user?.u_first_name[0]}{user?.u_last_name[0]}</AvatarFallback>
+            <AvatarImage 
+              src={`https://api.dicebear.com/6.x/identicon/svg?seed=${user?.u_email || "guest"}`} 
+              alt={user?.u_first_name || "Guest"}
+            />
+            <AvatarFallback>
+              {user?.u_first_name?.charAt(0) || "G"}
+              {user?.u_last_name?.charAt(0) || "U"}
+            </AvatarFallback>
           </Avatar>
-          <h2 className="text-2xl font-bold mt-4">{user?.u_first_name} {user?.u_last_name}</h2>
-          <p className="text-gray-500">{user?.u_email}</p>
+          <h2 className="text-2xl font-bold mt-4">
+            {user?.u_first_name ? `${user.u_first_name} ${user.u_last_name}` : "Guest User"}
+          </h2>
+          <p className="text-gray-500">{user?.u_email || "No email available"}</p>
         </CardHeader>
         <CardContent>
           {errorMessage ? (
@@ -61,10 +69,10 @@ const Profile = () => {
                 {user?.is_verified ? "Verified" : "Not Verified"}
               </Badge>
               <Badge className={`ml-2 ${user?.is_approved ? "bg-blue-500" : "bg-red-500"}`}>
-                {user?.is_approved ? "Approved" : "Pending Approval"}
+                {user?.is_approved ? "Approved" : "Courses Pending Approval"}
               </Badge>
               <Badge className={`ml-2 ${user?.is_admin ? "bg-purple-500" : "bg-gray-500"}`}>
-                {user?.is_admin ? "Admin" : "User"}
+                {user?.is_admin ? "Admin" : "Student"}
               </Badge>
             </div>
           )}

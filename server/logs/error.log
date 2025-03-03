@@ -1,12 +1,3 @@
-[2025-03-02T10:43:26.051Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
-[2025-03-02T10:43:26.051Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
-[2025-03-02T10:43:26.061Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
-[2025-03-02T10:43:26.061Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
-[2025-03-02T10:44:20.199Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
-[2025-03-02T10:44:20.199Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
-[2025-03-02T10:44:20.200Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
-[2025-03-02T10:44:20.200Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
-[2025-03-02T10:45:15.285Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
-[2025-03-02T10:45:15.286Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
-[2025-03-02T10:45:16.799Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
-[2025-03-02T10:45:16.799Z] ERROR:  Error retrieving courses: Table 'course_db.courses' doesn't exist
+[2025-03-03T00:03:01.298Z] ERROR:  Error in registration for cos30degrees@gmail.com: firstname is not defined
+[2025-03-03T00:19:14.866Z] ERROR:  Error in registration for cos30degrees@gmail.com: lastname is not defined
+[2025-03-03T00:21:25.293Z] ERROR:  Error in registration for cos30degrees@gmail.com: lastname is not defined

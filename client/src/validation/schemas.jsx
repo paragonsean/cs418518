@@ -64,7 +64,7 @@ export const updateProfileSchema = Yup.object().shape({
   lastName: Yup.string().required("Last name is required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
-    .notRequired(), // 🔥 Allows empty password
+    .notRequired(), // Allows empty password
   password_confirmation: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .notRequired(),

@@ -6,14 +6,24 @@ import { BookOpen, PlusCircle, BarChart, Bell } from "lucide-react"; // Import i
 import useProfile from "@/hooks/useProfile"; // Fetch user data dynamically
 
 export default function StudentDashboard() {
-  const { user, loading } = useProfile();
+  const { getProfile, loading } = useProfile();
   const [studentName, setStudentName] = useState("Loading...");
 
   useEffect(() => {
-    if (!loading && user) {
-      setStudentName(`${user.u_first_name} ${user.u_last_name}`);
-    }
-  }, [user, loading]);
+    const fetchProfile = async () => {
+      try {
+        const studentName = await getProfile();
+        if (studentName?.user) {
+          setStudentName(`${studentName.user.u_first_name} ${studentName.user.u_last_name}`);
+        }
+      } catch (error) {
+        console.error("❌ Error fetching profile:", error);
+        setStudentName("Unknown Advisor");
+      }
+    };
+
+    fetchProfile();
+  }, [getProfile]); // Runs on mount
 
   return (
     <div className="mx-auto max-w-5xl py-10 px-4">
@@ -30,7 +40,7 @@ export default function StudentDashboard() {
       {/* Dashboard Quick Actions */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* My Courses */}
-        <Link href="/dashboard/student/my-courses">
+        <Link href="/user/dashboard/student/my-courses">
           <Card className="hover:bg-gray-50 transition cursor-pointer">
             <CardHeader className="flex items-center gap-3">
               <BookOpen size={20} className="text-blue-600" />
@@ -43,7 +53,7 @@ export default function StudentDashboard() {
         </Link>
 
         {/* Enroll in New Courses */}
-        <Link href="/dashboard/student/enroll">
+        <Link href="/user/dashboard/student/enroll">
           <Card className="hover:bg-gray-50 transition cursor-pointer">
             <CardHeader className="flex items-center gap-3">
               <PlusCircle size={20} className="text-green-600" />
@@ -56,7 +66,7 @@ export default function StudentDashboard() {
         </Link>
 
         {/* Progress Tracker */}
-        <Link href="/dashboard/student/progress">
+        <Link href="/user/dashboard/student/progress">
           <Card className="hover:bg-gray-50 transition cursor-pointer">
             <CardHeader className="flex items-center gap-3">
               <BarChart size={20} className="text-yellow-600" />

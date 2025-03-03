@@ -13,9 +13,9 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals"),
   {
     parserOptions: {
-      ecmaVersion: 2020
-    }
-  }
+      ecmaVersion: 2020,
+    },
+  },
 ];
 
 export default eslintConfig;

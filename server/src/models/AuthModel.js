@@ -29,7 +29,7 @@ class AuthModel {
         logger.info(` User found with valid OTP - Email: ${email}`);
         return rows[0];
       } else {
-        logger.warn(`⚠️ No valid OTP found for email: ${email}`);
+        logger.warn(`No valid OTP found for email: ${email}`);
         return null;
       }
     } catch (error) {

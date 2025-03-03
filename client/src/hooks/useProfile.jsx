@@ -10,7 +10,7 @@ const authUrl = urlJoin(baseUrl, "api/user");
 const useProfile = () => {
   const [error, setError] = useState(null);
 
-  // 🔐 Change Password
+  //  Change Password
   const handleChangePassword = async (values) => {
     setError(null); // Reset error before new request
     const changePasswordUrl = urlJoin(authUrl, "/changepassword");

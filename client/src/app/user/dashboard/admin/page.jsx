@@ -3,11 +3,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Bell, Users, BookOpen, CheckCircle } from "lucide-react";
-import useProfile from "@/hooks/useProfile"; // ✅ Import profile hook
+import useProfile from "@/hooks/useProfile"; // Import profile hook
 
 export default function AdvisorDashboard() {
   const { getProfile, loading } = useProfile();
-  const [advisorName, setAdvisorName] = useState("Loading..."); // ✅ State for advisor name
+  const [advisorName, setAdvisorName] = useState("Loading..."); // State for advisor name
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -23,7 +23,7 @@ export default function AdvisorDashboard() {
     };
 
     fetchProfile();
-  }, [getProfile]); // ✅ Runs on mount
+  }, [getProfile]); // Runs on mount
 
   return (
     <div className="mx-auto max-w-5xl py-10 px-4">

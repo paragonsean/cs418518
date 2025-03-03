@@ -22,7 +22,7 @@ class CoursesModel {
         [level],
       );
       if (rows.length === 0) {
-        logger.warn(`⚠️ Course not found for level: ${level}`);
+        logger.warn(`Course not found for level: ${level}`);
         return null;
       }
       logger.info(` Course found for level: ${level}`);
@@ -43,7 +43,7 @@ class CoursesModel {
         [courseName, level],
       );
       if (result.affectedRows === 0) {
-        logger.warn(`⚠️ Course not found for update: ${level}`);
+        logger.warn(`Course not found for update: ${level}`);
         return false;
       }
       logger.info(` Course name updated for level: ${level}`);
@@ -64,7 +64,7 @@ class CoursesModel {
         [prerequisite, level],
       );
       if (result.affectedRows === 0) {
-        logger.warn(`⚠️ Course not found for prerequisite update: ${level}`);
+        logger.warn(`Course not found for prerequisite update: ${level}`);
         return false;
       }
       logger.info(` Prerequisite updated for level: ${level}`);
@@ -85,7 +85,7 @@ class CoursesModel {
     course_lvlGroup,
   }) {
     if (!course_name || !course_level) {
-      logger.warn("⚠️ Missing required fields when adding a course.");
+      logger.warn("Missing required fields when adding a course.");
       throw new Error("Missing required fields");
     }
 
@@ -94,9 +94,7 @@ class CoursesModel {
         "INSERT INTO courses (course_name, course_level, prerequisite, course_lvlGroup) VALUES (?, ?, ?, ?)",
         [course_name, course_level, prerequisite, course_lvlGroup],
       );
-      logger.info(
-        ` New course added: ${course_name} (Level: ${course_level})`,
-      );
+      logger.info(` New course added: ${course_name} (Level: ${course_level})`);
       return { id: result.insertId };
     } catch (error) {
       logger.error(
@@ -114,7 +112,7 @@ class CoursesModel {
         [level],
       );
       if (result.affectedRows === 0) {
-        logger.warn(`⚠️ Course not found for deletion: ${level}`);
+        logger.warn(`Course not found for deletion: ${level}`);
         return false;
       }
       logger.info(` Course deleted: Level ${level}`);

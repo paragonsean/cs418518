@@ -1,8 +1,15 @@
 import nodemailer from "nodemailer";
 
-export const sendVerificationEmail = async (email, token) => {
+export const sendVerificationEmail = async (
+  email,
+  token,
+  uin,
+  firstName,
+  lastName,
+) => {
   const verificationLink = `${process.env.FRONTEND_URL}/account/verify-email?token=${token}`;
 
+  const UIN = uin;
   const transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
@@ -16,7 +23,7 @@ export const sendVerificationEmail = async (email, token) => {
     to: email,
     subject: "Verify Your Email",
     html: `
-      <h3>Welcome! Please verify your email</h3>
+      <h3>Welcome! ${firstName} ${lastName} Your UIN is ${UIN}   Please verify your email</h3>
       <p>Click <a href="${verificationLink}">here</a> to verify your email.</p>
       <p>If you didn't sign up, please ignore this email.</p>
     `,

@@ -11,14 +11,14 @@ import {
   Menu, X, LayoutDashboard, BookOpen, Users, LogOut, User
 } from "lucide-react";
 import useProfile from "@/hooks/useProfile";
-import UserProfileButton from "@/components/profile/UserProfileButton";
+import UserProfileButton from "@/components/profile/userProfileButton";
 
 export default function DashboardSidebar() {
   const { getProfile } = useProfile();
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
   const [profileData, setProfileData] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false); // ✅ Fix: State for `is_admin`
+  const [isAdmin, setIsAdmin] = useState(false); // Fix: State for `is_admin`
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -26,7 +26,7 @@ export default function DashboardSidebar() {
     const fetchProfile = async () => {
       try {
         const profileData = await getProfile();
-        console.log("🔍 Profile Data:", profileData); // ✅ Debugging Log
+        console.log("Profile Data:", profileData); // Debugging Log
 
         if (profileData.status === "error") {
           setErrorMessage(profileData.message || "Unable to load profile.");
@@ -35,7 +35,7 @@ export default function DashboardSidebar() {
           setTimeout(() => router.push("/account/login"), 1500);
         } else {
           setProfileData(profileData.user);
-          setIsAdmin(profileData.user.is_admin); // ✅ Store `is_admin` in state
+          setIsAdmin(profileData.user.is_admin); // Store `is_admin` in state
         }
       } catch (error) {
         console.error("❌ Error fetching profile:", error);
@@ -45,7 +45,7 @@ export default function DashboardSidebar() {
     };
 
     fetchProfile();
-  }, [router]); // ✅ Remove `is_admin` from dependencies
+  }, [router]); // Remove `is_admin` from dependencies
 
   // Handle Logout
   const handleLogout = () => {
@@ -91,15 +91,15 @@ export default function DashboardSidebar() {
               {/* Role-Based Navigation */}
               {isAdmin ? (
                 <>
-                  <SidebarLink href="/dashboard/admin" icon={<LayoutDashboard size={18} />} text="Advisor Dashboard" isOpen={isOpen} />
-                  <SidebarLink href="/dashboard/admin/courses" icon={<BookOpen size={18} />} text="Manage Courses" isOpen={isOpen} />
-                  <SidebarLink href="/dashboard/admin/view-students" icon={<Users size={18} />} text="View Students" isOpen={isOpen} />
+                  <SidebarLink href="/user/dashboard/admin" icon={<LayoutDashboard size={18} />} text="Advisor Dashboard" isOpen={isOpen} />
+                  <SidebarLink href="/user/dashboard/admin/manage-courses" icon={<BookOpen size={18} />} text="Manage Courses" isOpen={isOpen} />
+                  <SidebarLink href="/user/dashboard/admin/view-students" icon={<Users size={18} />} text="View Students" isOpen={isOpen} />
                 </>
               ) : (
                 <>
-                  <SidebarLink href="/dashboard/student" icon={<LayoutDashboard size={18} />} text="Student Dashboard" isOpen={isOpen} />
-                  <SidebarLink href="/dashboard/student/courses" icon={<BookOpen size={18} />} text="My Courses" isOpen={isOpen} />
-                  <SidebarLink href="/dashboard/student/enroll" icon={<Users size={18} />} text="Enroll" isOpen={isOpen} />
+                  <SidebarLink href="/user/dashboard/student" icon={<LayoutDashboard size={18} />} text="Student Dashboard" isOpen={isOpen} />
+                  <SidebarLink href="/user/dashboard/student/my-courses" icon={<BookOpen size={18} />} text="My Courses" isOpen={isOpen} />
+                  <SidebarLink href="/user/dashboard/student/enroll" icon={<Users size={18} />} text="Enroll" isOpen={isOpen} />
                 </>
               )}
 

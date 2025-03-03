@@ -14,8 +14,11 @@ import logger from "../utils/logger.js"; //  Import logger
 class AuthController {
   //  Register a New User
   static async register(req, res) {
+    console.log("Received Registration Payload:", req.body);
+    logger.info(`Registration Payload: ${JSON.stringify(req.body)}`);
     const { firstName, lastName, email, password, password_confirmation } =
       req.body;
+
     if (
       !firstName ||
       !lastName ||
@@ -23,14 +26,14 @@ class AuthController {
       !password ||
       !password_confirmation
     ) {
-      logger.warn(`⚠️ Registration failed - Missing fields (email: ${email})`);
+      logger.warn(`Registration failed - Missing fields (email: ${email})`);
       return res
         .status(400)
         .json({ status: "failed", message: "All fields are required" });
     }
     if (password !== password_confirmation) {
       logger.warn(
-        `⚠️ Registration failed - Passwords do not match (email: ${email})`,
+        `Registration failed - Passwords do not match (email: ${email})`,
       );
       return res
         .status(400)
@@ -41,7 +44,7 @@ class AuthController {
       // Check if user already exists
       const existingUser = await UserModel.findByEmail(email);
       if (existingUser) {
-        logger.warn(`⚠️ Registration failed - Email already exists: ${email}`);
+        logger.warn(`Registration failed - Email already exists: ${email}`);
         return res
           .status(400)
           .json({ status: "failed", message: "Email already exists" });
@@ -59,9 +62,15 @@ class AuthController {
         hashedPassword,
         verificationToken,
       });
-
+      const u_id = await UserModel.getLastUserID();
       // Send verification email
-      await sendVerificationEmail(email, verificationToken);
+      await sendVerificationEmail(
+        email,
+        verificationToken,
+        u_id,
+        firstName,
+        lastName,
+      );
       logger.info(
         ` Registration successful - Verification email sent to ${email}`,
       );
@@ -82,7 +91,7 @@ class AuthController {
   static async userLogin(req, res) {
     const { email, password } = req.body;
     if (!email || !password) {
-      logger.warn(`⚠️ Login attempt failed - Missing fields (email: ${email})`);
+      logger.warn(`Login attempt failed - Missing fields (email: ${email})`);
       return res
         .status(400)
         .json({ status: "failed", message: "All fields are required" });
@@ -91,7 +100,7 @@ class AuthController {
     try {
       const user = await UserModel.findByEmail(email);
       if (!user) {
-        logger.warn(`⚠️ Login failed - User not found (email: ${email})`);
+        logger.warn(`Login failed - User not found (email: ${email})`);
         return res
           .status(401)
           .json({ status: "failed", message: "Invalid email or password" });
@@ -100,7 +109,7 @@ class AuthController {
       // Check password
       const isMatch = await comparePassword(password, user.u_password);
       if (!isMatch) {
-        logger.warn(`⚠️ Login failed - Incorrect password (email: ${email})`);
+        logger.warn(`Login failed - Incorrect password (email: ${email})`);
         return res
           .status(401)
           .json({ status: "failed", message: "Invalid email or password" });
@@ -134,7 +143,7 @@ class AuthController {
     const { email, otp } = req.body;
     if (!email || !otp) {
       logger.warn(
-        `⚠️ OTP verification failed - Missing fields (email: ${email})`,
+        `OTP verification failed - Missing fields (email: ${email})`,
       );
       return res
         .status(400)
@@ -145,7 +154,7 @@ class AuthController {
       const user = await AuthModel.findByEmailAndOTP(email, otp);
       if (!user) {
         logger.warn(
-          `⚠️ OTP verification failed - Invalid OTP (email: ${email})`,
+          `OTP verification failed - Invalid OTP (email: ${email})`,
         );
         return res
           .status(401)

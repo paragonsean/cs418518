@@ -36,7 +36,7 @@ export const generateToken = (user) => {
  */
 export const verifyToken = (token) => {
   try {
-    console.log("🔐 Verifying JWT Token:", token);
+    console.log(" Verifying JWT Token:", token);
     return jwt.verify(token, process.env.TOKEN_SECRET_KEY);
   } catch (error) {
     console.error(" JWT Verification Failed:", error.message);

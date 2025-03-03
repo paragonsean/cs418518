@@ -29,8 +29,8 @@ const VerifyEmail = () => {
           setMessage(" Verification failed. Invalid or expired token.");
         }
       } catch (error) {
-        console.error("⚠️ Verification error:", error);
-        setMessage("⚠️ Error verifying email.");
+        console.error("Verification error:", error);
+        setMessage("Error verifying email.");
       } finally {
         setLoading(false);
       }
