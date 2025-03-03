@@ -10,7 +10,7 @@ const authUrl = urlJoin(baseUrl, "api/user");
 const useProfile = () => {
   const [error, setError] = useState(null);
 
-  // 🔐 Change Password
+  //  Change Password
   const handleChangePassword = async (values) => {
     setError(null); // Reset error before new request
     const changePasswordUrl = urlJoin(authUrl, "/changepassword");
@@ -23,7 +23,7 @@ const useProfile = () => {
         changePasswordUrl,
         "POST",
         values,
-        token
+        token,
       );
 
       if (response.status !== "success") {
@@ -65,7 +65,7 @@ const useProfile = () => {
     try {
       const token = Cookies.get("jwt-token");
       if (!token) throw new Error("No token found");
-  
+
       const response = await publicRequest(updateUrl, "PUT", values, token);
       return response;
     } catch (error) {
@@ -73,7 +73,6 @@ const useProfile = () => {
       return { status: "error", message: String(error) };
     }
   };
-  
 
   return {
     error,

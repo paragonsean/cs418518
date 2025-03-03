@@ -46,12 +46,14 @@ const usePassword = () => {
     }
   };
 
-  // 🔄 Change Password (Authenticated User)
+  //  Change Password (Authenticated User)
   const handleChangePassword = async (values) => {
     const changePasswordUrl = urlJoin(authUrl, "/changepassword");
     try {
       const token = Cookies.get("jwt-token");
-      if (!token) {throw new Error("No token found");}
+      if (!token) {
+        throw new Error("No token found");
+      }
 
       const response = await publicRequest(
         changePasswordUrl,
@@ -70,7 +72,7 @@ const usePassword = () => {
     }
   };
 
-  // 🔐 Verify OTP
+  //  Verify OTP
   const handleVerifyOTP = async (email, otp) => {
     try {
       const response = await publicRequest(

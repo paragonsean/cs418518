@@ -1,31 +1,61 @@
-export async function middleware(request) {
-    const jwt = request.cookies.get("myTokenName")?.value;
-  
-    if (!jwt) {
-      // Redirect to login if user is not authenticated
-      if (request.nextUrl.pathname !== "/login") {
-        return NextResponse.redirect(new URL("/login", request.url));
-      }
-      return NextResponse.next();
-    }
-  
-    try {
-      await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET));
-  
-      // If user is logged in, prevent access to login page
-      if (request.nextUrl.pathname === "/login") {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
-      }
-  
-      return NextResponse.next();
-    } catch (error) {
-      console.error("JWT verification failed:", error.message);
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
+import { NextRequest, NextResponse } from "next/server";
+import isValidJWT from "./utils/validJwt";
+
+export default async function middleware(request) {
+  const JWT_COOKIE = request.cookies.get("jwt-token");
+  const JWT_TOKEN = JWT_COOKIE ? JWT_COOKIE.value : null;
+  const { pathname } = request.nextUrl;
+
+  //  Ensure valid JWT check is awaited
+  const validJWT = JWT_TOKEN ? await isValidJWT(JWT_TOKEN) : false;
+
+  console.log("JWT Token:", JWT_TOKEN);
+  console.log("Token valid:", validJWT);
+  console.log("Path:", pathname);
+
+  //  Define auth-related pages (except `/verify-email`)
+  const authPaths = [
+    "/account/login",
+    "/account/register",
+    "/account/logout",
+    "/account/reset-password",
+    "/account/reset-password-link",
+    "/account/send-password-reset-email",
+    "/user/verify-otp",
+  ];
+
+  //  Allow access to `/verify-email` without authentication
+  if (pathname.startsWith("/account/verify-email")) {
+    console.log(" Allowing access to email verification page");
+    return NextResponse.next();
   }
-  
-  // Apply middleware to relevant routes
-  export const config = {
-    matcher: ["/dashboard/:path*", "/login"], // Protect dashboard & control login access
-  };
-  
+  if (pathname.startsWith("/account/send-password-reset-email")) {
+    console.log(" Allowing access to email verification page");
+    return NextResponse.next();
+  }
+  if (pathname.startsWith("/account/reset-password")) {
+    console.log(" Allowing access to email verification page");
+    return NextResponse.next();
+  }
+  //  Check if the requested path is in authPaths
+  const isAuthPath = authPaths.some((path) => pathname.startsWith(path));
+
+  //  Allow access to Next.js static files (avoid middleware blocking static assets)
+  if (pathname.startsWith("/_next")) {
+    return NextResponse.next();
+  }
+
+  //  Redirect logged-in users away from authentication pages
+  if (validJWT && isAuthPath) {
+    console.log("🔀 Redirecting valid JWT logged-in user away from auth pages");
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  //  Redirect unauthenticated users to login page (only for protected routes)
+  if (!validJWT && !isAuthPath) {
+    console.log("🔀 Redirecting unauthenticated user to /account/login");
+    return NextResponse.redirect(new URL("/account/login", request.url));
+  }
+
+  return NextResponse.next();
+}
