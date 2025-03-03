@@ -14,7 +14,9 @@ export default function StudentDashboard() {
       try {
         const studentName = await getProfile();
         if (studentName?.user) {
-          setStudentName(`${studentName.user.u_first_name} ${studentName.user.u_last_name}`);
+          setStudentName(
+            `${studentName.user.u_first_name} ${studentName.user.u_last_name}`,
+          );
         }
       } catch (error) {
         console.error("❌ Error fetching profile:", error);
@@ -33,7 +35,8 @@ export default function StudentDashboard() {
       <section className="mb-8">
         <h2 className="text-xl font-semibold">Welcome, {studentName}!</h2>
         <p className="text-gray-600">
-          Here you can view your courses, enroll in new ones, and track your academic progress.
+          Here you can view your courses, enroll in new ones, and track your
+          academic progress.
         </p>
       </section>
 
@@ -47,7 +50,9 @@ export default function StudentDashboard() {
               <h3 className="text-lg font-semibold">My Courses</h3>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">See the list of all courses you're currently enrolled in.</p>
+              <p className="text-gray-600">
+                See the list of all courses you're currently enrolled in.
+              </p>
             </CardContent>
           </Card>
         </Link>
@@ -60,7 +65,9 @@ export default function StudentDashboard() {
               <h3 className="text-lg font-semibold">Enroll</h3>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">Check available courses and sign up for upcoming classes.</p>
+              <p className="text-gray-600">
+                Check available courses and sign up for upcoming classes.
+              </p>
             </CardContent>
           </Card>
         </Link>
@@ -73,7 +80,9 @@ export default function StudentDashboard() {
               <h3 className="text-lg font-semibold">Progress Tracker</h3>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">View your grades, assignments, and performance analytics.</p>
+              <p className="text-gray-600">
+                View your grades, assignments, and performance analytics.
+              </p>
             </CardContent>
           </Card>
         </Link>
@@ -86,13 +95,15 @@ export default function StudentDashboard() {
         </h2>
         <ul className="space-y-3">
           <li className="bg-white p-4 rounded-md shadow-sm hover:bg-gray-50 transition">
-            <strong>Enrollment Opens</strong> for the new semester on August 1st.
+            <strong>Enrollment Opens</strong> for the new semester on August
+            1st.
           </li>
           <li className="bg-white p-4 rounded-md shadow-sm hover:bg-gray-50 transition">
             <strong>Midterm Grades</strong> now available for review.
           </li>
           <li className="bg-white p-4 rounded-md shadow-sm hover:bg-gray-50 transition">
-            <strong>Advisory Meeting</strong> scheduled for next week—check your email.
+            <strong>Advisory Meeting</strong> scheduled for next week—check your
+            email.
           </li>
         </ul>
       </section>

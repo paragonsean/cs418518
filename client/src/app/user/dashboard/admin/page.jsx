@@ -14,7 +14,9 @@ export default function AdvisorDashboard() {
       try {
         const profile = await getProfile();
         if (profile?.user) {
-          setAdvisorName(`${profile.user.u_first_name} ${profile.user.u_last_name}`);
+          setAdvisorName(
+            `${profile.user.u_first_name} ${profile.user.u_last_name}`,
+          );
         }
       } catch (error) {
         console.error("❌ Error fetching profile:", error);
@@ -33,7 +35,8 @@ export default function AdvisorDashboard() {
       <section className="mb-8">
         <h2 className="text-xl font-semibold">Welcome, {advisorName}!</h2>
         <p className="text-gray-600">
-          This is your main hub for managing courses, reviewing student enrollments, and handling administrative tasks.
+          This is your main hub for managing courses, reviewing student
+          enrollments, and handling administrative tasks.
         </p>
       </section>
 
@@ -47,7 +50,9 @@ export default function AdvisorDashboard() {
               <h3 className="text-lg font-semibold">Manage Courses</h3>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">Create, edit, or remove courses offered this semester.</p>
+              <p className="text-gray-600">
+                Create, edit, or remove courses offered this semester.
+              </p>
             </CardContent>
           </Card>
         </Link>
@@ -60,7 +65,10 @@ export default function AdvisorDashboard() {
               <h3 className="text-lg font-semibold">View Students</h3>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">Check student details, contact information, and academic progress.</p>
+              <p className="text-gray-600">
+                Check student details, contact information, and academic
+                progress.
+              </p>
             </CardContent>
           </Card>
         </Link>
@@ -73,7 +81,9 @@ export default function AdvisorDashboard() {
               <h3 className="text-lg font-semibold">Approve Registrations</h3>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">Review and approve student registration requests for courses.</p>
+              <p className="text-gray-600">
+                Review and approve student registration requests for courses.
+              </p>
             </CardContent>
           </Card>
         </Link>
@@ -86,7 +96,8 @@ export default function AdvisorDashboard() {
         </h2>
         <ul className="space-y-3">
           <li className="bg-white p-4 rounded-md shadow-sm hover:bg-gray-50 transition">
-            <strong>New Enrollment Request</strong> from John Doe in "Calculus I"
+            <strong>New Enrollment Request</strong> from John Doe in "Calculus
+            I"
           </li>
           <li className="bg-white p-4 rounded-md shadow-sm hover:bg-gray-50 transition">
             <strong>Grade Update</strong> for "Physics Lab" - 2 new submissions
