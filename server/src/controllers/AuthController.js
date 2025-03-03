@@ -115,6 +115,14 @@ class AuthController {
           .json({ status: "failed", message: "Invalid email or password" });
       }
 
+      if (!user.is_verified) {
+        logger.warn(`Login failed - User not verified (email: ${email})`);
+        return res.status(401).json({
+          status: "failed",
+          message: "User not verified. Check your email for verification",
+        });
+      }
+
       // Generate OTP
       const otp = generateOTP();
       const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes

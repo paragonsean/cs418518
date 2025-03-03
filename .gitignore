@@ -21,7 +21,10 @@ logs/
 .DS_Store
 *.pem
 server/node_modules/
+/server/node_modules/
+/client/node_modules/
 client/node_modules/
+/client/.next/
 client/.next/
 # debug
 npm-debug.log*
