@@ -3,12 +3,18 @@ import logger from "../utils/logger.js"; // Import logger
 
 class UserModel {
   // 1️⃣ Create a New User
-  static async createUser({ firstName, lastName, email, hashedPassword, verificationToken }) {
+  static async createUser({
+    firstName,
+    lastName,
+    email,
+    hashedPassword,
+    verificationToken,
+  }) {
     try {
       const [result] = await pool.execute(
         `INSERT INTO user (u_first_name, u_last_name, u_email, u_password, is_verified, verification_token)
          VALUES (?, ?, ?, ?, ?, ?)`,
-        [firstName, lastName, email, hashedPassword, false, verificationToken]
+        [firstName, lastName, email, hashedPassword, false, verificationToken],
       );
       logger.info(`New user created: ${email}`);
       return result;
@@ -21,7 +27,10 @@ class UserModel {
   // 2️⃣ Find User by Email
   static async findByEmail(email) {
     try {
-      const [rows] = await pool.execute("SELECT * FROM user WHERE u_email = ?", [email]);
+      const [rows] = await pool.execute(
+        "SELECT * FROM user WHERE u_email = ?",
+        [email],
+      );
       if (rows.length > 0) {
         logger.info(`User found: ${email}`);
         return rows[0];
@@ -38,7 +47,9 @@ class UserModel {
   // 3️⃣ Find User by ID
   static async findByUserId(userId) {
     try {
-      const [rows] = await pool.execute("SELECT * FROM user WHERE u_id = ?", [userId]);
+      const [rows] = await pool.execute("SELECT * FROM user WHERE u_id = ?", [
+        userId,
+      ]);
       if (rows.length > 0) {
         logger.info(`User found by ID: ${userId}`);
         return rows[0];
@@ -57,7 +68,7 @@ class UserModel {
     try {
       const [result] = await pool.execute(
         "UPDATE user SET u_first_name = ?, u_last_name = ? WHERE u_id = ?",
-        [firstName, lastName, userId]
+        [firstName, lastName, userId],
       );
       if (result.affectedRows > 0) {
         logger.info(`Profile updated for user ID: ${userId}`);
@@ -67,7 +78,9 @@ class UserModel {
         return { status: "warning", message: "No changes made" };
       }
     } catch (error) {
-      logger.error(`Failed to update profile for User ID (${userId}): ${error.message}`);
+      logger.error(
+        `Failed to update profile for User ID (${userId}): ${error.message}`,
+      );
       throw error;
     }
   }
@@ -75,10 +88,15 @@ class UserModel {
   // 5️⃣ Update Password by User ID
   static async updatePasswordByUserId(userId, hashedPassword) {
     try {
-      await pool.execute("UPDATE user SET u_password = ? WHERE u_id = ?", [hashedPassword, userId]);
+      await pool.execute("UPDATE user SET u_password = ? WHERE u_id = ?", [
+        hashedPassword,
+        userId,
+      ]);
       logger.info(`Password updated for user ID: ${userId}`);
     } catch (error) {
-      logger.error(`Failed to update password for user ID (${userId}): ${error.message}`);
+      logger.error(
+        `Failed to update password for user ID (${userId}): ${error.message}`,
+      );
       throw error;
     }
   }
@@ -86,10 +104,15 @@ class UserModel {
   // 6️⃣ Update Email Verification (Mark is_verified = true, remove verification_token)
   static async verifyUserEmail(email) {
     try {
-      await pool.execute("UPDATE user SET is_verified = ?, verification_token = NULL WHERE u_email = ?", [true, email]);
+      await pool.execute(
+        "UPDATE user SET is_verified = ?, verification_token = NULL WHERE u_email = ?",
+        [true, email],
+      );
       logger.info(`Email verified for user: ${email}`);
     } catch (error) {
-      logger.error(`Failed to verify email for user (${email}): ${error.message}`);
+      logger.error(
+        `Failed to verify email for user (${email}): ${error.message}`,
+      );
       throw error;
     }
   }
@@ -97,10 +120,15 @@ class UserModel {
   // 7️⃣ Update Password by Email (For Reset)
   static async updatePasswordByEmail(email, hashedPassword) {
     try {
-      await pool.execute("UPDATE user SET u_password = ? WHERE u_email = ?", [hashedPassword, email]);
+      await pool.execute("UPDATE user SET u_password = ? WHERE u_email = ?", [
+        hashedPassword,
+        email,
+      ]);
       logger.info(`Password updated for email: ${email}`);
     } catch (error) {
-      logger.error(`Failed to update password for email (${email}): ${error.message}`);
+      logger.error(
+        `Failed to update password for email (${email}): ${error.message}`,
+      );
       throw error;
     }
   }

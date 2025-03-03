@@ -3,7 +3,8 @@ import UserModel from "../models/UserModel.js";
 import logger from "../utils/logger.js";
 
 export default async function checkUserAuth(req, res, next) {
-  let token = req.headers.authorization || (req.cookies && req.cookies.authToken);
+  let token =
+    req.headers.authorization || (req.cookies && req.cookies.authToken);
 
   if (!token) {
     logger.warn("Unauthorized access attempt - No token provided");

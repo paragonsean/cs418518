@@ -70,12 +70,10 @@ class PasswordController {
         logger.warn(
           `⚠️ Password reset request failed - No user found (email: ${email})`,
         );
-        return res
-          .status(400)
-          .json({
-            status: "failed",
-            message: "No account found with this email",
-          });
+        return res.status(400).json({
+          status: "failed",
+          message: "No account found with this email",
+        });
       }
 
       // Generate Reset Token (1 hour)

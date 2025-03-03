@@ -48,7 +48,9 @@ const UpdateProfile = () => {
         ) {
           setServerSuccessMessage("Profile updated successfully.");
         } else {
-          setServerErrorMessage(profileUpdate.message || passwordUpdate.message);
+          setServerErrorMessage(
+            profileUpdate.message || passwordUpdate.message,
+          );
         }
       } catch (error) {
         logger.error("Error updating profile:", error);
@@ -149,7 +151,10 @@ const UpdateProfile = () => {
 
           {/* Confirm Password */}
           <div className="mb-6">
-            <label htmlFor="password_confirmation" className="block font-medium mb-2">
+            <label
+              htmlFor="password_confirmation"
+              className="block font-medium mb-2"
+            >
               Confirm New Password
             </label>
             <input
@@ -162,7 +167,9 @@ const UpdateProfile = () => {
               placeholder="Confirm new password"
             />
             {formik.errors.password_confirmation && (
-              <p className="text-sm text-red-500">{formik.errors.password_confirmation}</p>
+              <p className="text-sm text-red-500">
+                {formik.errors.password_confirmation}
+              </p>
             )}
           </div>
 

@@ -8,7 +8,13 @@ import { Button } from "@/components/ui/button";
 import logger from "@/utils/logger";
 
 import {
-  Menu, X, LayoutDashboard, BookOpen, Users, LogOut, User
+  Menu,
+  X,
+  LayoutDashboard,
+  BookOpen,
+  Users,
+  LogOut,
+  User,
 } from "lucide-react";
 import useProfile from "@/hooks/useProfile";
 import UserProfileButton from "@/components/profile/UserProfileButton";
@@ -72,7 +78,9 @@ export default function DashboardSidebar() {
         }`}
       >
         {/* Sidebar Content */}
-        <div className={`transition-opacity duration-500 ${isOpen ? "opacity-100" : "opacity-0"}`}>
+        <div
+          className={`transition-opacity duration-500 ${isOpen ? "opacity-100" : "opacity-0"}`}
+        >
           {loading ? (
             <p>Loading...</p>
           ) : (
@@ -84,28 +92,64 @@ export default function DashboardSidebar() {
                   <p className="text-sm font-semibold">
                     {profileData?.u_first_name} {profileData?.u_last_name}
                   </p>
-                  <p className="text-xs text-gray-500">{profileData?.u_email}</p>
+                  <p className="text-xs text-gray-500">
+                    {profileData?.u_email}
+                  </p>
                 </div>
               </div>
 
               {/* Role-Based Navigation */}
               {isAdmin ? (
                 <>
-                  <SidebarLink href="/dashboard/admin" icon={<LayoutDashboard size={18} />} text="Advisor Dashboard" isOpen={isOpen} />
-                  <SidebarLink href="/dashboard/admin/courses" icon={<BookOpen size={18} />} text="Manage Courses" isOpen={isOpen} />
-                  <SidebarLink href="/dashboard/admin/view-students" icon={<Users size={18} />} text="View Students" isOpen={isOpen} />
+                  <SidebarLink
+                    href="/dashboard/admin"
+                    icon={<LayoutDashboard size={18} />}
+                    text="Advisor Dashboard"
+                    isOpen={isOpen}
+                  />
+                  <SidebarLink
+                    href="/dashboard/admin/courses"
+                    icon={<BookOpen size={18} />}
+                    text="Manage Courses"
+                    isOpen={isOpen}
+                  />
+                  <SidebarLink
+                    href="/dashboard/admin/view-students"
+                    icon={<Users size={18} />}
+                    text="View Students"
+                    isOpen={isOpen}
+                  />
                 </>
               ) : (
                 <>
-                  <SidebarLink href="/dashboard/student" icon={<LayoutDashboard size={18} />} text="Student Dashboard" isOpen={isOpen} />
-                  <SidebarLink href="/dashboard/student/courses" icon={<BookOpen size={18} />} text="My Courses" isOpen={isOpen} />
-                  <SidebarLink href="/dashboard/student/enroll" icon={<Users size={18} />} text="Enroll" isOpen={isOpen} />
+                  <SidebarLink
+                    href="/dashboard/student"
+                    icon={<LayoutDashboard size={18} />}
+                    text="Student Dashboard"
+                    isOpen={isOpen}
+                  />
+                  <SidebarLink
+                    href="/dashboard/student/courses"
+                    icon={<BookOpen size={18} />}
+                    text="My Courses"
+                    isOpen={isOpen}
+                  />
+                  <SidebarLink
+                    href="/dashboard/student/enroll"
+                    icon={<Users size={18} />}
+                    text="Enroll"
+                    isOpen={isOpen}
+                  />
                 </>
               )}
 
               {/* Logout Button */}
               <div className="mt-auto pt-4">
-                <Button onClick={handleLogout} variant="destructive" className="w-full flex items-center justify-center">
+                <Button
+                  onClick={handleLogout}
+                  variant="destructive"
+                  className="w-full flex items-center justify-center"
+                >
                   <LogOut className="mr-2" size={18} /> {isOpen && "Logout"}
                 </Button>
               </div>
@@ -119,7 +163,10 @@ export default function DashboardSidebar() {
 
 // Reusable SidebarLink Component
 const SidebarLink = ({ href, icon, text, isOpen }) => (
-  <Link className="flex items-center py-2 hover:bg-gray-200 px-2 rounded" href={href}>
+  <Link
+    className="flex items-center py-2 hover:bg-gray-200 px-2 rounded"
+    href={href}
+  >
     {icon} {isOpen && <span className="ml-2">{text}</span>}
   </Link>
 );

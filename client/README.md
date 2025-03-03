@@ -7,6 +7,7 @@ First install the node module
 ```bash
 npm install
 ```
+
 Second, run the development server:
 
 ```bash

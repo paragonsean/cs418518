@@ -94,9 +94,7 @@ class CoursesModel {
         "INSERT INTO courses (course_name, course_level, prerequisite, course_lvlGroup) VALUES (?, ?, ?, ?)",
         [course_name, course_level, prerequisite, course_lvlGroup],
       );
-      logger.info(
-        ` New course added: ${course_name} (Level: ${course_level})`,
-      );
+      logger.info(` New course added: ${course_name} (Level: ${course_level})`);
       return { id: result.insertId };
     } catch (error) {
       logger.error(

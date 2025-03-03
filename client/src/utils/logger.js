@@ -8,9 +8,9 @@ class Logger {
       level: isProduction ? "info" : "debug",
       transport: !isProduction
         ? {
-          target: "pino-pretty",
-          options: { colorize: true },
-        }
+            target: "pino-pretty",
+            options: { colorize: true },
+          }
         : undefined, // JSON logs in production
     });
 
@@ -21,7 +21,9 @@ class Logger {
    * Generic log function
    */
   log(level, message, data = null) {
-    if (isProduction && level === "debug") {return;} // Disable debug logs in production
+    if (isProduction && level === "debug") {
+      return;
+    } // Disable debug logs in production
 
     const logEntry = {
       level,
@@ -31,9 +33,9 @@ class Logger {
     };
 
     this.logs.push(logEntry);
-    if (this.logs.length > 100) {this.logs.shift();} // Keep log size manageable
-
-
+    if (this.logs.length > 100) {
+      this.logs.shift();
+    } // Keep log size manageable
   }
 
   info(message, data = null) {

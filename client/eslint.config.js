@@ -11,14 +11,14 @@ export default [
       sourceType: "module",
       globals: {
         browser: true,
-        node: true
-      }
+        node: true,
+      },
     },
     plugins: {
       react,
       "react-hooks": reactHooks,
       "jsx-a11y": jsxA11y,
-      import: importPlugin
+      import: importPlugin,
     },
     rules: {
       "react/prop-types": "off",
@@ -28,38 +28,38 @@ export default [
         {
           components: ["Link"],
           specialLink: ["to"],
-          aspects: ["noHref", "invalidHref", "preferButton"]
-        }
+          aspects: ["noHref", "invalidHref", "preferButton"],
+        },
       ],
       "import/order": [
         "error",
         {
           groups: ["builtin", "external", "internal"],
-          alphabetize: { order: "asc", caseInsensitive: true }
-        }
+          alphabetize: { order: "asc", caseInsensitive: true },
+        },
       ],
       "func-names": ["error", "as-needed"],
       "func-style": ["error", "expression"],
       "no-console": "warn",
       "no-debugger": "error",
-      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-      
-      "eqeqeq": ["error", "always"],
-      "curly": ["error", "all"],
-      "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }],
-      "semi": ["error", "always"],
-      "quotes": ["error", "double", { "avoidEscape": true }],
-      "indent": ["error", 2, { "SwitchCase": 1 }]
+      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+
+      eqeqeq: ["error", "always"],
+      curly: ["error", "all"],
+      "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 1 }],
+      semi: ["error", "always"],
+      quotes: ["error", "double", { avoidEscape: true }],
+      indent: ["error", 2, { SwitchCase: 1 }],
     },
     settings: {
       react: {
-        version: "19.0"
+        version: "19.0",
       },
       "import/resolver": {
         node: {
-          extensions: [".js", ".jsx", ".ts", ".tsx"]
-        }
-      }
-    }
-  }
+          extensions: [".js", ".jsx", ".ts", ".tsx"],
+        },
+      },
+    },
+  },
 ];

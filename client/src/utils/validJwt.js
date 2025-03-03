@@ -1,11 +1,17 @@
 const isValidJWT = (token) => {
-  if (typeof token !== "string") {return false;}
+  if (typeof token !== "string") {
+    return false;
+  }
 
   const parts = token.split(".");
-  if (parts.length !== 3) {return false;}
+  if (parts.length !== 3) {
+    return false;
+  }
 
   const [header, payload, signature] = parts;
-  if (!header || !payload || !signature) {return false;}
+  if (!header || !payload || !signature) {
+    return false;
+  }
 
   try {
     //  Decode JWT parts safely
@@ -16,7 +22,9 @@ const isValidJWT = (token) => {
       Buffer.from(payload, "base64").toString("utf-8"),
     );
 
-    if (!decodedHeader || !decodedPayload) {return false;}
+    if (!decodedHeader || !decodedPayload) {
+      return false;
+    }
 
     //  Ensure essential claims exist (optional but recommended)
     if (!decodedPayload.exp || !decodedPayload.iat) {

@@ -1,5 +1,5 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 /**
  * Hashes the user password securely
@@ -21,16 +21,15 @@ export const comparePassword = async (enteredPassword, storedPassword) => {
  */
 export const generateToken = (user) => {
   return jwt.sign(
-    { 
+    {
       userId: user.u_id || user.id, //  Support different user object formats
       email: user.email || user.u_email, //  Ensure email is always included
-      role: user.role || "user" //  Default to "user" if role is missing
+      role: user.role || "user", //  Default to "user" if role is missing
     },
     process.env.TOKEN_SECRET_KEY,
-    { expiresIn: "7d" } //  Token lasts for 7 days
+    { expiresIn: "7d" }, //  Token lasts for 7 days
   );
 };
-
 
 /**
  * Verifies JWT token and handles errors gracefully
@@ -44,4 +43,3 @@ export const verifyToken = (token) => {
     return null; //  Prevents app crashes on invalid tokens
   }
 };
-

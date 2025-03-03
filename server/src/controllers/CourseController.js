@@ -12,13 +12,11 @@ class CourseController {
         .json({ status: "success", message: "All classes retrieved", data });
     } catch (error) {
       logger.error(` Error retrieving courses: ${error.message}`);
-      res
-        .status(500)
-        .json({
-          status: "failed",
-          message: "Database error",
-          error: error.message,
-        });
+      res.status(500).json({
+        status: "failed",
+        message: "Database error",
+        error: error.message,
+      });
     }
   }
 
@@ -27,24 +25,18 @@ class CourseController {
     try {
       const data = await CoursesModel.getPrereqCourses();
       logger.info(" Retrieved all prerequisite courses.");
-      res
-        .status(200)
-        .json({
-          status: "success",
-          message: "Prerequisite courses retrieved",
-          data,
-        });
+      res.status(200).json({
+        status: "success",
+        message: "Prerequisite courses retrieved",
+        data,
+      });
     } catch (error) {
-      logger.error(
-        ` Error retrieving prerequisite courses: ${error.message}`,
-      );
-      res
-        .status(500)
-        .json({
-          status: "failed",
-          message: "Database error",
-          error: error.message,
-        });
+      logger.error(` Error retrieving prerequisite courses: ${error.message}`);
+      res.status(500).json({
+        status: "failed",
+        message: "Database error",
+        error: error.message,
+      });
     }
   }
 
@@ -53,24 +45,20 @@ class CourseController {
     try {
       const data = await CoursesModel.getNonPrereqCourses();
       logger.info(" Retrieved all non-prerequisite courses.");
-      res
-        .status(200)
-        .json({
-          status: "success",
-          message: "Non-prerequisite courses retrieved",
-          data,
-        });
+      res.status(200).json({
+        status: "success",
+        message: "Non-prerequisite courses retrieved",
+        data,
+      });
     } catch (error) {
       logger.error(
         ` Error retrieving non-prerequisite courses: ${error.message}`,
       );
-      res
-        .status(500)
-        .json({
-          status: "failed",
-          message: "Database error",
-          error: error.message,
-        });
+      res.status(500).json({
+        status: "failed",
+        message: "Database error",
+        error: error.message,
+      });
     }
   }
 
@@ -106,13 +94,11 @@ class CourseController {
       logger.error(
         ` Error toggling prerequisite status for ${Course_Name}: ${error.message}`,
       );
-      res
-        .status(500)
-        .json({
-          status: "failed",
-          message: "Database error",
-          error: error.message,
-        });
+      res.status(500).json({
+        status: "failed",
+        message: "Database error",
+        error: error.message,
+      });
     }
   }
 
@@ -121,12 +107,10 @@ class CourseController {
     const { Email, Current_Term } = req.body;
     if (!Email || !Current_Term) {
       logger.warn("⚠️ Missing Email or Current_Term fields in request.");
-      return res
-        .status(400)
-        .json({
-          status: "failed",
-          message: "Email and Current_Term are required",
-        });
+      return res.status(400).json({
+        status: "failed",
+        message: "Email and Current_Term are required",
+      });
     }
 
     try {
@@ -134,24 +118,20 @@ class CourseController {
       logger.info(
         ` Retrieved prerequisite data for student: ${Email} (Term: ${Current_Term})`,
       );
-      res
-        .status(200)
-        .json({
-          status: "success",
-          message: "Prerequisite data retrieved",
-          data,
-        });
+      res.status(200).json({
+        status: "success",
+        message: "Prerequisite data retrieved",
+        data,
+      });
     } catch (error) {
       logger.error(
         ` Error retrieving prerequisite data for ${Email}: ${error.message}`,
       );
-      res
-        .status(500)
-        .json({
-          status: "failed",
-          message: "Database error",
-          error: error.message,
-        });
+      res.status(500).json({
+        status: "failed",
+        message: "Database error",
+        error: error.message,
+      });
     }
   }
 
@@ -160,12 +140,10 @@ class CourseController {
     const { Email, Current_Term } = req.body;
     if (!Email || !Current_Term) {
       logger.warn("⚠️ Missing Email or Current_Term fields in request.");
-      return res
-        .status(400)
-        .json({
-          status: "failed",
-          message: "Email and Current_Term are required",
-        });
+      return res.status(400).json({
+        status: "failed",
+        message: "Email and Current_Term are required",
+      });
     }
 
     try {
@@ -173,24 +151,20 @@ class CourseController {
       logger.info(
         ` Retrieved course plan data for student: ${Email} (Term: ${Current_Term})`,
       );
-      res
-        .status(200)
-        .json({
-          status: "success",
-          message: "Course plan data retrieved",
-          data,
-        });
+      res.status(200).json({
+        status: "success",
+        message: "Course plan data retrieved",
+        data,
+      });
     } catch (error) {
       logger.error(
         ` Error retrieving course plan data for ${Email}: ${error.message}`,
       );
-      res
-        .status(500)
-        .json({
-          status: "failed",
-          message: "Database error",
-          error: error.message,
-        });
+      res.status(500).json({
+        status: "failed",
+        message: "Database error",
+        error: error.message,
+      });
     }
   }
 }

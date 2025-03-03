@@ -1,12 +1,20 @@
-"use client"
+"use client";
 import { useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/Table";
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/components/ui/Table";
 import { Button } from "@/components/ui/Button";
-import useCourses  from "@/hooks/useCourses";
+import useCourses from "@/hooks/useCourses";
 
 const CoursesList = () => {
-  const { courses, fetchCourses, loading, error, handleTogglePrereq } = useCourses();
+  const { courses, fetchCourses, loading, error, handleTogglePrereq } =
+    useCourses();
 
   useEffect(() => {
     console.log("🔥 CoursesList Re-rendered, courses:", courses); // ✅ Debugging log

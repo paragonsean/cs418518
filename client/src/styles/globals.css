@@ -5,7 +5,7 @@
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 255, 255, 255; /* Light White Background */
-  --background-end-rgb: 255, 255, 255;   /* Slightly Off-White */
+  --background-end-rgb: 255, 255, 255; /* Slightly Off-White */
 
   --header-bg-light: 227, 242, 253; /* Light Blue Header */
   --header-text-light: 0, 0, 0; /* Dark text for contrast */

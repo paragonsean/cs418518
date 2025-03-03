@@ -51,7 +51,9 @@ export default function Verify() {
       <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-md bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-center text-lg font-semibold">Verify Your Email</h2>
 
-        {message && <p className="text-center font-medium text-red-600">{message}</p>}
+        {message && (
+          <p className="text-center font-medium text-red-600">{message}</p>
+        )}
 
         <div className="flex flex-col space-y-4">
           {/* Email (Read-Only) */}
@@ -72,10 +74,7 @@ export default function Verify() {
           />
 
           {/* Verify Button */}
-          <button
-            className="btn-primary"
-            onClick={verifyOtp}
-          >
+          <button className="btn-primary" onClick={verifyOtp}>
             Verify OTP
           </button>
         </div>

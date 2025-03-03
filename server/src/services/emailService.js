@@ -31,7 +31,6 @@ export const sendVerificationEmail = async (email, token) => {
 export const sendResetPasswordEmail = async (email, token) => {
   const resetLink = `http://localhost:3000/account/reset-password/${token}`; //  Corrected format
 
-
   const transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
