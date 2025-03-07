@@ -19,7 +19,7 @@ export default function AdvisorDashboard() {
           );
         }
       } catch (error) {
-        console.error("❌ Error fetching profile:", error);
+        console.error(" Error fetching profile:", error);
         setAdvisorName("Unknown Advisor");
       }
     };

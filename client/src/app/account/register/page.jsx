@@ -69,7 +69,7 @@ const Register = () => {
   useEffect(() => {
     if (error) {
       setErrors([error]);
-      toast.error(`❌ ${error}`);
+      toast.error(` ${error}`);
     }
   }, [error]);
 

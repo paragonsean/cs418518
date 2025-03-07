@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 02, 2025 at 02:58 AM
+-- Generation Time: Mar 08, 2025 at 12:28 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `course_db`
+-- Database: `course_portal`
 --
 
 -- --------------------------------------------------------
@@ -29,17 +29,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `user` (
   `u_id` int(11) NOT NULL,
-  `u_first_name` varchar(20) NOT NULL,
-  `u_last_name` varchar(20) NOT NULL,
-  `u_email` varchar(35) NOT NULL,
-  `u_password` varchar(200) NOT NULL,
-  `is_approved` tinyint(1) NOT NULL DEFAULT 0,
-  `is_admin` tinyint(1) NOT NULL DEFAULT 0,
-  `verification_code` varchar(6) DEFAULT NULL,
+  `u_first_name` varchar(50) NOT NULL,
+  `u_last_name` varchar(50) NOT NULL,
+  `u_email` varchar(100) NOT NULL,
+  `u_password` varchar(255) NOT NULL,
+  `is_admin` tinyint(1) DEFAULT 0,
+  `is_approved` tinyint(1) DEFAULT 0,
+  `verification_code` varchar(255) DEFAULT NULL,
   `otp_expires_at` datetime DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `verification_token` text DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `verification_token` varchar(255) DEFAULT NULL,
   `is_verified` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -47,9 +47,9 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`u_id`, `u_first_name`, `u_last_name`, `u_email`, `u_password`, `is_approved`, `is_admin`, `verification_code`, `otp_expires_at`, `created_at`, `updated_at`, `verification_token`, `is_verified`) VALUES
-(1, 'Unknown', 'User', 'seancameronbaker@gmail.com', '$2b$10$0dp71J3Y.a1FFczgwHA0HO6Z1HmaRRyLG1Oxq/qTTCeev1OyjzO9K', 0, 0, NULL, NULL, '2025-03-01 06:24:45', '2025-03-02 00:53:25', NULL, 1),
-(9, 'sean', 'baker', 'cos30degrees@gmail.com', '$2b$10$k7dOQLWyNYjJZzmnkG58HO6P7yV4M1LhNiHXMmjCb6kZX3JRjjQ7.', 0, 0, NULL, NULL, '2025-03-02 00:36:47', '2025-03-02 01:32:23', NULL, 1);
+INSERT INTO `user` (`u_id`, `u_first_name`, `u_last_name`, `u_email`, `u_password`, `is_admin`, `is_approved`, `verification_code`, `otp_expires_at`, `created_at`, `updated_at`, `verification_token`, `is_verified`) VALUES
+(2, 'sean', 'baker', 'seancameronbaker@gmail.com', '$2b$10$oluhKh1BvqhIO4As8AoNb.yW4aL23MkpIQiGxVyKwDLC3s7jfl.qe', 1, 0, NULL, NULL, '2025-03-07 16:39:39', '2025-03-07 18:17:15', NULL, 1),
+(6, 'josh', 'baker', 'cos30degrees@gmail.com', '$2b$10$G.xsJb9UtapY7WpAD5dII.HndwTGgKd2ldbmT8NzfS4X5y1FbpwOS', 0, 0, NULL, NULL, '2025-03-07 18:10:26', '2025-03-07 18:14:58', NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -70,7 +70,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

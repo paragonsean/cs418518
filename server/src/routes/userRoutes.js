@@ -9,9 +9,7 @@ const router = express.Router();
 //  Public Routes (No Authentication Required)
 router.post("/register", AuthController.register);
 router.post("/login", AuthController.userLogin);
-router.post(
-  "/send-reset-password-email",
-  PasswordController.sendUserPasswordResetEmail,
+router.post("/send-reset-password-email",PasswordController.sendUserPasswordResetEmail,
 );
 
 router.post("/verify-otp", AuthController.verifyOTP);

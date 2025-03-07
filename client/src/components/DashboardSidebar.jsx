@@ -44,7 +44,7 @@ export default function DashboardSidebar() {
           setIsAdmin(profileData.user.is_admin); // Store `is_admin` in state
         }
       } catch (error) {
-        console.error("❌ Error fetching profile:", error);
+        console.error(" Error fetching profile:", error);
       } finally {
         setLoading(false);
       }

@@ -2,7 +2,7 @@ import pool from "../config/connectdb.js";
 import logger from "../utils/logger.js"; // Import logger
 
 class UserModel {
-  // 1️⃣ Create a New User
+  // Create a New User
   static async createUser({
     firstName,
     lastName,
@@ -53,7 +53,7 @@ class UserModel {
     }
   }
 
-  // 2️⃣ Find User by Email
+  //  Find User by Email
   static async findByEmail(email) {
     try {
       const [rows] = await pool.execute(
