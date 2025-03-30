@@ -68,4 +68,8 @@ const myCourses = () => {
     </div>
   );
 };
+<<<<<<< Updated upstream
 export default myCourses;
+=======
+export default myCourses;
+>>>>>>> Stashed changes
