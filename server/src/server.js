@@ -7,6 +7,7 @@ import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 import courseRoutes from "./routes/courseRoutes.js"; // Import classes routes
+import advisingRoutes from "./routes/advisingRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 8000; // Fix: Use correct PORT for Express
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use("/api/courses", courseRoutes); // Use classes routes
 //  Load Routes (Pass MySQL Pool)
 app.use("/api/user", userRoutes);
+app.use("/api/advising", advisingRoutes);
 
 //  Start Server
 app.listen(port, () => {

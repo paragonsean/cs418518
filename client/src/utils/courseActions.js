@@ -1,34 +1,97 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import logger from "@/utils/logger";
-import publicRequest from "./publicRequest";
 
-const SERVER_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const SERVER_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
+// Create axios instance with base configuration
 const api = axios.create({
   baseURL: SERVER_URL,
   headers: { "Content-Type": "application/json" },
 });
 
-// Fetch All Courses (Fix API path)
-export const getAllCourses = () => publicRequest("/api/courses/all", "GET");
+// Helper function to attach JWT token
+const getAuthHeaders = () => {
+  const token = Cookies.get("jwt-token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
 
-// Fetch Prerequisite Courses
-export const getPrereqCourses = () => publicRequest("/api/courses/prereq", "GET");
+// ✅ Fetch All Courses
+export const fetchAllCourses = async () => {
+  try {
+    const response = await api.get("/courseadvising/courses");
+    return response.data;
+  } catch (error) {
+    logger.error("Error fetching courses:", error);
+    return { error: "Failed to fetch courses" };
+  }
+};
 
-// Fetch Non-Prerequisite Courses
-export const getNonPrereqCourses = () => publicRequest("/api/courses/non-prereq", "GET");
+// ✅ Fetch Prerequisite Courses
+export const fetchPrereqCourses = async () => {
+  try {
+    const response = await api.get("/courseadvising/prereq");
+    return response.data;
+  } catch (error) {
+    logger.error("Error fetching prerequisite courses:", error);
+    return { error: "Failed to fetch prerequisite courses" };
+  }
+};
 
-// Toggle Prerequisite Status (Requires Auth)
-export const togglePrereqStatus = (courseName) =>
-  publicRequest("/api/courses/toggle-prereq", "PUT", { Course_Name: courseName }, Cookies.get("jwt-token"));
+// ✅ Fetch Non-Prerequisite Courses
+export const fetchNonPrereqCourses = async () => {
+  try {
+    const response = await api.get("/courseadvising/non-prereq");
+    return response.data;
+  } catch (error) {
+    logger.error("Error fetching non-prerequisite courses:", error);
+    return { error: "Failed to fetch non-prerequisite courses" };
+  }
+};
 
-// Fetch Prerequisites for a Student (Requires Auth)
-export const getPrereqData = (email, currentTerm) =>
-  publicRequest("/api/courses/prereq-data", "POST", { Email: email, Current_Term: currentTerm }, Cookies.get("jwt-token"));
+// ✅ Toggle Prerequisite Status (Requires Auth)
+export const updatePrereqStatus = async (courseName) => {
+  try {
+    const response = await api.put(
+      "/courseadvising/toggle-prereq",
+      { course_name: courseName },
+      { headers: getAuthHeaders() }
+    );
+    return response.data;
+  } catch (error) {
+    logger.error("Error toggling prerequisite status:", error);
+    return { error: "Failed to toggle prerequisite status" };
+  }
+};
 
-// Fetch Course Plan for a Student (Requires Auth)
-export const getCoursePlanData = (email, currentTerm) =>
-  publicRequest("/api/courses/course-plan", "POST", { Email: email, Current_Term: currentTerm }, Cookies.get("jwt-token"));
+// ✅ Fetch Prerequisites for a Student (Requires Auth)
+export const fetchStudentPrereq = async (email, currentTerm) => {
+  try {
+    const response = await api.post(
+      "/courseadvising/prereq-data",
+      { email, current_term: currentTerm },
+      { headers: getAuthHeaders() }
+    );
+    return response.data;
+  } catch (error) {
+    logger.error("Error fetching student prerequisites:", error);
+    return { error: "Failed to fetch student prerequisites" };
+  }
+};
+
+// ✅ Fetch Course Plan for a Student (Requires Auth)
+export const fetchCoursePlan = async (email, currentTerm) => {
+  try {
+    const response = await api.post(
+      "/courseadvising/course-plan",
+      { email, current_term: currentTerm },
+      { headers: getAuthHeaders() }
+    );
+    return response.data;
+  } catch (error) {
+    logger.error("Error fetching course plan:", error);
+    return { error: "Failed to fetch course plan" };
+  }
+};
 
 export default api;
