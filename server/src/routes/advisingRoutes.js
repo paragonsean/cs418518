@@ -7,8 +7,8 @@ const router = Router();
 // GET /api/advising -> get all records
 router.get("/", AdvisingController.getAllAdvisingRecords);
 
-// GET /api/advising/:name -> get records by student name
-router.get("/:name", AdvisingController.getAdvisingRecordsByName);
+// GET /api/advising/email/:email -> get records by student email
+router.get("/email/:email", AdvisingController.getAdvisingRecordsByEmail);
 
 // POST /api/advising -> create new advising record
 router.post("/", AdvisingController.createAdvisingRecord);
