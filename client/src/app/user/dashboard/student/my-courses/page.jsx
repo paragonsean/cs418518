@@ -5,42 +5,35 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import useProfile from "@/hooks/useProfile"; // Assuming useProfile provides student profile data
 import Cookies from "js-cookie";
 
 const CompletedCoursesHistory = () => {
   const router = useRouter();
-  const { getProfile } = useProfile();
   const [completedCourses, setCompletedCourses] = useState([]);
-  const [email, setEmail] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch student profile and set email
+  // Fetch completed courses on mount
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const profile = await getProfile();
-        if (profile?.user?.u_email) {
-          setEmail(profile.user.u_email);
-        }
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-      }
-    };
-    fetchProfile();
-  }, [getProfile]);
+    fetchCompletedCourses();
+  }, []); // Runs only once on mount
 
-  // Fetch completed courses when email changes
-  useEffect(() => {
-    if (!email) return;
-    fetchCompletedCourses(email);
-  }, [email]);
-
-  // Fetch completed courses from localhost:8000
-  const fetchCompletedCourses = async (email) => {
+  // Fetch completed courses from backend with authentication
+  const fetchCompletedCourses = async () => {
     try {
-      // Update the URL to fetch from localhost:8000
-      const response = await fetch(`http://localhost:8000/api/completed-courses/email/${email}`);
+      const token = Cookies.get("jwt-token"); // Retrieve JWT token from cookies
+      if (!token) {
+        console.error("No token found. User is not authenticated.");
+        return;
+      }
+
+      const response = await fetch("http://localhost:8000/api/completed-courses/", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`, // Attach the token for authentication
+          "Content-Type": "application/json",
+        },
+      });
+
       const data = await response.json();
       if (response.ok) {
         setCompletedCourses(data);
@@ -50,7 +43,7 @@ const CompletedCoursesHistory = () => {
     } catch (error) {
       console.error("Error fetching completed courses:", error);
     } finally {
-      setLoading(false);  // Ensure loading state is set to false once data is fetched
+      setLoading(false);
     }
   };
 
@@ -84,7 +77,7 @@ const CompletedCoursesHistory = () => {
                     <TableCell>
                       <Button
                         className="bg-blue-500 hover:bg-blue-600 text-white"
-                        onClick={() => router.push(`/completed-courses/${course.id}`)} // Change path to view/edit completed course
+                        onClick={() => router.push(`/completed-courses/${course.id}`)} // Navigate to course details
                       >
                         View / Edit
                       </Button>

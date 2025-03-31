@@ -1,25 +1,27 @@
 // File: src/controllers/CompletedCoursesController.js
-import CompletedCoursesModel from "../models/CompletedCoursesModel.js"; // Assume this model handles DB queries
+import CompletedCoursesModel from "../models/CompletedCoursesModel.js";
+import checkUserAuth from "../middleware/AuthMiddleware.js";
 
-class CompletedCoursesController {
-  /**
-   * GET /api/completed-courses/email/:email
-   * Fetch completed courses by email
-   */
-  static async getCompletedCoursesByEmail(req, res) {
-    const { email } = req.params;
+const CompletedCoursesController = {
+    async getCompletedCoursesByEmail(req, res) {
+        try {
+            const email = req.user.email; // Email is now extracted from the token
 
-    try {
-      const records = await CompletedCoursesModel.getCompletedCoursesByEmail(email);
-      if (!records || records.length === 0) {
-        return res.status(404).json({ message: "No completed courses found for this student" });
-      }
-      return res.status(200).json(records);
-    } catch (error) {
-      console.error("Error fetching completed courses:", error);
-      return res.status(500).json({ message: "Server Error" });
+            if (!email) {
+                return res.status(400).json({ message: "User email not found in token" });
+            }
+
+            const courses = await CompletedCoursesModel.getCompletedCoursesByEmail(email);
+            if (!courses || courses.length === 0) {
+                return res.status(404).json({ message: "No completed courses found" });
+            }
+
+            res.status(200).json(courses);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Server error" });
+        }
     }
-  }
-}
+};
 
 export default CompletedCoursesController;

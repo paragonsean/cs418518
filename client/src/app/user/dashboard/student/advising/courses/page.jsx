@@ -6,7 +6,7 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useProfile from "@/hooks/useProfile";
-import { fetchAdvisingRecordsByEmail, createAdvisingRecord } from "@/utils/advisingActions";
+import { fetchAdvisingRecords, createAdvisingRecord } from "@/utils/advisingActions"; // ✅ Use imported function
 import { fetchAllCourses } from "@/utils/courseActions";
 
 const AdvisingForm = () => {
@@ -32,49 +32,49 @@ const AdvisingForm = () => {
       }
     };
     fetchUserProfile();
-  }, []);
+  }, [getProfile]); // ✅ Correct dependency
 
-  // Fetch Advising Records When Email Changes
+  // Fetch Advising Records When Email is Available
   useEffect(() => {
     if (!email) return;
-    fetchAdvisingRecords(email);
-  }, [email]);
+
+    const fetchData = async () => {
+      try {
+        const records = await fetchAdvisingRecords(); // ✅ Using imported function
+        setAdvisingRecords(records || []);
+      } catch (error) {
+        console.error("Error fetching advising records:", error);
+      }
+    };
+
+    fetchData(); // ✅ Only called once when email is set
+  }, [email]); // ✅ Only runs when `email` changes
 
   // Fetch Courses & Extract Prerequisites
   useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const courses = await fetchAllCourses();
+        setAvailableCourses(courses || []);
+
+        // Extract unique course level groups
+        const levels = [...new Set(courses.map((course) => course.course_lvlGroup))].sort();
+        setCourseLevels(levels);
+
+        // Extract prerequisites correctly
+        const prereqMap = courses.reduce((acc, course) => {
+          acc[course.course_name] = course.prerequisite ? course.prerequisite.split(", ") : [];
+          return acc;
+        }, {});
+
+        setCoursePrerequisites(prereqMap);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
+
     fetchCourses();
-  }, []);
-
-  // Fetch Advising Records
-  const fetchAdvisingRecords = async (userEmail) => {
-    try {
-      const records = await fetchAdvisingRecordsByEmail(userEmail);
-      setAdvisingRecords(records || []);
-    } catch (error) {
-      console.error("Error fetching advising records:", error);
-    }
-  };
-  const fetchCourses = async () => {
-    try {
-      const courses = await fetchAllCourses();
-      setAvailableCourses(courses || []);
-
-      // Extract unique course level groups
-      const levels = [...new Set(courses.map((course) => course.course_lvlGroup))].sort();
-      setCourseLevels(levels);
-
-      // Extract prerequisites correctly
-      const prereqMap = courses.reduce((acc, course) => {
-        acc[course.course_name] = course.prerequisite ? course.prerequisite.split(", ") : [];
-        return acc;
-      }, {});
-
-      setCoursePrerequisites(prereqMap);
-    } catch (error) {
-      console.error("Error fetching courses:", error);
-    }
-  };
-
+  }, []); // ✅ Runs only once on mount
 
   // Handle Adding a Course to Plan
   const handleAddCourse = () => {
@@ -95,19 +95,11 @@ const AdvisingForm = () => {
     });
   };
 
-
-
-
   // Filter Available Courses by Level
   const filterAvailableCourses = (level) => {
     if (!level) return []; // ✅ Prevents errors when no level is selected
-
-    return availableCourses.filter(
-      (course) => String(course.course_lvlGroup) === String(level) // ✅ Ensure correct comparison
-    );
+    return availableCourses.filter((course) => String(course.course_lvlGroup) === String(level)); // ✅ Ensure correct comparison
   };
-
-
 
   // Handle Form Submission
   const handleSubmit = async (e) => {
@@ -164,12 +156,7 @@ const AdvisingForm = () => {
                       </select>
                     </TableCell>
                     <TableCell>
-                      <select
-                        className="border p-2 rounded-md"
-                        value={course.name}
-                        onChange={(e) => handleCourseChange(index, "name", e.target.value)}
-                        disabled={!course.level} // ✅ Prevents selecting course before level
-                      >
+                      <select className="border p-2 rounded-md" value={course.name} onChange={(e) => handleCourseChange(index, "name", e.target.value)} disabled={!course.level}>
                         <option value="">Select Course</option>
                         {filterAvailableCourses(course.level).map((c) => (
                           <option key={c.course_name} value={c.course_name}>
@@ -177,7 +164,6 @@ const AdvisingForm = () => {
                           </option>
                         ))}
                       </select>
-
                     </TableCell>
                     <TableCell>{(coursePrerequisites[course.name] || []).join(", ") || "None"}</TableCell>
                     <TableCell>
@@ -190,12 +176,8 @@ const AdvisingForm = () => {
               </TableBody>
             </Table>
 
-            <Button type="button" className="mt-4 bg-blue-500 text-white" onClick={handleAddCourse}>
-              ➕ Add Course
-            </Button>
-            <Button type="submit" className="mt-4 bg-green-500 ml-4">
-              Submit
-            </Button>
+            <Button type="button" className="mt-4 bg-blue-500 text-white" onClick={handleAddCourse}>➕ Add Course</Button>
+            <Button type="submit" className="mt-4 bg-green-500 ml-4">Submit</Button>
           </form>
         </CardContent>
       </Card>

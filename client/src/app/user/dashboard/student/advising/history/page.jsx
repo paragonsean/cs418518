@@ -5,40 +5,20 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import useProfile from "@/hooks/useProfile"; // Assuming useProfile provides student profile data
-import { fetchAdvisingRecordsByEmail } from "@/utils/advisingActions"; // Ensure the API function is available
+import { fetchAdvisingRecords } from "@/utils/advisingActions"; // Updated API function name
 import Cookies from "js-cookie";
 
 const AdvisingHistory = () => {
   const router = useRouter();
-  const { getProfile } = useProfile();
   const [advisingRecords, setAdvisingRecords] = useState([]);
-  const [email, setEmail] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch student profile and set email
+  // Fetch advising records on mount
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const profile = await getProfile();
-        if (profile?.user?.u_email) {
-          setEmail(profile.user.u_email);
-        }
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-      }
-    };
-    fetchProfile();
-  }, [getProfile]);
-
-  // Fetch advising records based on the student's email
-  useEffect(() => {
-    if (!email) return;
-
-    const fetchAdvisingRecords = async () => {
+    const fetchRecords = async () => {
       try {
         setLoading(true);
-        const records = await fetchAdvisingRecordsByEmail(email);
+        const records = await fetchAdvisingRecords(); // ✅ No email needed
         setAdvisingRecords(records || []);
       } catch (error) {
         console.error("Error fetching advising records:", error);
@@ -47,8 +27,8 @@ const AdvisingHistory = () => {
       }
     };
 
-    fetchAdvisingRecords();
-  }, [email]);
+    fetchRecords();
+  }, []); // ✅ Only runs on mount
 
   return (
     <div className="container mx-auto mt-8 p-4">
