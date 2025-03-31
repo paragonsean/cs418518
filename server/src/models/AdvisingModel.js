@@ -3,7 +3,7 @@ import logger from "../utils/logger.js";
 
 class AdvisingModel {
   /**
-   * Get all advising records
+   * ✅ Get all advising records
    */
   static async getAllRecords() {
     try {
@@ -21,16 +21,16 @@ class AdvisingModel {
         }
       });
 
-      logger.info(`Retrieved ${rows.length} advising records.`);
+      logger.info(`✅ Retrieved ${rows.length} advising records.`);
       return rows;
     } catch (error) {
-      logger.error(" Error fetching all advising records:", error.message);
+      logger.error("❌ Error fetching all advising records:", error.message);
       throw error;
     }
   }
 
   /**
-   * Get records by student email
+   * ✅ Get records by student email
    */
   static async getRecordsByEmail(studentEmail) {
     try {
@@ -57,13 +57,13 @@ class AdvisingModel {
 
       return rows;
     } catch (error) {
-      logger.error(` Error fetching advising records for ${studentEmail}:`, error.message);
+      logger.error(`❌ Error fetching advising records for ${studentEmail}:`, error.message);
       throw error;
     }
   }
 
   /**
-   * Get an advising record by its ID
+   * ✅ Get an advising record by its ID
    */
   static async getRecordById(id) {
     try {
@@ -87,16 +87,16 @@ class AdvisingModel {
         }
       }
 
-      logger.info(`Advising record ID ${id} retrieved successfully.`);
+      logger.info(`✅ Advising record ID ${id} retrieved successfully.`);
       return rows[0]; // 🔥 Return the record directly
     } catch (error) {
-      logger.error(` Error fetching advising record for ID ${id}:`, error.message);
+      logger.error(`❌ Error fetching advising record for ID ${id}:`, error.message);
       throw error;
     }
   }
 
   /**
-   * Create a new advising record
+   * ✅ Create a new advising record
    */
   static async createAdvisingRecord({
     date,
@@ -110,7 +110,7 @@ class AdvisingModel {
   }) {
     try {
       if (!student_email || !current_term || !planned_courses) {
-        throw new Error(" Missing required fields: student_email, current_term, or planned_courses");
+        throw new Error("❌ Missing required fields: student_email, current_term, or planned_courses");
       }
 
       const [result] = await pool.execute(
@@ -132,10 +132,10 @@ class AdvisingModel {
         ]
       );
 
-      logger.info(`New advising record created for ${student_email} (ID: ${result.insertId})`);
+      logger.info(`✅ New advising record created for ${student_email} (ID: ${result.insertId})`);
       return { id: result.insertId };
     } catch (error) {
-      logger.error(" Error creating new advising record:", error.message);
+      logger.error("❌ Error creating new advising record:", error.message);
       throw error;
     }
   }

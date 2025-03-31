@@ -96,7 +96,7 @@ class AdvisingController {
       }
   
       // Log extracted data
-      logger.info(`Creating advising record for ${student_email}`);
+      logger.info(`✅ Creating advising record for ${student_email}`);
       logger.debug(`📌 Data:`, {
         date: date || "DEFAULT (today)",
         current_term,
@@ -127,13 +127,14 @@ class AdvisingController {
         data: newRecord,
       });
     } catch (error) {
-      logger.error(" Error creating advising record:", error);
+      logger.error("❌ Error creating advising record:", error);
       return res.status(500).json({
         status: "failed",
         message: "Server Error: Record not inserted",
       });
     }
   }
+  
   
 
   /**

@@ -109,7 +109,7 @@ const AdvisingForm = () => {
       .flatMap((c) => coursePrerequisites[c.name] || [])
       .join(", ");
 
-  // Function to Add a New Advising Record
+  // ✅ Function to Add a New Advising Record
   const newRecord = async () => {
     const allPlannedCourses = formatPlannedCourses();
     const allPrereqCourses = formatPrerequisites();
@@ -223,7 +223,7 @@ const AdvisingForm = () => {
                     <TableCell>{(coursePrerequisites[course.name] || []).join(", ") || "None"}</TableCell>
                     <TableCell>
                       <Button onClick={() => setCoursePlan(coursePlan.filter((_, i) => i !== index))}>
-                         Remove
+                        ❌ Remove
                       </Button>
                     </TableCell>
                   </TableRow>

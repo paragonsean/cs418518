@@ -1,13 +1,15 @@
 import Cookies from "js-cookie";
 import logger from "@/utils/logger";
 
-// Attach Authorization header
+// ✅ Function to get authentication headers
 function getAuthHeaders() {
-  const token = Cookies.get("jwt-token"); // Standardized token name
+  const token = Cookies.get("jwt-token");
   return token
     ? { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
     : { "Content-Type": "application/json" };
 }
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 /** 
  * GET /api/advising (Admin Only)
@@ -15,7 +17,7 @@ function getAuthHeaders() {
  */
 export async function fetchAllAdvisingRecords() {
   try {
-    const response = await fetch("http://localhost:8000/api/advising", {
+    const response = await fetch(`${BASE_URL}/api/advising`, {
       method: "GET",
       headers: getAuthHeaders(),
     });
@@ -24,10 +26,10 @@ export async function fetchAllAdvisingRecords() {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
-    return await response.json(); // Return parsed data
+    return await response.json();
   } catch (error) {
-    logger.error(" Error fetching all advising records:", error);
-    throw error; // Ensure errors bubble up
+    logger.error("❌ Error fetching all advising records:", error);
+    throw error;
   }
 }
 
@@ -36,13 +38,13 @@ export async function fetchAllAdvisingRecords() {
  */
 export async function fetchAdvisingRecords() {
   try {
-    const response = await fetch("http://localhost:8000/api/advising/email", {
+    const response = await fetch(`${BASE_URL}/api/advising/email`, {
       method: "GET",
       headers: getAuthHeaders(),
     });
 
     if (!response.ok) {
-      console.error(` HTTP ${response.status} Error: ${response.statusText}`);
+      logger.error(`❌ HTTP ${response.status} Error: ${response.statusText}`);
       throw new Error(`Unexpected response: HTTP ${response.status}`);
     }
 
@@ -51,10 +53,10 @@ export async function fetchAdvisingRecords() {
       throw new Error("Invalid data format: expected an array");
     }
 
-    console.log("Successfully fetched advising records:", data);
+    logger.info("✅ Successfully fetched advising records:", data);
     return data;
   } catch (error) {
-    console.error(" Fetch Error for advising records:", error);
+    logger.error("❌ Fetch Error for advising records:", error);
     throw error;
   }
 }
@@ -67,12 +69,12 @@ export async function createAdvisingRecord(recordData) {
   try {
     const token = Cookies.get("jwt-token");
     if (!token) {
-      console.error(" No auth token found! Redirecting to login...");
+      logger.warn("⚠️ No auth token found! Redirecting to login...");
       window.location.href = "/login";
       return;
     }
 
-    const response = await fetch("http://localhost:8000/api/advising", {
+    const response = await fetch(`${BASE_URL}/api/advising`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -84,82 +86,91 @@ export async function createAdvisingRecord(recordData) {
     const responseText = await response.text(); // Read raw response
 
     if (!response.ok) {
-      console.error(` HTTP ${response.status} Error: ${response.statusText}`);
-      console.error(" Response Body:", responseText); // Log response body
+      logger.error(`❌ HTTP ${response.status} Error: ${response.statusText}`);
+      logger.error("🔍 Response Body:", responseText);
       throw new Error(`Unexpected response: HTTP ${response.status} - ${responseText}`);
     }
 
     return JSON.parse(responseText);
   } catch (error) {
-    console.error(" Error creating new advising record:", error);
+    logger.error("❌ Error creating new advising record:", error);
     throw error;
   }
 }
+
+/**
+ * GET /api/advising/:id
+ * Fetch a single advising record by ID
+ */
 export async function fetchAdvisingRecordById(id) {
   try {
-    console.log(`📡 Fetching advising record with ID: ${id}`);
+    logger.info(`📡 Fetching advising record with ID: ${id}`);
 
-    const response = await fetch(`http://localhost:8000/api/advising/${id}`, {
+    const response = await fetch(`${BASE_URL}/api/advising/${id}`, {
       method: "GET",
-      headers: getAuthHeaders(),  // Include Authorization header
+      headers: getAuthHeaders(),
     });
 
-    const responseText = await response.text(); // Read raw response
+    const responseText = await response.text();
 
     if (!response.ok) {
-      console.error(` HTTP ${response.status} Error: ${response.statusText}`);
-      console.error(" Response Body:", responseText);
+      logger.error(`❌ HTTP ${response.status} Error: ${response.statusText}`);
+      logger.error("🔍 Response Body:", responseText);
       throw new Error(`Error fetching record: HTTP ${response.status} - ${responseText}`);
     }
 
     return JSON.parse(responseText);
   } catch (error) {
-    console.error(" Error fetching advising record:", error);
-    throw error;
-  }
-}
-
-
-export async function updateAdvisingRecord(id, updatedData) {
-  try {
-    const response = await fetch(`http://localhost:8000/api/advising/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedData),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error updating record: HTTP ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error(" Error updating advising record:", error);
+    logger.error("❌ Error fetching advising record:", error);
     throw error;
   }
 }
 
 /**
  * PUT /api/advising/:id
+ * Update an advising record
+ */
+export async function updateAdvisingRecord(id, updatedData) {
+  try {
+    const response = await fetch(`${BASE_URL}/api/advising/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        ...getAuthHeaders(),
+      },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`❌ Error updating record: HTTP ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    logger.error("❌ Error updating advising record:", error);
+    throw error;
+  }
+}
+
+/**
+ * PUT /api/advising/:id/status
  * Update a record's status
  */
 export async function updateAdvisingStatus(id, status) {
   try {
-    const response = await fetch(`http://localhost:8000/api/advising/${id}`, {
+    const response = await fetch(`${BASE_URL}/api/advising/${id}`, {
       method: "PUT",
       headers: getAuthHeaders(),
       body: JSON.stringify({ status }),
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      throw new Error(`❌ HTTP ${response.status}: ${response.statusText}`);
     }
 
-    return await response.json(); // Return updated record
+    return await response.json();
   } catch (error) {
-    logger.error(` Error updating advising record with ID ${id}:`, error);
+    logger.error(`❌ Error updating advising record with ID ${id}:`, error);
     throw error;
   }
 }
