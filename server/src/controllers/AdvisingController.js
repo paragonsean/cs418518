@@ -29,21 +29,18 @@ class AdvisingController {
    */
   static async getAdvisingRecordsByEmail(req, res) {
     try {
-      // Pull the email off req.user
       const email = req.user?.email;
       if (!email) {
         return res
           .status(400)
           .json({ status: "failed", message: "User email not found on request" });
       }
-
+  
       const records = await AdvisingModel.getRecordsByEmail(email);
       if (!records || records.length === 0) {
-        return res
-          .status(404)
-          .json({ status: "failed", message: "No advising records found for that email" });
+        return res.status(200).json([]); //Return an empty array instead of 404
       }
-
+  
       return res.status(200).json(records);
     } catch (error) {
       logger.error(`Error retrieving records for user:`, error.message);
@@ -53,6 +50,7 @@ class AdvisingController {
       });
     }
   }
+  
 
   /**
    * POST /api/advising
@@ -61,7 +59,10 @@ class AdvisingController {
    */
   static async createAdvisingRecord(req, res) {
     try {
-      // The user-provided fields:
+      logger.info("📥 Received request to create advising record.");
+      logger.debug("🔎 Request Body:", req.body);
+  
+      // Extract user-provided fields
       const {
         date,
         current_term,
@@ -71,26 +72,40 @@ class AdvisingController {
         student_name,
         planned_courses,
       } = req.body;
-
+  
       // The actual email is from req.user
       const student_email = req.user?.email;
       if (!student_email) {
+        logger.warn("⚠️ No user email found on request.");
         return res.status(400).json({
           status: "failed",
           message: "No user email found on request.",
         });
       }
-
+  
       // Check if user exists
       const existingUser = await UserModel.findByEmail(student_email);
       if (!existingUser) {
-        logger.warn(`Advising creation failed - User not found: ${student_email}`);
-        return res
-          .status(400)
-          .json({ status: "failed", message: "User with this email not found." });
+        logger.warn(`🚫 Advising creation failed - User not found: ${student_email}`);
+        return res.status(400).json({
+          status: "failed",
+          message: "User with this email not found.",
+        });
       }
-
-      // Insert record
+  
+      // Log extracted data
+      logger.info(`✅ Creating advising record for ${student_email}`);
+      logger.debug(`📌 Data:`, {
+        date: date || "DEFAULT (today)",
+        current_term,
+        last_term,
+        last_gpa,
+        prerequisites,
+        student_name,
+        planned_courses,
+      });
+  
+      // Insert record into DB
       const newRecord = await AdvisingModel.createAdvisingRecord({
         date,
         current_term,
@@ -101,20 +116,23 @@ class AdvisingController {
         planned_courses,
         student_email,
       });
-
+  
+      logger.info(`🎉 Advising record successfully created! ID: ${newRecord.id}`);
+  
       return res.status(201).json({
         status: "success",
         message: "Student info successfully inserted in the database.",
         data: newRecord,
       });
     } catch (error) {
-      logger.error("Error creating advising record:", error.message);
-      return res
-        .status(500)
-        .json({ status: "failed", message: "Server Error: Record not inserted" });
+      logger.error("❌ Error creating advising record:", error);
+      return res.status(500).json({
+        status: "failed",
+        message: "Server Error: Record not inserted",
+      });
     }
   }
-
+  
   /**
    * GET /api/advising/record/:id
    * Fetches a single advising record by its ID.

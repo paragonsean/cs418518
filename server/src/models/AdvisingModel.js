@@ -3,7 +3,7 @@ import logger from "../utils/logger.js";
 
 class AdvisingModel {
   /**
-   * ✅ Get all advising records
+   *Get all advising records
    */
   static async getAllRecords() {
     try {
@@ -25,7 +25,7 @@ class AdvisingModel {
   }
 
   /**
-   * ✅ Get records by student email
+   *Get records by student email
    */
   static async getRecordsByEmail(studentEmail) {
     try {
@@ -53,7 +53,7 @@ class AdvisingModel {
   }
 
   /**
-   * ✅ Create a new advising record
+   *Create a new advising record
    */
   static async createAdvisingRecord({
     date,
@@ -98,7 +98,7 @@ class AdvisingModel {
   }
 
   /**
-   * ✅ Update record status (and rejectionReason) by ID
+   *Update record status (and rejectionReason) by ID
    */
   static async updateStatusById(id, status, rejectionReason = "N/A") {
     try {
@@ -121,7 +121,7 @@ class AdvisingModel {
   }
 
   /**
-   * ✅ Get an advising record by its ID
+   *Get an advising record by its ID
    */
   static async getRecordById(id) {
     try {
@@ -149,7 +149,7 @@ class AdvisingModel {
   }
 
   /**
-   * ✅ Get student email by record ID (for notifications)
+   *Get student email by record ID (for notifications)
    */
   static async getStudentEmailById(id) {
     try {

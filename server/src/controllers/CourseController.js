@@ -2,7 +2,7 @@ import pool from "../config/connectdb.js"; // Import pool connection
 import logger from "../utils/logger.js"; // Import logger
 
 class CourseController {
-  // ✅ Get all courses
+  //Get all courses
   static async getAllCourses(req, res) {
     try {
       const [rows] = await pool.execute("SELECT * FROM courses");
@@ -17,7 +17,7 @@ class CourseController {
     }
   }
 
-  // ✅ Get course by course level
+  //Get course by course level
   static async getCourseByLevel(req, res) {
     try {
       const { level } = req.params;
@@ -34,7 +34,7 @@ class CourseController {
     }
   }
 
-  // ✅ Update course name
+  //Update course name
   static async updateCourseName(req, res) {
     try {
       const { level } = req.params;
@@ -60,7 +60,7 @@ class CourseController {
     }
   }
 
-  // ✅ Update course prerequisite
+  //Update course prerequisite
   static async updateCoursePrerequisite(req, res) {
     try {
       const { level } = req.params;
@@ -86,7 +86,7 @@ class CourseController {
     }
   }
 
-  // ✅ Add a new course
+  //Add a new course
   static async addCourse(req, res) {
     try {
       const { course_name, course_level, prerequisite, course_lvlGroup } = req.body;
@@ -108,7 +108,7 @@ class CourseController {
     }
   }
 
-  // ✅ Delete a course
+  //Delete a course
   static async deleteCourse(req, res) {
     try {
       const { level } = req.params;

@@ -1,270 +1,148 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import {
-  fetchAllCourses,  // Fetch all courses from /api/courses
-} from "@/utils/courseActions.js";
 
-import {
-  fetchAdvisingRecords, // (Optional) If you still need to fetch existing records
-  createAdvisingRecord, // Create a new advising record
-} from "@/utils/advisingActions.js";
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import Cookies from "js-cookie";
+import { fetchAllCourses } from "@/utils/courseActions"; // Fetch all courses
+import { fetchAdvisingRecords } from "@/utils/advisingActions"; // Fetch planned courses
 
-// NOTE: axios is no longer needed if you're not fetching user data
-// import axios from "axios";
+const AdvisingComparison = () => {
+  const [completedCourses, setCompletedCourses] = useState([]); // Student's completed courses
+  const [plannedCourses, setPlannedCourses] = useState([]); // Courses they plan to take
+  const [missingPrerequisites, setMissingPrerequisites] = useState({}); // Courses missing prereqs
+  const [loading, setLoading] = useState(true);
 
-export default function Advising() {
-  // ---------- STATE -----------
-  const [courses, setCourses] = useState([]);
-  const [lastTerm, setLastTerm] = useState("");
-  const [gpa, setGPA] = useState("");
-  const [currentTerm, setCurrentTerm] = useState("");
-  const [todaysDate, setTodaysDate] = useState(new Date().toLocaleDateString());
-
-  // For entering student info & plans
-  const [typedStudentName, setTypedStudentName] = useState("");
-
-  // For course selection
-  const [plannedCoursesList, setPlannedCoursesList] = useState([
-    { courseGroupLevel: "", courseName: "" },
-  ]);
-  const [prerequisiteCourseList, setPrerequisiteCourseList] = useState([
-    { courseGroupLevel: "", courseName: "" },
-  ]);
-
-  // ---------- EFFECTS -----------
   useEffect(() => {
-    // Load all courses on mount
-    loadCourses();
-  }, []);
+    fetchComparisonData();
+  }, []); // Runs once on mount
 
-  // ---------- API CALLS -----------
-  const loadCourses = async () => {
+  // Fetch all data needed for comparison
+  const fetchComparisonData = async () => {
+    setLoading(true);
     try {
-      const data = await fetchAllCourses();
-      console.log("Fetched courses:", data); // Debugging log
-      setCourses(Array.isArray(data) ? data : []);
+      // Fetch prerequisites from all courses
+      const courses = await fetchAllCourses();
+      const prerequisitesMap = buildPrerequisiteMap(courses);
+
+      // Fetch planned courses
+      const advisingRecords = await fetchAdvisingRecords();
+      const studentPlannedCourses = advisingRecords.flatMap((record) => record.planned_courses);
+      setPlannedCourses(studentPlannedCourses);
+
+      // Fetch completed courses
+      const completedCoursesData = await fetchCompletedCourses();
+      setCompletedCourses(completedCoursesData);
+
+      // Compare prerequisites
+      const missingPrereqs = findMissingPrerequisites(studentPlannedCourses, prerequisitesMap, completedCoursesData);
+      setMissingPrerequisites(missingPrereqs);
     } catch (error) {
-      console.error("Error loading courses:", error);
-      setCourses([]);
+      console.error("Error fetching comparison data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // ---------- HANDLERS -----------
-  const newRecord = async () => {
-    // Convert plannedCoursesList to a comma-separated string
-    const allPlannedCourses = plannedCoursesList
-      .map((c) => c.courseName)
-      .join(", ");
-
-    // Convert prerequisiteCourseList to a comma-separated string
-    const allPrereqCourses = prerequisiteCourseList
-      .map((c) => c.courseName)
-      .join(", ");
-
-    // Build the record data
-    const recordData = {
-      date: todaysDate,
-      current_term: currentTerm,
-      last_term: lastTerm,
-      last_gpa: gpa,
-      prerequisites: allPrereqCourses,
-      student_name: typedStudentName.trim(),
-      planned_courses: allPlannedCourses,
-      // If you do not have a student_email, remove or keep as needed
-      // student_email: "",
-    };
-
+  // Fetch completed courses from backend
+  const fetchCompletedCourses = async () => {
     try {
-      await createAdvisingRecord(recordData);
-      alert(`Course plan successfully added for ${typedStudentName.trim()}.`);
-      window.location.reload();
-    } catch (err) {
-      console.error("Error adding new course plan:", err);
-      alert("Internal Error: unable to add new course plan");
+      const token = Cookies.get("jwt-token");
+      if (!token) {
+        console.error("No token found. User is not authenticated.");
+        return [];
+      }
+
+      const response = await fetch("http://localhost:8000/api/completed-courses/", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) throw new Error("Failed to fetch completed courses.");
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching completed courses:", error);
+      return [];
     }
   };
 
-  // Add another course to plan
-  const addPlannedCourse = () => {
-    setPlannedCoursesList((prev) => [
-      ...prev,
-      { courseGroupLevel: "", courseName: "" },
-    ]);
+  // Build a map of prerequisites for all courses
+  const buildPrerequisiteMap = (courses) => {
+    const map = {};
+    courses.forEach((course) => {
+      map[course.course_name] = course.prerequisite ? course.prerequisite.split(", ") : [];
+    });
+    return map;
   };
 
-  // Update planned course fields
-  const handleCourseChange = (index, field, value) => {
-    const updated = [...plannedCoursesList];
-    updated[index][field] = value;
-    setPlannedCoursesList(updated);
+  // Compare prerequisites against completed courses
+  const findMissingPrerequisites = (planned, prerequisitesMap, completed) => {
+    const completedCourseNames = completed.map((c) => c.course_name);
+    const missing = {};
+
+    planned.forEach((course) => {
+      const requiredPrereqs = prerequisitesMap[course] || [];
+      const unmetPrereqs = requiredPrereqs.filter((prereq) => !completedCourseNames.includes(prereq));
+
+      if (unmetPrereqs.length > 0) {
+        missing[course] = unmetPrereqs;
+      }
+    });
+
+    return missing;
   };
 
-  // Add another prerequisite
-  const addPrereqCourse = () => {
-    setPrerequisiteCourseList((prev) => [
-      ...prev,
-      { courseGroupLevel: "", courseName: "" },
-    ]);
-  };
-
-  // Update prerequisite course fields
-  const handlePrerequisiteChange = (index, field, value) => {
-    const updated = [...prerequisiteCourseList];
-    updated[index][field] = value;
-    setPrerequisiteCourseList(updated);
-  };
-
-  // ---------- RENDER -----------
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-center text-xl font-bold">Submit a New Course Plan</h2>
-
-      <div className="mb-4">
-        <label>Last Term Attended:</label>
-        <input
-          type="text"
-          onChange={(e) => setLastTerm(e.target.value)}
-          className="border rounded w-full p-2"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label>GPA:</label>
-        <input
-          type="number"
-          onChange={(e) => setGPA(e.target.value)}
-          className="border rounded w-full p-2"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label>Current Term:</label>
-        <input
-          type="text"
-          onChange={(e) => setCurrentTerm(e.target.value)}
-          className="border rounded w-full p-2"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label>Course Selection:</label>
-        {plannedCoursesList.map((course, index) => (
-          <div key={index} className="flex gap-2 mb-2">
-            {/* Course Level Dropdown */}
-            <select
-              value={course.courseGroupLevel}
-              onChange={(e) =>
-                handleCourseChange(index, "courseGroupLevel", e.target.value)
-              }
-              className="border rounded p-2"
-            >
-              <option value="">Select Level</option>
-              {[100, 200, 300, 400].map((lvl) => (
-                <option key={lvl} value={lvl}>
-                  Level {lvl}
-                </option>
-              ))}
-            </select>
-
-            {/* Course Name Dropdown */}
-            <select
-              value={course.courseName}
-              onChange={(e) =>
-                handleCourseChange(index, "courseName", e.target.value)
-              }
-              className="border rounded p-2"
-              disabled={!course.courseGroupLevel} // Prevent selection before level is chosen
-            >
-              <option value="">Select Course</option>
-              {Array.isArray(courses) && courses.length > 0 ? (
-                courses
-                  .filter((c) => c.course_lvlGroup === course.courseGroupLevel)
-                  .map((c) => (
-                    <option
-                      key={`${c.id || c.course_name}`}
-                      value={c.course_name}
-                    >
-                      {c.course_name}
-                    </option>
+    <div className="container mx-auto mt-8 p-4">
+      <Card className="shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-lg font-bold">Prerequisite Check for Planned Courses</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <p className="text-center text-gray-500">Loading...</p>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-gray-200">
+                  <TableHead>Planned Course</TableHead>
+                  <TableHead>Missing Prerequisites</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {plannedCourses.length > 0 ? (
+                  plannedCourses.map((course, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{course}</TableCell>
+                      <TableCell>
+                        {missingPrerequisites[course]?.length > 0 ? (
+                          <span className="text-red-500">
+                            {missingPrerequisites[course].join(", ")}
+                          </span>
+                        ) : (
+                          <span className="text-green-500">All prerequisites met ✅</span>
+                        )}
+                      </TableCell>
+                    </TableRow>
                   ))
-              ) : (
-                <option disabled>No courses available</option>
-              )}
-            </select>
-          </div>
-        ))}
-
-        <button
-          onClick={addPlannedCourse}
-          className="bg-blue-500 text-white p-2 rounded"
-        >
-          Add Course
-        </button>
-      </div>
-
-      <div className="mb-4">
-        <label>Prerequisite Courses:</label>
-        {prerequisiteCourseList.map((course, index) => (
-          <div key={index} className="flex gap-2 mb-2">
-            <select
-              value={course.courseGroupLevel}
-              onChange={(e) =>
-                handlePrerequisiteChange(index, "courseGroupLevel", e.target.value)
-              }
-              className="border rounded p-2"
-            >
-              <option value="">Select Level</option>
-              {[100, 200, 300, 400].map((lvl) => (
-                <option key={lvl} value={lvl}>
-                  Level {lvl}
-                </option>
-              ))}
-            </select>
-
-            <select
-              value={course.courseName}
-              onChange={(e) =>
-                handlePrerequisiteChange(index, "courseName", e.target.value)
-              }
-              className="border rounded p-2"
-              disabled={!course.courseGroupLevel}
-            >
-              <option value="">Select Course</option>
-              {Array.isArray(courses) && courses.length > 0 ? (
-                courses
-                  .filter((c) => c.course_lvlGroup === course.courseGroupLevel)
-                  .map((c) => (
-                    <option key={`${c.id}-${c.course_name}`} value={c.course_name}>
-                      {c.course_name}
-                    </option>
-                  ))
-              ) : (
-                <option disabled>No courses available</option>
-              )}
-            </select>
-          </div>
-        ))}
-
-        <button
-          onClick={addPrereqCourse}
-          className="bg-blue-500 text-white p-2 rounded"
-        >
-          Add Prerequisite Course
-        </button>
-      </div>
-
-      <div className="mb-4">
-        <label>Enter Your Full Name:</label>
-        <input
-          type="text"
-          onChange={(e) => setTypedStudentName(e.target.value)}
-          className="border rounded w-full p-2"
-        />
-      </div>
-
-      <button onClick={newRecord} className="bg-green-500 text-white p-2 rounded">
-        Submit Course Plan
-      </button>
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={2} className="text-center text-gray-500">
+                      No planned courses found.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
-}
+};
+
+export default AdvisingComparison;

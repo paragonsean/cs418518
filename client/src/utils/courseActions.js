@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import logger from "@/utils/logger";
-import publicRequest from "./publicRequest"; // ✅ Always use publicRequest
+import publicRequest from "./publicRequest"; //Always use publicRequest
 
 // Attach Authorization header
 function getAuthHeaders() {

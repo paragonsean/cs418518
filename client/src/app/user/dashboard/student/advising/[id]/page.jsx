@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 const EditAdvisingRecord = () => {
     const router = useRouter();
-    const { id } = useParams(); // ✅ Get the advising record ID from the URL
+    const { id } = useParams(); //Get the advising record ID from the URL
     const [record, setRecord] = useState(null);
     const [loading, setLoading] = useState(true);
     const [updatedData, setUpdatedData] = useState({});
@@ -20,7 +20,7 @@ const EditAdvisingRecord = () => {
             try {
                 const data = await fetchAdvisingRecordById(id);
                 setRecord(data);
-                setUpdatedData(data); // ✅ Initialize form fields with existing data
+                setUpdatedData(data); //Initialize form fields with existing data
             } catch (error) {
                 console.error("Error fetching advising record:", error);
             } finally {
@@ -42,7 +42,7 @@ const EditAdvisingRecord = () => {
         try {
             await updateAdvisingRecord(id, updatedData);
             alert("Advising record updated successfully!");
-            router.push("/advising"); // ✅ Redirect back to advising history page
+            router.push("/advising"); //Redirect back to advising history page
         } catch (error) {
             console.error("Error updating advising record:", error);
             alert("Failed to update record.");

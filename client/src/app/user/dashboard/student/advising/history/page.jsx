@@ -18,7 +18,7 @@ const AdvisingHistory = () => {
     const fetchRecords = async () => {
       try {
         setLoading(true);
-        const records = await fetchAdvisingRecords(); // ✅ No email needed
+        const records = await fetchAdvisingRecords(); //No email needed
         setAdvisingRecords(records || []);
       } catch (error) {
         console.error("Error fetching advising records:", error);
@@ -28,7 +28,7 @@ const AdvisingHistory = () => {
     };
 
     fetchRecords();
-  }, []); // ✅ Only runs on mount
+  }, []); //Only runs on mount
 
   return (
     <div className="container mx-auto mt-8 p-4">
