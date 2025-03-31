@@ -125,7 +125,7 @@ class AdvisingController {
         data: newRecord,
       });
     } catch (error) {
-      logger.error("❌ Error creating advising record:", error);
+      logger.error(" Error creating advising record:", error);
       return res.status(500).json({
         status: "failed",
         message: "Server Error: Record not inserted",
@@ -150,7 +150,7 @@ class AdvisingController {
 
       return res.status(200).json(record);
     } catch (error) {
-      logger.error("❌ Server error fetching record:", error);
+      logger.error(" Server error fetching record:", error);
       return res
         .status(500)
         .json({ message: "Internal Server Error", error: error.message });

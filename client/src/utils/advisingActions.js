@@ -26,7 +26,7 @@ export async function fetchAllAdvisingRecords() {
 
     return await response.json(); //Return parsed data
   } catch (error) {
-    logger.error("❌ Error fetching all advising records:", error);
+    logger.error(" Error fetching all advising records:", error);
     throw error; //Ensure errors bubble up
   }
 }
@@ -41,7 +41,7 @@ export async function fetchAllAdvisingRecords() {
     });
 
     if (!response.ok) {
-      console.error(`❌ HTTP ${response.status} Error: ${response.statusText}`);
+      console.error(` HTTP ${response.status} Error: ${response.statusText}`);
       throw new Error(`Unexpected response: HTTP ${response.status}`);
     }
 
@@ -60,7 +60,7 @@ export async function fetchAllAdvisingRecords() {
 
     return data;
   } catch (error) {
-    console.error("❌ Fetch Error for advising records:", error);
+    console.error(" Fetch Error for advising records:", error);
     return []; // Ensure no crashes by returning an empty array
   }
 }
@@ -74,7 +74,7 @@ export async function createAdvisingRecord(recordData) {
   try {
     const token = Cookies.get("jwt-token");
     if (!token) {
-      console.error("❌ No auth token found! Redirecting to login...");
+      console.error(" No auth token found! Redirecting to login...");
       window.location.href = "/login";
       return;
     }
@@ -91,14 +91,14 @@ export async function createAdvisingRecord(recordData) {
     const responseText = await response.text(); //Read raw response
 
     if (!response.ok) {
-      console.error(`❌ HTTP ${response.status} Error: ${response.statusText}`);
-      console.error("❌ Response Body:", responseText); //Log response body
+      console.error(` HTTP ${response.status} Error: ${response.statusText}`);
+      console.error(" Response Body:", responseText); //Log response body
       throw new Error(`Unexpected response: HTTP ${response.status} - ${responseText}`);
     }
 
     return JSON.parse(responseText);
   } catch (error) {
-    console.error("❌ Error creating new advising record:", error);
+    console.error(" Error creating new advising record:", error);
     throw error;
   }
 }
@@ -114,14 +114,14 @@ export async function fetchAdvisingRecordById(id) {
     const responseText = await response.text(); //Read raw response
 
     if (!response.ok) {
-      console.error(`❌ HTTP ${response.status} Error: ${response.statusText}`);
-      console.error("❌ Response Body:", responseText);
+      console.error(` HTTP ${response.status} Error: ${response.statusText}`);
+      console.error(" Response Body:", responseText);
       throw new Error(`Error fetching record: HTTP ${response.status} - ${responseText}`);
     }
 
     return JSON.parse(responseText);
   } catch (error) {
-    console.error("❌ Error fetching advising record:", error);
+    console.error(" Error fetching advising record:", error);
     throw error;
   }
 }
@@ -143,7 +143,7 @@ export async function updateAdvisingRecord(id, updatedData) {
 
     return await response.json();
   } catch (error) {
-    console.error("❌ Error updating advising record:", error);
+    console.error(" Error updating advising record:", error);
     throw error;
   }
 }
@@ -166,7 +166,7 @@ export async function updateAdvisingStatus(id, status) {
 
     return await response.json(); //Return updated record
   } catch (error) {
-    logger.error(`❌ Error updating advising record with ID ${id}:`, error);
+    logger.error(` Error updating advising record with ID ${id}:`, error);
     throw error;
   }
 }

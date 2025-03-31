@@ -22,6 +22,9 @@ const AdvisingForm = () => {
 
   const todaysDate = new Date().toISOString().split("T")[0];
 
+  // Example list of available terms - adapt as needed
+  const availableTerms = ["Spring 2024", "Summer 2024", "Fall 2024", "Spring 2025", "Summer 2025", "Fall 2025"];
+
   // Fetch User Profile
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -79,7 +82,7 @@ const AdvisingForm = () => {
 
   // Add a Course to the Plan
   const handleAddCourse = () => {
-    setCoursePlan([...coursePlan, { level: "", name: "" }]);
+    setCoursePlan([...coursePlan, { level: "", courseLevel: "", name: "" }]);
   };
 
   // Handle Course Selection Change
@@ -89,9 +92,12 @@ const AdvisingForm = () => {
       updatedCourses[index][field] = value;
 
       if (field === "level") {
-        updatedCourses[index]["name"] = ""; // Reset name if level changes
+        updatedCourses[index]["courseLevel"] = ""; // Reset course level
+        updatedCourses[index]["name"] = "";        // Reset course name
       }
-
+      if (field === "courseLevel") {
+        updatedCourses[index]["name"] = "";        // Reset name
+      }
       return updatedCourses;
     });
   };
@@ -102,14 +108,14 @@ const AdvisingForm = () => {
     return availableCourses.filter((course) => String(course.course_lvlGroup) === String(level));
   };
 
-  // Convert course plan into a comma-separated string of course levels
-  const formatPlannedCourses = () => coursePlan.map((c) => c.level).join(", ");
+  // Convert course plan into a comma-separated string of courseLevels
+  const formatPlannedCourses = () => coursePlan.map((c) => c.courseLevel).join(", ");
   const formatPrerequisites = () =>
     coursePlan
       .flatMap((c) => coursePrerequisites[c.name] || [])
       .join(", ");
 
-  //Function to Add a New Advising Record
+  // Function to Add a New Advising Record
   const newRecord = async () => {
     const allPlannedCourses = formatPlannedCourses();
     const allPrereqCourses = formatPrerequisites();
@@ -121,7 +127,7 @@ const AdvisingForm = () => {
       last_gpa: history.lastGPA,
       prerequisites: allPrereqCourses,
       student_name: typedStudentName.trim(),
-      planned_courses: allPlannedCourses, //Submitting course levels instead of names
+      planned_courses: allPlannedCourses,
       student_email: email,
     };
 
@@ -142,7 +148,9 @@ const AdvisingForm = () => {
       <Card className="shadow-lg">
         <CardHeader>
           <CardTitle className="text-lg font-bold">Course Advising Form</CardTitle>
-          <p className="text-gray-600">{email ? `Logged in as: ${email}` : "Fetching email..."}</p>
+          <p className="text-gray-600">
+            {email ? `Logged in as: ${email}` : "Fetching email..."}
+          </p>
         </CardHeader>
 
         <CardContent>
@@ -153,14 +161,25 @@ const AdvisingForm = () => {
             }}
           >
             <h3 className="text-md font-semibold mb-2">New Course Plan</h3>
+            
+            {/* Term/GPA Inputs */}
             <div className="grid grid-cols-3 gap-4 mb-4">
-              <Input
-                type="text"
-                placeholder="Last Term"
+              {/* Last Term dropdown */}
+              <select
+                className="border p-2 rounded-md"
                 value={history.lastTerm}
                 onChange={(e) => setHistory({ ...history, lastTerm: e.target.value })}
                 required
-              />
+              >
+                <option value="" disabled>Select Last Term</option>
+                {availableTerms.map((term) => (
+                  <option key={`last-${term}`} value={term}>
+                    {term}
+                  </option>
+                ))}
+              </select>
+
+              {/* Last GPA numeric input */}
               <Input
                 type="number"
                 step="0.01"
@@ -169,62 +188,112 @@ const AdvisingForm = () => {
                 onChange={(e) => setHistory({ ...history, lastGPA: e.target.value })}
                 required
               />
-              <Input
-                type="text"
-                placeholder="Current Term"
+
+              {/* Current Term dropdown */}
+              <select
+                className="border p-2 rounded-md"
                 value={history.currentTerm}
                 onChange={(e) => setHistory({ ...history, currentTerm: e.target.value })}
                 required
-              />
+              >
+                <option value="" disabled>Select Current Term</option>
+                {availableTerms.map((term) => (
+                  <option key={`current-${term}`} value={term}>
+                    {term}
+                  </option>
+                ))}
+              </select>
             </div>
 
+            {/* Course Planning Table */}
             <h3 className="text-md font-semibold mb-2">Course Plan</h3>
             <Table>
               <TableHeader>
                 <TableRow className="bg-gray-200">
                   <TableHead>Level</TableHead>
+                  <TableHead>Course Level</TableHead>
                   <TableHead>Course Name</TableHead>
                   <TableHead>Prerequisite</TableHead>
                   <TableHead>Action</TableHead>
                 </TableRow>
               </TableHeader>
+
               <TableBody>
                 {coursePlan.map((course, index) => (
                   <TableRow key={index}>
+                    {/* Column 1: Level */}
                     <TableCell>
                       <select
                         className="border p-2 rounded-md"
                         value={course.level}
                         onChange={(e) => handleCourseChange(index, "level", e.target.value)}
                       >
-                        <option value="">Select Level</option>
+                        <option value="" disabled>Select Level</option>
                         {courseLevels.map((lvl) => (
-                          <option key={lvl} value={lvl}>
+                          <option key={`level-${lvl}`} value={lvl}>
                             {lvl}
                           </option>
                         ))}
                       </select>
                     </TableCell>
+
+                    {/* Column 2: Course Level */}
+                    <TableCell>
+                      <select
+                        className="border p-2 rounded-md"
+                        value={course.courseLevel}
+                        onChange={(e) => handleCourseChange(index, "courseLevel", e.target.value)}
+                        disabled={!course.level}
+                      >
+                        <option value="" disabled>Select Course Level</option>
+                        {availableCourses
+                          .filter((c) => c.course_lvlGroup === course.level)
+                          .map((c) => (
+                            <option
+                              key={`courseLevel-${c.course_level}`}
+                              value={c.course_level}
+                            >
+                              {c.course_level}
+                            </option>
+                          ))}
+                      </select>
+                    </TableCell>
+
+                    {/* Column 3: Course Name */}
                     <TableCell>
                       <select
                         className="border p-2 rounded-md"
                         value={course.name}
                         onChange={(e) => handleCourseChange(index, "name", e.target.value)}
-                        disabled={!course.level}
+                        disabled={!course.courseLevel}
                       >
-                        <option value="">Select Course</option>
-                        {filterAvailableCourses(course.level).map((c) => (
-                          <option key={c.course_name} value={c.course_level}>
-                            {c.course_level} : {c.course_name}
-                          </option>
-                        ))}
+                        <option value="" disabled>Select Course</option>
+                        {availableCourses
+                          .filter((c) => c.course_level === course.courseLevel)
+                          .map((c) => (
+                            <option
+                              key={`courseName-${c.course_name}`}
+                              value={c.course_name}
+                            >
+                              {c.course_name}
+                            </option>
+                          ))}
                       </select>
                     </TableCell>
 
-                    <TableCell>{(coursePrerequisites[course.name] || []).join(", ") || "None"}</TableCell>
+                    {/* Column 4: Prerequisite */}
                     <TableCell>
-                      <Button onClick={() => setCoursePlan(coursePlan.filter((_, i) => i !== index))}>
-                       Remove
+                      {(coursePrerequisites[course.name] || []).join(", ") || "None"}
+                    </TableCell>
+
+                    {/* Column 5: Action */}
+                    <TableCell>
+                      <Button
+                        onClick={() =>
+                          setCoursePlan(coursePlan.filter((_, i) => i !== index))
+                        }
+                      >
+                         Remove
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -232,8 +301,12 @@ const AdvisingForm = () => {
               </TableBody>
             </Table>
 
-            <Button onClick={handleAddCourse}>➕ Add Course</Button>
-            <Button type="submit" className="ml-4">Submit</Button>
+            <Button type="button" onClick={handleAddCourse} className="mt-4">
+              ➕ Add Course
+            </Button>
+            <Button type="submit" className="mt-4 ml-4">
+              Submit
+            </Button>
           </form>
         </CardContent>
       </Card>

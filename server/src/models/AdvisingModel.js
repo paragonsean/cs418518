@@ -19,7 +19,7 @@ class AdvisingModel {
       logger.info(`✅ Retrieved ${rows.length} advising records.`);
       return rows;
     } catch (error) {
-      logger.error("❌ Error fetching all advising records:", error.message);
+      logger.error(" Error fetching all advising records:", error.message);
       throw error;
     }
   }
@@ -47,7 +47,7 @@ class AdvisingModel {
 
       return rows;
     } catch (error) {
-      logger.error(`❌ Error fetching advising records for ${studentEmail}:`, error.message);
+      logger.error(` Error fetching advising records for ${studentEmail}:`, error.message);
       throw error;
     }
   }
@@ -67,7 +67,7 @@ class AdvisingModel {
   }) {
     try {
       if (!student_email || !current_term || !planned_courses) {
-        throw new Error("❌ Missing required fields: student_email, current_term, or planned_courses");
+        throw new Error(" Missing required fields: student_email, current_term, or planned_courses");
       }
 
       const [result] = await pool.execute(
@@ -92,7 +92,7 @@ class AdvisingModel {
       logger.info(`✅ New advising record created for ${student_email} (ID: ${result.insertId})`);
       return { id: result.insertId };
     } catch (error) {
-      logger.error("❌ Error creating new advising record:", error.message);
+      logger.error(" Error creating new advising record:", error.message);
       throw error;
     }
   }
@@ -115,7 +115,7 @@ class AdvisingModel {
       logger.info(`✅ Advising record ID ${id} updated to status: ${status}`);
       return true;
     } catch (error) {
-      logger.error(`❌ Error updating status for record ${id}:`, error.message);
+      logger.error(` Error updating status for record ${id}:`, error.message);
       throw error;
     }
   }
@@ -143,7 +143,7 @@ class AdvisingModel {
       logger.info(`✅ Advising record ID ${id} retrieved successfully.`);
       return rows[0]; // 🔥 Return the record directly
     } catch (error) {
-      logger.error(`❌ Error fetching advising record for ID ${id}:`, error.message);
+      logger.error(` Error fetching advising record for ID ${id}:`, error.message);
       throw error;
     }
   }
@@ -162,7 +162,7 @@ class AdvisingModel {
 
       return rows[0].student_email;
     } catch (error) {
-      logger.error(`❌ Error retrieving student email for record ${id}:`, error.message);
+      logger.error(` Error retrieving student email for record ${id}:`, error.message);
       throw error;
     }
   }

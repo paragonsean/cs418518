@@ -59,7 +59,7 @@ const useProfile = () => {
     }
   };
 
-  // ✏️ Update User Profile
+  //  Update User Profile
   const updateProfile = async (values) => {
     const updateUrl = "/api/user/updateprofile";
     try {

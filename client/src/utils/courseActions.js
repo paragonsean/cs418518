@@ -19,7 +19,7 @@ export const fetchAllCourses = () => {
       return response;
     })
     .catch((error) => {
-      logger.error("❌ Error fetching courses:", error);
+      logger.error(" Error fetching courses:", error);
       return [];
     });
 };
@@ -32,7 +32,7 @@ export const fetchCourseByLevel = (level) => {
   return publicRequest(`/api/courses/${level}`, "GET")
     .then((response) => response)
     .catch((error) => {
-      logger.error(`❌ Error fetching course for level ${level}:`, error);
+      logger.error(` Error fetching course for level ${level}:`, error);
       return null;
     });
 };
@@ -50,7 +50,7 @@ export const updateCourseName = (level, courseName) => {
   )
     .then((response) => response)
     .catch((error) => {
-      logger.error(`❌ Error updating course name for level ${level}:`, error);
+      logger.error(` Error updating course name for level ${level}:`, error);
       throw error;
     });
 };
@@ -68,7 +68,7 @@ export const updateCoursePrerequisite = (level, prerequisite) => {
   )
     .then((response) => response)
     .catch((error) => {
-      logger.error(`❌ Error updating prerequisite for level ${level}:`, error);
+      logger.error(` Error updating prerequisite for level ${level}:`, error);
       throw error;
     });
 };
@@ -81,7 +81,7 @@ export const addCourse = (courseData) => {
   return publicRequest("/api/courses", "POST", courseData, getAuthHeaders())
     .then((response) => response)
     .catch((error) => {
-      logger.error(`❌ Error adding course:`, error);
+      logger.error(` Error adding course:`, error);
       throw error;
     });
 };
@@ -94,7 +94,7 @@ export const deleteCourse = (level) => {
   return publicRequest(`/api/courses/${level}`, "DELETE", null, getAuthHeaders())
     .then((response) => response)
     .catch((error) => {
-      logger.error(`❌ Error deleting course with level ${level}:`, error);
+      logger.error(` Error deleting course with level ${level}:`, error);
       throw error;
     });
 };
