@@ -1,11 +1,13 @@
 import express from "express";
-import CourseController from "../controllers/CourseController.js"; //  Check this path
+import CourseController from "../controllers/CourseController.js";
 
 const router = express.Router();
 
-//  Ensure these functions exist in `CourseController.js`
-router.get("/all", CourseController.getAllCourses);
-router.get("/prerequisites", CourseController.getPrereqCourses);
-router.get("/non-prerequisites", CourseController.getNonPrereqCourses);
+router.get("/", CourseController.getAllCourses);
+router.get("/:level", CourseController.getCourseByLevel);
+router.put("/course_name/:level", CourseController.updateCourseName);
+router.put("/prerequisite/:level", CourseController.updateCoursePrerequisite);
+router.post("/", CourseController.addCourse);
+router.delete("/:level", CourseController.deleteCourse);
 
 export default router;

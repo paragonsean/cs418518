@@ -58,7 +58,7 @@ export default function StudentDashboard() {
         </Link>
 
         {/* Enroll in New Courses */}
-        <Link href="/user/dashboard/student/enroll">
+        <Link href="/user/dashboard/student/advising/new">
           <Card className="hover:bg-gray-50 transition cursor-pointer">
             <CardHeader className="flex items-center gap-3">
               <PlusCircle size={20} className="text-green-600" />
@@ -73,7 +73,7 @@ export default function StudentDashboard() {
         </Link>
 
         {/* Progress Tracker */}
-        <Link href="/user/dashboard/student/progress">
+        <Link href="/user/dashboard/student/advising/history">
           <Card className="hover:bg-gray-50 transition cursor-pointer">
             <CardHeader className="flex items-center gap-3">
               <BarChart size={20} className="text-yellow-600" />

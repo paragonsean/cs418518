@@ -1,208 +1,294 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import {
+  fetchAllCourses,  // Fetch all courses from /api/courses
+} from "@/utils/courseActions.js";
 
-export default function NewAdvisingPage() {
-  const router = useRouter();
+import {
+  fetchAdvisingRecordsByEmail, // Fetch advising records by email
+  createAdvisingRecord,        // Create a new advising record
+} from "@/utils/advisingActions.js";
 
-  // Header fields
-  const [date, setDate] = useState("");
+import axios from "axios"; // Only needed if fetching user data
+
+export default function Advising() {
+  // ---------- STATE -----------
+  const [courses, setCourses] = useState([]);
   const [lastTerm, setLastTerm] = useState("");
-  const [lastGpa, setLastGpa] = useState("");
+  const [gpa, setGPA] = useState("");
   const [currentTerm, setCurrentTerm] = useState("");
+  const [todaysDate, setTodaysDate] = useState(new Date().toLocaleDateString());
+  
+  // Course plans & user information
+  const [coursePlans, setCoursePlans] = useState([]);
+  const [courseName, setCourseName] = useState(""); 
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [email, setEmail] = useState("");
+  const [userData, setUserData] = useState(null);
+  const [studentData, setStudentData] = useState([]);
 
-  // For dynamic courses
-  const [plannedCourses, setPlannedCourses] = useState([{ level: "", name: "" }]);
+  // For course selection
+  const [plannedCoursesList, setPlannedCoursesList] = useState([
+    { courseGroupLevel: "", courseName: "" },
+  ]);
+  const [prerequisiteCourseList, setPrerequisiteCourseList] = useState([
+    { courseGroupLevel: "", courseName: "" },
+  ]);
 
-  // Example: fetch courses taken last term => prevent re-selection
-  const [lastTermCourses, setLastTermCourses] = useState([]);
-
+  // ---------- EFFECTS -----------
   useEffect(() => {
-    // Pre-populate "date" with today's date
-    const today = new Date().toISOString().split("T")[0];
-    setDate(today);
+    // Get email from query params if available
+    const params = new URLSearchParams(window.location.search);
+    const userEmail = params.get("email"); 
+    setEmail(userEmail);
 
-    // Example fetch: if your backend route is GET /api/last-term-courses?term=...
-    // (Or you might already have it in context.)
-    // For demonstration, let's do a dummy array:
-    setLastTermCourses(["CS 150", "CS 250"]); 
+    // Load courses
+    loadCourses();
+
+    // Fetch user data if email is provided
+    if (userEmail) {
+      fetchEmailData(userEmail);
+    }
   }, []);
 
-  // 1) Add dynamic row
-  function addCourseRow() {
-    setPlannedCourses([...plannedCourses, { level: "", name: "" }]);
-  }
-
-  // 2) Remove dynamic row
-  function removeCourseRow(index) {
-    const newCourses = [...plannedCourses];
-    newCourses.splice(index, 1);
-    setPlannedCourses(newCourses);
-  }
-
-  // 3) Update row data
-  function handleCourseChange(index, field, value) {
-    const newCourses = [...plannedCourses];
-    newCourses[index][field] = value;
-    setPlannedCourses(newCourses);
-  }
-
-  // 4) Submit form => POST to /api/advising
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    // Convert "plannedCourses" to a comma-separated string or whatever your DB expects
-    const plannedCoursesString = plannedCourses
-      .map((c) => `${c.level} ${c.name}`)
-      .join(", ");
-
+  // ---------- API CALLS -----------
+  const loadCourses = async () => {
     try {
-      const res = await fetch("/api/advising", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          date,
-          current_term: currentTerm,
-          last_term: lastTerm,
-          last_gpa: lastGpa,
-          prerequisites: "N/A", // optional, or actual prerequisites
-          student_name: "MyName", // You may get from user context
-          planned_courses: plannedCoursesString,
-          student_email: "myEmail@example.com", // from user context
-        }),
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to create advising record");
-      }
-      // On success, navigate back to the main advising page
-      router.push("/user/dashboard/student/advising");
+      const data = await fetchAllCourses();
+      console.log("Fetched courses:", data); // ✅ Debugging log
+  
+      // ✅ Store all courses
+      setCourses(Array.isArray(data) ? data : []);
+  
+      // ✅ Extract prerequisites directly from course data
+      const prereqMap = data.reduce((acc, course) => {
+        acc[course.course_name] = course.prerequisite ? course.prerequisite.split(", ") : [];
+        return acc;
+      }, {});
+  
+      setPrerequisiteCourseList(Object.entries(prereqMap).map(([courseName, prerequisites]) => ({
+        courseName,
+        prerequisites
+      })));
+  
     } catch (error) {
-      console.error("Error submitting advising form:", error);
-      alert("Error: Unable to submit");
+      console.error("Error loading courses:", error);
+      setCourses([]);
     }
-  }
+  };
+  
+  
 
+  const fetchEmailData = async (userEmail) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/user/${userEmail}`);
+      setUserData(response.data[0]);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  const fetchAdvisingDataByEmail = async (email) => {
+    try {
+      const data = await fetchAdvisingRecordsByEmail(email);
+      setStudentData(data);
+    } catch (error) {
+      console.error("Error fetching student advising data:", error);
+    }
+  };
+
+  // ---------- HANDLERS -----------
+  const handleButtonClick = async () => {
+    const typedName = courseName.trim();
+    const fullName = `${userData?.u_first_name} ${userData?.u_last_name}`;
+
+    if (typedName === fullName) {
+      setIsButtonClicked(true);
+      if (userData?.u_email) {
+        try {
+          const data = await fetchAdvisingRecordsByEmail(userData.u_email);
+          setCoursePlans(data);
+        } catch (err) {
+          console.error("Error fetching course plans by email:", err);
+        }
+      }
+    } else {
+      alert("Name mismatch. Enter the exact name on your student account.");
+    }
+  };
+
+  const newRecord = async () => {
+    if (!userData) {
+      alert("User data is not loaded yet.");
+      return;
+    }
+
+    await fetchAdvisingDataByEmail(userData.u_email);
+
+    let allPlannedCourses = plannedCoursesList.map((c) => c.courseName).join(", ");
+    let allPrereqCourses = prerequisiteCourseList.map((c) => c.courseName).join(", ");
+
+    let alreadyTakenCount = studentData.length;
+    studentData.forEach((student) => {
+      if (allPlannedCourses === student.planned_courses) {
+        alreadyTakenCount--;
+      }
+    });
+
+    if (alreadyTakenCount === studentData.length) {
+      const recordData = {
+        date: todaysDate,
+        current_term: currentTerm,
+        last_term: lastTerm,
+        last_gpa: gpa,
+        prerequisites: allPrereqCourses,
+        student_name: `${userData.u_first_name} ${userData.u_last_name}`,
+        planned_courses: allPlannedCourses,
+        student_email: userData.u_email,
+      };
+
+      try {
+        await createAdvisingRecord(recordData);
+        alert(`Course plan successfully added for ${userData.u_first_name}.`);
+        window.location.reload();
+      } catch (err) {
+        console.error("Error adding new course plan:", err);
+        alert("Internal Error: unable to add new course plan");
+      }
+    } else {
+      alert(`You have already taken ${allPlannedCourses}. Course plan not submitted.`);
+    }
+  };
+
+  const addPlannedCourse = () => {
+    setPlannedCoursesList([...plannedCoursesList, { courseGroupLevel: "", courseName: "" }]);
+  };
+
+  const handleCourseChange = (index, field, value) => {
+    const updated = [...plannedCoursesList];
+    updated[index][field] = value;
+    setPlannedCoursesList(updated);
+  };
+
+  const addPrereqCourse = () => {
+    setPrerequisiteCourseList([...prerequisiteCourseList, { courseGroupLevel: "", courseName: "" }]);
+  };
+
+  const handlePrerequisiteChange = (index, field, value) => {
+    const updated = [...prerequisiteCourseList];
+    updated[index][field] = value;
+    setPrerequisiteCourseList(updated);
+  };
+
+  // ---------- RENDER -----------
   return (
-    <div className="mx-auto max-w-4xl py-8 px-4">
-      <h1 className="text-2xl font-bold mb-6">New Course Advising</h1>
+    <div className="container mx-auto p-4">
+      <h2 className="text-center text-xl font-bold">Submit a New Course Plan</h2>
+      
+      <div className="mb-4">
+        <label>Last Term Attended:</label>
+        <input type="text" onChange={(e) => setLastTerm(e.target.value)} className="border rounded w-full p-2" />
+      </div>
+      
+      <div className="mb-4">
+        <label>GPA:</label>
+        <input type="number" onChange={(e) => setGPA(e.target.value)} className="border rounded w-full p-2" />
+      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Header Section */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block font-semibold mb-1">Date</label>
-            <input
-              type="date"
-              className="border rounded w-full p-2"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
-            />
+      <div className="mb-4">
+        <label>Current Term:</label>
+        <input type="text" onChange={(e) => setCurrentTerm(e.target.value)} className="border rounded w-full p-2" />
+      </div>
+
+      <div className="mb-4">
+  <label>Course Selection:</label>
+  {plannedCoursesList.map((course, index) => (
+    <div key={index} className="flex gap-2 mb-2">
+      {/* Course Level Dropdown */}
+      <select 
+        value={course.courseGroupLevel} 
+        onChange={(e) => handleCourseChange(index, "courseGroupLevel", e.target.value)} 
+        className="border rounded p-2"
+      >
+        <option value="">Select Level</option>
+        {[100, 200, 300, 400].map((lvl) => (
+          <option key={lvl} value={lvl}>Level {lvl}</option>
+        ))}
+      </select>
+
+      {/* Course Name Dropdown */}
+      <select 
+        value={course.courseName} 
+        onChange={(e) => handleCourseChange(index, "courseName", e.target.value)} 
+        className="border rounded p-2"
+        disabled={!course.courseGroupLevel} // Prevent selection before level is chosen
+      >
+        <option value="">Select Course</option>
+        {Array.isArray(courses) && courses.length > 0
+          ? courses
+              .filter(c => c.course_lvlGroup === course.courseGroupLevel)
+              .map(c => (
+                <option key={`${c.id || c.course_name}`} value={c.course_name}>
+                {c.course_name}
+              </option>
+              
+              ))
+          : <option disabled>No courses available</option>
+        }
+      </select>
+    </div>
+  ))}
+  
+  <button onClick={addPlannedCourse} className="bg-blue-500 text-white p-2 rounded">
+    Add Course
+  </button>
+</div>
+      <div className="mb-4">
+        <label>Prerequisite Courses:</label>
+        {prerequisiteCourseList.map((course, index) => (
+          <div key={index} className="flex gap-2 mb-2">
+            <select 
+              value={course.courseGroupLevel} 
+              onChange={(e) => handlePrerequisiteChange(index, "courseGroupLevel", e.target.value)} 
+              className="border rounded p-2"
+            >
+              <option value="">Select Level</option>
+              {[100, 200, 300, 400].map((lvl) => (
+                <option key={lvl} value={lvl}>Level {lvl}</option>
+              ))}
+            </select>
+
+            <select 
+              value={course.courseName} 
+              onChange={(e) => handlePrerequisiteChange(index, "courseName", e.target.value)} 
+              className="border rounded p-2"
+              disabled={!course.courseGroupLevel}
+            >
+              <option value="">Select Course</option>
+              {Array.isArray(courses) && courses.length > 0
+                ? courses
+                    .filter(c => c.course_lvlGroup === course.courseGroupLevel)
+                    .map(c => (
+                      <option key={c.id} value={c.course_name}>
+                        {c.course_name}
+                      </option>
+                    ))
+                : <option disabled>No courses available</option>
+              }
+            </select>
           </div>
-          <div>
-            <label className="block font-semibold mb-1">Last Term</label>
-            <input
-              type="text"
-              className="border rounded w-full p-2"
-              value={lastTerm}
-              onChange={(e) => setLastTerm(e.target.value)}
-              placeholder="e.g. Spring 2024"
-              required
-            />
-          </div>
-          <div>
-            <label className="block font-semibold mb-1">Last GPA</label>
-            <input
-              type="text"
-              className="border rounded w-full p-2"
-              value={lastGpa}
-              onChange={(e) => setLastGpa(e.target.value)}
-              placeholder="e.g. 3.75"
-              required
-            />
-          </div>
-          <div>
-            <label className="block font-semibold mb-1">Current Term</label>
-            <input
-              type="text"
-              className="border rounded w-full p-2"
-              value={currentTerm}
-              onChange={(e) => setCurrentTerm(e.target.value)}
-              placeholder="e.g. Fall 2024"
-              required
-            />
-          </div>
-        </div>
-
-        {/* Planned Courses Section */}
-        <div>
-          <h2 className="text-lg font-semibold mb-2">Planned Courses</h2>
-
-          {plannedCourses.map((course, index) => {
-            // isDisabled if the course is in lastTermCourses
-            const isLastTerm = lastTermCourses.includes(course.name);
-
-            return (
-              <div key={index} className="flex gap-4 mb-2">
-                {/* Level input */}
-                <select
-                  className="border rounded p-2 w-1/4"
-                  value={course.level}
-                  onChange={(e) => handleCourseChange(index, "level", e.target.value)}
-                  required
-                >
-                  <option value="">Select Level</option>
-                  <option value="100">100</option>
-                  <option value="200">200</option>
-                  <option value="300">300</option>
-                  <option value="400">400</option>
-                </select>
-
-                {/* Course Name input */}
-                <input
-                  type="text"
-                  className={`border rounded p-2 w-full ${
-                    isLastTerm ? "bg-red-100" : ""
-                  }`}
-                  value={course.name}
-                  onChange={(e) => handleCourseChange(index, "name", e.target.value)}
-                  placeholder="e.g. CS 330"
-                  required
-                  disabled={isLastTerm}
-                />
-
-                {/* Remove button */}
-                {plannedCourses.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => removeCourseRow(index)}
-                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  >
-                    X
-                  </button>
-                )}
-              </div>
-            );
-          })}
-
-          <button
-            type="button"
-            onClick={addCourseRow}
-            className="mt-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
-          >
-            + Add Course
-          </button>
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Submit
+        ))}
+        
+        <button onClick={addPrereqCourse} className="bg-blue-500 text-white p-2 rounded">
+          Add Prerequisite Course
         </button>
-      </form>
+      </div>
+      <div className="mb-4">
+        <label>Enter Your Full Name:</label>
+        <input type="text" onChange={(e) => setCourseName(e.target.value)} className="border rounded w-full p-2" />
+      </div>
+
+      <button onClick={newRecord} className="bg-green-500 text-white p-2 rounded">Submit Course Plan</button>
     </div>
   );
 }

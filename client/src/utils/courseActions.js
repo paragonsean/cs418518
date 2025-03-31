@@ -1,97 +1,100 @@
-import axios from "axios";
 import Cookies from "js-cookie";
 import logger from "@/utils/logger";
+import publicRequest from "./publicRequest"; // ✅ Always use publicRequest
 
-const SERVER_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-
-// Create axios instance with base configuration
-const api = axios.create({
-  baseURL: SERVER_URL,
-  headers: { "Content-Type": "application/json" },
-});
-
-// Helper function to attach JWT token
-const getAuthHeaders = () => {
+// Attach Authorization header
+function getAuthHeaders() {
   const token = Cookies.get("jwt-token");
   return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
+/**
+ * GET /api/courses
+ * Fetch all available courses
+ */
+export const fetchAllCourses = () => {
+  return publicRequest("/api/courses", "GET")
+    .then((response) => {
+      console.log("📢 API Response from /api/courses:", response); // Debug log
+      return response;
+    })
+    .catch((error) => {
+      logger.error("❌ Error fetching courses:", error);
+      return [];
+    });
 };
 
-// ✅ Fetch All Courses
-export const fetchAllCourses = async () => {
-  try {
-    const response = await api.get("/courseadvising/courses");
-    return response.data;
-  } catch (error) {
-    logger.error("Error fetching courses:", error);
-    return { error: "Failed to fetch courses" };
-  }
+/**
+ * GET /api/courses/:level
+ * Fetch a course by its level
+ */
+export const fetchCourseByLevel = (level) => {
+  return publicRequest(`/api/courses/${level}`, "GET")
+    .then((response) => response)
+    .catch((error) => {
+      logger.error(`❌ Error fetching course for level ${level}:`, error);
+      return null;
+    });
 };
 
-// ✅ Fetch Prerequisite Courses
-export const fetchPrereqCourses = async () => {
-  try {
-    const response = await api.get("/courseadvising/prereq");
-    return response.data;
-  } catch (error) {
-    logger.error("Error fetching prerequisite courses:", error);
-    return { error: "Failed to fetch prerequisite courses" };
-  }
+/**
+ * PUT /api/courses/course_name/:level
+ * Update a course name (Requires Auth)
+ */
+export const updateCourseName = (level, courseName) => {
+  return publicRequest(
+    `/api/courses/course_name/${level}`,
+    "PUT",
+    { course_name: courseName },
+    getAuthHeaders()
+  )
+    .then((response) => response)
+    .catch((error) => {
+      logger.error(`❌ Error updating course name for level ${level}:`, error);
+      throw error;
+    });
 };
 
-// ✅ Fetch Non-Prerequisite Courses
-export const fetchNonPrereqCourses = async () => {
-  try {
-    const response = await api.get("/courseadvising/non-prereq");
-    return response.data;
-  } catch (error) {
-    logger.error("Error fetching non-prerequisite courses:", error);
-    return { error: "Failed to fetch non-prerequisite courses" };
-  }
+/**
+ * PUT /api/courses/prerequisite/:level
+ * Update a course prerequisite (Requires Auth)
+ */
+export const updateCoursePrerequisite = (level, prerequisite) => {
+  return publicRequest(
+    `/api/courses/prerequisite/${level}`,
+    "PUT",
+    { prerequisite },
+    getAuthHeaders()
+  )
+    .then((response) => response)
+    .catch((error) => {
+      logger.error(`❌ Error updating prerequisite for level ${level}:`, error);
+      throw error;
+    });
 };
 
-// ✅ Toggle Prerequisite Status (Requires Auth)
-export const updatePrereqStatus = async (courseName) => {
-  try {
-    const response = await api.put(
-      "/courseadvising/toggle-prereq",
-      { course_name: courseName },
-      { headers: getAuthHeaders() }
-    );
-    return response.data;
-  } catch (error) {
-    logger.error("Error toggling prerequisite status:", error);
-    return { error: "Failed to toggle prerequisite status" };
-  }
+/**
+ * POST /api/courses
+ * Add a new course (Requires Auth)
+ */
+export const addCourse = (courseData) => {
+  return publicRequest("/api/courses", "POST", courseData, getAuthHeaders())
+    .then((response) => response)
+    .catch((error) => {
+      logger.error(`❌ Error adding course:`, error);
+      throw error;
+    });
 };
 
-// ✅ Fetch Prerequisites for a Student (Requires Auth)
-export const fetchStudentPrereq = async (email, currentTerm) => {
-  try {
-    const response = await api.post(
-      "/courseadvising/prereq-data",
-      { email, current_term: currentTerm },
-      { headers: getAuthHeaders() }
-    );
-    return response.data;
-  } catch (error) {
-    logger.error("Error fetching student prerequisites:", error);
-    return { error: "Failed to fetch student prerequisites" };
-  }
+/**
+ * DELETE /api/courses/:level
+ * Delete a course by level (Requires Auth)
+ */
+export const deleteCourse = (level) => {
+  return publicRequest(`/api/courses/${level}`, "DELETE", null, getAuthHeaders())
+    .then((response) => response)
+    .catch((error) => {
+      logger.error(`❌ Error deleting course with level ${level}:`, error);
+      throw error;
+    });
 };
-
-// ✅ Fetch Course Plan for a Student (Requires Auth)
-export const fetchCoursePlan = async (email, currentTerm) => {
-  try {
-    const response = await api.post(
-      "/courseadvising/course-plan",
-      { email, current_term: currentTerm },
-      { headers: getAuthHeaders() }
-    );
-    return response.data;
-  } catch (error) {
-    logger.error("Error fetching course plan:", error);
-    return { error: "Failed to fetch course plan" };
-  }
-};
-
-export default api;
