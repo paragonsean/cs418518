@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import useProfile from "@/hooks/useProfile";
 

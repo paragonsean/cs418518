@@ -58,24 +58,21 @@ const AdvisingHistory = () => {
                     <TableCell>{record.last_gpa}</TableCell>
                     <TableCell>
                       <span
-                        className={`px-2 py-1 rounded ${
-                          record.status === "Approved"
+                        className={`px-2 py-1 rounded ${record.status === "Approved"
                             ? "bg-green-500 text-white"
                             : record.status === "Rejected"
-                            ? "bg-red-500 text-white"
-                            : "bg-yellow-500 text-white"
-                        }`}
+                              ? "bg-red-500 text-white"
+                              : "bg-yellow-500 text-white"
+                          }`}
                       >
                         {record.status}
                       </span>
                     </TableCell>
                     <TableCell>
-                      <Button
-                        className="bg-blue-500 hover:bg-blue-600 text-white"
-                        onClick={() => router.push(`/advising/${record.id}`)}
-                      >
+                      <Button onClick={() => router.push(`/user/dashboard/student//advising/${record.id}`)}>
                         View / Edit
                       </Button>
+
                     </TableCell>
                   </TableRow>
                 ))}

@@ -1,4 +1,3 @@
-// File: src/routes/advisingRoutes.js
 import { Router } from "express";
 import AdvisingController from "../controllers/AdvisingController.js";
 import checkUserAuth from "../middleware/AuthMiddleware.js"; // ✅ Ensure authentication
@@ -10,6 +9,9 @@ router.get("/", checkUserAuth, AdvisingController.getAllAdvisingRecords);
 
 // GET /api/advising/email -> Get advising records for the authenticated user
 router.get("/email", checkUserAuth, AdvisingController.getAdvisingRecordsByEmail);
+
+// ✅ NEW: GET /api/advising/:id -> Fetch a single advising record by ID
+router.get("/:id", checkUserAuth, AdvisingController.getAdvisingRecordById);
 
 // POST /api/advising -> Create new advising record
 router.post("/", checkUserAuth, AdvisingController.createAdvisingRecord);

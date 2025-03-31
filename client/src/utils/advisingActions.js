@@ -95,6 +95,51 @@ export async function createAdvisingRecord(recordData) {
     throw error;
   }
 }
+export async function fetchAdvisingRecordById(id) {
+  try {
+    console.log(`📡 Fetching advising record with ID: ${id}`);
+
+    const response = await fetch(`http://localhost:8000/api/advising/${id}`, {
+      method: "GET",
+      headers: getAuthHeaders(),  // ✅ Include Authorization header
+    });
+
+    const responseText = await response.text(); // ✅ Read raw response
+
+    if (!response.ok) {
+      console.error(`❌ HTTP ${response.status} Error: ${response.statusText}`);
+      console.error("❌ Response Body:", responseText);
+      throw new Error(`Error fetching record: HTTP ${response.status} - ${responseText}`);
+    }
+
+    return JSON.parse(responseText);
+  } catch (error) {
+    console.error("❌ Error fetching advising record:", error);
+    throw error;
+  }
+}
+
+
+export async function updateAdvisingRecord(id, updatedData) {
+  try {
+    const response = await fetch(`http://localhost:8000/api/advising/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error updating record: HTTP ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("❌ Error updating advising record:", error);
+    throw error;
+  }
+}
 
 /**
  * PUT /api/advising/:id
