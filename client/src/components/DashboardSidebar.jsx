@@ -123,9 +123,9 @@ export default function DashboardSidebar() {
               ) : (
                 <>
                   <SidebarLink
-                    href="/user/dashboard/student"
+                    href="/user/dashboard/student/advising"
                     icon={<LayoutDashboard size={18} />}
-                    text="Student Dashboard"
+                    text="Advising Dashboard"
                     isOpen={isOpen}
                   />
                   <SidebarLink
@@ -135,9 +135,15 @@ export default function DashboardSidebar() {
                     isOpen={isOpen}
                   />
                   <SidebarLink
-                    href="/user/dashboard/student/enroll"
+                    href="/user/dashboard/student/advising/courses"
                     icon={<Users size={18} />}
-                    text="Enroll"
+                    text="Sign up for Courses"
+                    isOpen={isOpen}
+                  />
+                     <SidebarLink
+                    href="/user/dashboard/student/advising/history"
+                    icon={<Users size={18} />}
+                    text="Advising Submissions"
                     isOpen={isOpen}
                   />
                 </>
