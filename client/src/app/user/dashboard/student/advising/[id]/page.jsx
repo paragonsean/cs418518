@@ -72,8 +72,7 @@ const EditAdvisingRecord = () => {
                         <label>Status:</label>
                         <select name="status" value={updatedData.status} onChange={handleChange} className="border p-2 rounded-md">
                             <option value="Pending">Pending</option>
-                            <option value="Approved">Approved</option>
-                            <option value="Rejected">Rejected</option>
+                          
                         </select>
 
                         <Button type="submit" className="mt-4 bg-green-500 text-white">Save Changes</Button>

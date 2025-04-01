@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import useProfile from "@/hooks/useProfile";
 import { fetchAdvisingRecords, createAdvisingRecord } from "@/utils/advisingActions";
 import { fetchAllCourses } from "@/utils/courseActions";
+import Cookies from "js-cookie";
 
 const AdvisingForm = () => {
   const { getProfile } = useProfile();
@@ -19,6 +20,9 @@ const AdvisingForm = () => {
   const [coursePlan, setCoursePlan] = useState([]);
   const [coursePrerequisites, setCoursePrerequisites] = useState({});
   const [typedStudentName, setTypedStudentName] = useState("");
+
+  // NEW: State for completed courses
+  const [completedCourses, setCompletedCourses] = useState([]);
 
   const todaysDate = new Date().toISOString().split("T")[0];
 
@@ -78,6 +82,36 @@ const AdvisingForm = () => {
     };
 
     fetchCourses();
+  }, []);
+
+  // NEW: Fetch Completed Courses
+  useEffect(() => {
+    const fetchCompletedCourses = async () => {
+      try {
+        const token = Cookies.get("jwt-token");
+        if (!token) {
+          console.error("No token found. User is not authenticated.");
+          return;
+        }
+        const response = await fetch("http://localhost:8000/api/completed-courses/", {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setCompletedCourses(data);
+        } else {
+          console.error("Error fetching completed courses:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching completed courses:", error);
+      }
+    };
+
+    fetchCompletedCourses();
   }, []);
 
   // Add a Course to the Plan
@@ -161,7 +195,7 @@ const AdvisingForm = () => {
             }}
           >
             <h3 className="text-md font-semibold mb-2">New Course Plan</h3>
-            
+
             {/* Term/GPA Inputs */}
             <div className="grid grid-cols-3 gap-4 mb-4">
               {/* Last Term dropdown */}
@@ -260,6 +294,7 @@ const AdvisingForm = () => {
                     </TableCell>
 
                     {/* Column 3: Course Name */}
+                    {/* Column 3: Course Name */}
                     <TableCell>
                       <select
                         className="border p-2 rounded-md"
@@ -269,17 +304,28 @@ const AdvisingForm = () => {
                       >
                         <option value="" disabled>Select Course</option>
                         {availableCourses
-                          .filter((c) => c.course_level === course.courseLevel)
-                          .map((c) => (
-                            <option
-                              key={`courseName-${c.course_name}`}
-                              value={c.course_name}
-                            >
-                              {c.course_name}
-                            </option>
-                          ))}
+                          .filter(
+                            (c) => c.course_level === course.courseLevel
+                          )
+                          .map((c) => {
+                            // Check if the course_level (e.g., "CS 115") exists in completedCourses.course_name
+                            const isCompleted = completedCourses.some(
+                              (completed) => completed.course_name === c.course_level
+                            );
+                            return (
+                              <option
+                                key={`courseName-${c.course_name}`}
+                                value={c.course_name}
+                                disabled={isCompleted} // Gray out the option if completed
+                              >
+                                {c.course_name}
+                                {isCompleted ? " (Completed)" : ""}
+                              </option>
+                            );
+                          })}
                       </select>
                     </TableCell>
+
 
                     {/* Column 4: Prerequisite */}
                     <TableCell>
@@ -293,7 +339,7 @@ const AdvisingForm = () => {
                           setCoursePlan(coursePlan.filter((_, i) => i !== index))
                         }
                       >
-                         Remove
+                        Remove
                       </Button>
                     </TableCell>
                   </TableRow>
