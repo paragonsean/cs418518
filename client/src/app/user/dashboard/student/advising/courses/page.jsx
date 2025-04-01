@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
@@ -36,13 +35,14 @@ const AdvisingForm = () => {
         const profile = await getProfile();
         if (profile?.user?.u_email) {
           setEmail(profile.user.u_email);
+          setTypedStudentName(`${profile.user.u_first_name} ${profile.user.u_last_name}`);
         }
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }
     };
     fetchUserProfile();
-  }, []);
+  }, [getProfile]);
 
   // Fetch Advising Records When Email is Available
   useEffect(() => {
@@ -294,7 +294,6 @@ const AdvisingForm = () => {
                     </TableCell>
 
                     {/* Column 3: Course Name */}
-                    {/* Column 3: Course Name */}
                     <TableCell>
                       <select
                         className="border p-2 rounded-md"
@@ -325,7 +324,6 @@ const AdvisingForm = () => {
                           })}
                       </select>
                     </TableCell>
-
 
                     {/* Column 4: Prerequisite */}
                     <TableCell>

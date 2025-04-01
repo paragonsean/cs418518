@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 30, 2025 at 11:21 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost
+-- Generation Time: Apr 01, 2025 at 06:41 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,26 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `courses`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `courseadvising`
---
-
-CREATE TABLE `courseadvising` (
-  `id` bigint(255) NOT NULL,
-  `date` varchar(100) NOT NULL,
-  `current_term` varchar(100) NOT NULL,
-  `status` varchar(50) NOT NULL DEFAULT 'Pending',
-  `last_term` varchar(100) DEFAULT NULL,
-  `last_gpa` varchar(50) DEFAULT NULL,
-  `prerequisites` varchar(100) DEFAULT NULL,
-  `student_name` varchar(100) NOT NULL,
-  `planned_courses` varchar(250) NOT NULL,
-  `student_email` varchar(100) NOT NULL,
-  `rejectionReason` longtext NOT NULL DEFAULT 'N/A'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -98,74 +78,15 @@ INSERT INTO `courses` (`course_name`, `course_level`, `prerequisite`, `course_lv
 ('Systems Programming', 'CS 476', 'CS 330, CS 361', '400'),
 ('Introduction to Artificial Intelligence', 'CS 480', 'CS 361', '400');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-CREATE TABLE `user` (
-  `u_id` int(11) NOT NULL,
-  `u_first_name` varchar(50) NOT NULL,
-  `u_last_name` varchar(50) NOT NULL,
-  `u_email` varchar(100) NOT NULL,
-  `u_password` varchar(255) NOT NULL,
-  `is_admin` tinyint(1) DEFAULT 0,
-  `is_approved` tinyint(1) DEFAULT 0,
-  `verification_code` varchar(255) DEFAULT NULL,
-  `otp_expires_at` datetime DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `verification_token` varchar(255) DEFAULT NULL,
-  `is_verified` tinyint(1) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`u_id`, `u_first_name`, `u_last_name`, `u_email`, `u_password`, `is_admin`, `is_approved`, `verification_code`, `otp_expires_at`, `created_at`, `updated_at`, `verification_token`, `is_verified`) VALUES
-(2, 'sean', 'baker', 'seancameronbaker@gmail.com', '$2b$10$oluhKh1BvqhIO4As8AoNb.yW4aL23MkpIQiGxVyKwDLC3s7jfl.qe', 1, 0, NULL, NULL, '2025-03-07 16:39:39', '2025-03-07 18:17:15', NULL, 1),
-(6, 'josh', 'baker', 'cos30degrees@gmail.com', '$2b$10$G.xsJb9UtapY7WpAD5dII.HndwTGgKd2ldbmT8NzfS4X5y1FbpwOS', 0, 0, NULL, NULL, '2025-03-07 18:10:26', '2025-03-07 18:14:58', NULL, 1);
-
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `courseadvising`
---
-ALTER TABLE `courseadvising`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`course_level`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`u_id`),
-  ADD UNIQUE KEY `u_email` (`u_email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `courseadvising`
---
-ALTER TABLE `courseadvising`
-  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

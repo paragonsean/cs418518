@@ -33,7 +33,6 @@ class Logger {
     this.logs.push(logEntry);
     if (this.logs.length > 100) {this.logs.shift();} // Keep log size manageable
 
-
   }
 
   info(message, data = null) {

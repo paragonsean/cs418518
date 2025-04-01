@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
-import logger from "@/utils/logger";
 import publicRequest from "./publicRequest"; //Always use publicRequest
+import logger from "@/utils/logger";
 
 // Attach Authorization header
 function getAuthHeaders() {
@@ -81,7 +81,7 @@ export const addCourse = (courseData) => {
   return publicRequest("/api/courses", "POST", courseData, getAuthHeaders())
     .then((response) => response)
     .catch((error) => {
-      logger.error(` Error adding course:`, error);
+      logger.error(" Error adding course:", error);
       throw error;
     });
 };

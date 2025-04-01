@@ -130,7 +130,7 @@ class UserModel {
     }
   }
 
-  // 6️⃣ Update Email Verification (Mark is_verified = true, remove verification_token)
+  // Update Email Verification (Mark is_verified = true, remove verification_token)
   static async verifyUserEmail(email) {
     try {
       await pool.execute(

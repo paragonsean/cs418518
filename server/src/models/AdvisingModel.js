@@ -97,6 +97,38 @@ class AdvisingModel {
     }
   }
 
+  // In your AdvisingModel.js
+  static async updateRecordById(id, data) {
+    try {
+      const { date, current_term, last_term, last_gpa, prerequisites, student_name, planned_courses } = data;
+      const [result] = await pool.execute(
+        `UPDATE courseadvising 
+       SET date = ?, 
+           current_term = ?, 
+           last_term = ?, 
+           last_gpa = ?, 
+           prerequisites = ?, 
+           student_name = ?, 
+           planned_courses = ?
+       WHERE id = ?`,
+        [
+          date,
+          current_term,
+          last_term,
+          last_gpa,
+          prerequisites || "None",
+          student_name,
+          JSON.stringify(planned_courses),
+          id
+        ]
+      );
+      return result;
+    } catch (error) {
+      logger.error(`Error updating record ${id}:`, error.message);
+      throw error;
+    }
+  }
+
   /**
    *Update record status (and rejectionReason) by ID
    */

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 08, 2025 at 12:29 AM
+-- Generation Time: Apr 01, 2025 at 06:41 AM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,8 +18,68 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `course_portal`
+-- Database: `courses`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `completed_courses`
+--
+
+CREATE TABLE `completed_courses` (
+  `id` int(11) NOT NULL,
+  `student_email` varchar(255) DEFAULT NULL,
+  `course_name` varchar(255) DEFAULT NULL,
+  `term` varchar(100) DEFAULT NULL,
+  `grade` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `completed_courses`
+--
+
+INSERT INTO `completed_courses` (`id`, `student_email`, `course_name`, `term`, `grade`) VALUES
+(1, 'cos30degrees@gmail.com', 'CS 115', '100', 'A'),
+(2, 'cos30degrees@gmail.com', 'CS 120G', '100', 'A'),
+(3, 'cos30degrees@gmail.com', 'CS 121G', '100', 'A'),
+(4, 'cos30degrees@gmail.com', 'CS 126G', '100', 'A'),
+(5, 'cos30degrees@gmail.com', 'CS 150', '100', 'A'),
+(6, 'cos30degrees@gmail.com', 'CS 151', '100', 'A'),
+(7, 'cos30degrees@gmail.com', 'CS 153', '100', 'A'),
+(8, 'cos30degrees@gmail.com', 'CS 170', '100', 'A'),
+(9, 'cos30degrees@gmail.com', 'CS 250', '200', 'A'),
+(10, 'cos30degrees@gmail.com', 'CS 252', '200', 'A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courseadvising`
+--
+
+CREATE TABLE `courseadvising` (
+  `id` bigint(255) NOT NULL,
+  `date` varchar(100) NOT NULL,
+  `current_term` varchar(100) NOT NULL,
+  `status` varchar(50) NOT NULL DEFAULT 'Pending',
+  `last_term` varchar(100) DEFAULT NULL,
+  `last_gpa` varchar(50) DEFAULT NULL,
+  `prerequisites` varchar(100) DEFAULT NULL,
+  `student_name` varchar(100) NOT NULL,
+  `planned_courses` longtext DEFAULT NULL,
+  `student_email` varchar(100) NOT NULL,
+  `rejectionReason` longtext NOT NULL DEFAULT 'N/A'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `courseadvising`
+--
+
+INSERT INTO `courseadvising` (`id`, `date`, `current_term`, `status`, `last_term`, `last_gpa`, `prerequisites`, `student_name`, `planned_courses`, `student_email`, `rejectionReason`) VALUES
+(124, '2025-04-01', 'Summer 2025', 'Pending', 'Summer 2025', '3.4', 'CS 250, CS252, CS 170', 'josh baker', '\"CS 355, CS 270\"', 'cos30degrees@gmail.com', 'N/A'),
+(125, '2025-04-01', 'Summer 2024', 'Pending', 'Spring 2025', '3.7', 'CS 170, CS 252, CS 330, CS 252, CS 330', 'Sean Baker', '\"CS 270, CS 350, CS 350\"', 'cos30degrees@gmail.com', 'N/A'),
+(126, '2025-04-01', 'Summer 2025', 'Pending', 'Spring 2025', '4.4', 'CS 252, CS 330, CS 330, CS 350, CS 361', 'Sean Baker', '\"CS 350, CS 410\"', 'cos30degrees@gmail.com', 'N/A'),
+(127, '2025-04-01', 'Spring 2025', 'Pending', 'Summer 2025', '1.0', 'CS 250, CS252, None, CS 330, CS 361', 'Sean Baker', '\"CS 355, CS 368, CS 476\"', 'cos30degrees@gmail.com', 'N/A');
 
 -- --------------------------------------------------------
 
@@ -105,18 +165,30 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`u_id`, `u_first_name`, `u_last_name`, `u_email`, `u_password`, `is_admin`, `is_approved`, `verification_code`, `otp_expires_at`, `created_at`, `updated_at`, `verification_token`, `is_verified`) VALUES
-(2, 'sean', 'baker', 'seancameronbaker@gmail.com', '$2b$10$oluhKh1BvqhIO4As8AoNb.yW4aL23MkpIQiGxVyKwDLC3s7jfl.qe', 1, 0, NULL, NULL, '2025-03-07 16:39:39', '2025-03-07 18:17:15', NULL, 1),
-(6, 'josh', 'baker', 'cos30degrees@gmail.com', '$2b$10$G.xsJb9UtapY7WpAD5dII.HndwTGgKd2ldbmT8NzfS4X5y1FbpwOS', 0, 0, NULL, NULL, '2025-03-07 18:10:26', '2025-03-07 18:14:58', NULL, 1);
+(2, 'sean', 'baker', 'seancameronbaker@gmail.com', '$2b$10$oluhKh1BvqhIO4As8AoNb.yW4aL23MkpIQiGxVyKwDLC3s7jfl.qe', 1, 0, NULL, NULL, '2025-03-07 16:39:39', '2025-03-30 17:30:23', NULL, 1),
+(6, 'Sean', 'Baker', 'cos30degrees@gmail.com', '$2b$10$G.xsJb9UtapY7WpAD5dII.HndwTGgKd2ldbmT8NzfS4X5y1FbpwOS', 0, 0, NULL, NULL, '2025-03-07 18:10:26', '2025-03-31 23:56:33', NULL, 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `completed_courses`
+--
+ALTER TABLE `completed_courses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `courseadvising`
+--
+ALTER TABLE `courseadvising`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
-  ADD UNIQUE KEY `course_level` (`course_level`);
+  ADD PRIMARY KEY (`course_level`);
 
 --
 -- Indexes for table `user`
@@ -130,10 +202,22 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `completed_courses`
+--
+ALTER TABLE `completed_courses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `courseadvising`
+--
+ALTER TABLE `courseadvising`
+  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

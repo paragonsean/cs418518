@@ -35,12 +35,12 @@ class AdvisingController {
           .status(400)
           .json({ status: "failed", message: "User email not found on request" });
       }
-  
+
       const records = await AdvisingModel.getRecordsByEmail(email);
       if (!records || records.length === 0) {
         return res.status(200).json([]); //Return an empty array instead of 404
       }
-  
+
       return res.status(200).json(records);
     } catch (error) {
       logger.error(`Error retrieving records for user:`, error.message);
@@ -50,7 +50,7 @@ class AdvisingController {
       });
     }
   }
-  
+
 
   /**
    * POST /api/advising
@@ -59,9 +59,9 @@ class AdvisingController {
    */
   static async createAdvisingRecord(req, res) {
     try {
-      logger.info("📥 Received request to create advising record.");
-      logger.debug("🔎 Request Body:", req.body);
-  
+      logger.info("Received request to create advising record.");
+      logger.debug("Request Body:", req.body);
+
       // Extract user-provided fields
       const {
         date,
@@ -72,7 +72,7 @@ class AdvisingController {
         student_name,
         planned_courses,
       } = req.body;
-  
+
       // The actual email is from req.user
       const student_email = req.user?.email;
       if (!student_email) {
@@ -82,7 +82,7 @@ class AdvisingController {
           message: "No user email found on request.",
         });
       }
-  
+
       // Check if user exists
       const existingUser = await UserModel.findByEmail(student_email);
       if (!existingUser) {
@@ -92,7 +92,7 @@ class AdvisingController {
           message: "User with this email not found.",
         });
       }
-  
+
       // Log extracted data
       logger.info(`Creating advising record for ${student_email}`);
       logger.debug(`📌 Data:`, {
@@ -104,7 +104,7 @@ class AdvisingController {
         student_name,
         planned_courses,
       });
-  
+
       // Insert record into DB
       const newRecord = await AdvisingModel.createAdvisingRecord({
         date,
@@ -116,9 +116,9 @@ class AdvisingController {
         planned_courses,
         student_email,
       });
-  
+
       logger.info(`🎉 Advising record successfully created! ID: ${newRecord.id}`);
-  
+
       return res.status(201).json({
         status: "success",
         message: "Student info successfully inserted in the database.",
@@ -132,7 +132,7 @@ class AdvisingController {
       });
     }
   }
-  
+
   /**
    * GET /api/advising/record/:id
    * Fetches a single advising record by its ID.
@@ -140,7 +140,7 @@ class AdvisingController {
   static async getAdvisingRecordById(req, res) {
     try {
       const { id } = req.params;
-      logger.info(`📡 Fetching advising record for ID: ${id}`);
+      logger.info(`Fetching advising record for ID: ${id}`);
 
       const record = await AdvisingModel.getRecordById(id); // Ensure your model supports this
       if (!record) {
@@ -198,6 +198,41 @@ class AdvisingController {
         .json({ status: "failed", message: "Server Error: Status not updated" });
     }
   }
+  static async updateAdvisingRecord(req, res) {
+    try {
+      const advisingId = req.params.id;
+      const {
+        date,
+        current_term,
+        last_term,
+        last_gpa,
+        prerequisites,
+        student_name,
+        planned_courses,
+      } = req.body;
+
+      // Update the full record in your model
+      const result = await AdvisingModel.updateRecordById(advisingId, {
+        date,
+        current_term,
+        last_term,
+        last_gpa,
+        prerequisites,
+        student_name,
+        planned_courses,
+      });
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ status: "failed", message: "Record not found" });
+      }
+
+      return res.status(200).json({ status: "success", message: "Record updated successfully" });
+    } catch (error) {
+      logger.error(`Error updating advising record for ID ${req.params.id}:`, error.message);
+      return res.status(500).json({ status: "failed", message: "Server Error: Record not updated" });
+    }
+  }
+
 }
 
 export default AdvisingController;
