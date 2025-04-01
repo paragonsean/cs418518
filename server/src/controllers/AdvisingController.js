@@ -76,7 +76,7 @@ class AdvisingController {
       // The actual email is from req.user
       const student_email = req.user?.email;
       if (!student_email) {
-        logger.warn("⚠️ No user email found on request.");
+        logger.warn("No user email found on request.");
         return res.status(400).json({
           status: "failed",
           message: "No user email found on request.",
@@ -94,7 +94,7 @@ class AdvisingController {
       }
   
       // Log extracted data
-      logger.info(`✅ Creating advising record for ${student_email}`);
+      logger.info(`Creating advising record for ${student_email}`);
       logger.debug(`📌 Data:`, {
         date: date || "DEFAULT (today)",
         current_term,
@@ -144,7 +144,7 @@ class AdvisingController {
 
       const record = await AdvisingModel.getRecordById(id); // Ensure your model supports this
       if (!record) {
-        logger.warn(`⚠️ No advising record found for ID: ${id}`);
+        logger.warn(`No advising record found for ID: ${id}`);
         return res.status(404).json({ message: "Record not found" });
       }
 

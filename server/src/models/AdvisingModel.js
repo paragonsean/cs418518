@@ -9,14 +9,14 @@ class AdvisingModel {
     try {
       const [rows] = await pool.execute("SELECT * FROM courseadvising ORDER BY date DESC");
 
-      // 🔥 Convert `planned_courses` from JSON string to object
+      // Convert `planned_courses` from JSON string to object
       rows.forEach((row) => {
         if (typeof row.planned_courses === "string") {
           row.planned_courses = JSON.parse(row.planned_courses);
         }
       });
 
-      logger.info(`✅ Retrieved ${rows.length} advising records.`);
+      logger.info(`Retrieved ${rows.length} advising records.`);
       return rows;
     } catch (error) {
       logger.error(" Error fetching all advising records:", error.message);
@@ -35,10 +35,10 @@ class AdvisingModel {
       );
 
       if (rows.length === 0) {
-        logger.warn(`⚠️ No advising records found for ${studentEmail}`);
+        logger.warn(`No advising records found for ${studentEmail}`);
       }
 
-      // 🔥 Convert `planned_courses` from JSON string to object
+      // Convert `planned_courses` from JSON string to object
       rows.forEach((row) => {
         if (typeof row.planned_courses === "string") {
           row.planned_courses = JSON.parse(row.planned_courses);
@@ -83,13 +83,13 @@ class AdvisingModel {
           last_gpa,
           prerequisites || "None",
           student_name,
-          JSON.stringify(planned_courses), // 🔥 Ensure planned_courses is stored as JSON
+          JSON.stringify(planned_courses), // Ensure planned_courses is stored as JSON
           student_email,
           "N/A", // Default rejection reason
         ]
       );
 
-      logger.info(`✅ New advising record created for ${student_email} (ID: ${result.insertId})`);
+      logger.info(`New advising record created for ${student_email} (ID: ${result.insertId})`);
       return { id: result.insertId };
     } catch (error) {
       logger.error(" Error creating new advising record:", error.message);
@@ -108,11 +108,11 @@ class AdvisingModel {
       );
 
       if (result.affectedRows === 0) {
-        logger.warn(`⚠️ No advising record found for ID ${id}`);
+        logger.warn(`No advising record found for ID ${id}`);
         return false;
       }
 
-      logger.info(`✅ Advising record ID ${id} updated to status: ${status}`);
+      logger.info(`Advising record ID ${id} updated to status: ${status}`);
       return true;
     } catch (error) {
       logger.error(` Error updating status for record ${id}:`, error.message);
@@ -131,17 +131,17 @@ class AdvisingModel {
       );
 
       if (rows.length === 0) {
-        logger.warn(`⚠️ No advising record found with ID ${id}`);
-        return null; // 🔥 Return null instead of a custom object
+        logger.warn(`No advising record found with ID ${id}`);
+        return null; // Return null instead of a custom object
       }
 
-      // 🔥 Convert `planned_courses` from JSON string to object
+      // Convert `planned_courses` from JSON string to object
       if (typeof rows[0].planned_courses === "string") {
         rows[0].planned_courses = JSON.parse(rows[0].planned_courses);
       }
 
-      logger.info(`✅ Advising record ID ${id} retrieved successfully.`);
-      return rows[0]; // 🔥 Return the record directly
+      logger.info(`Advising record ID ${id} retrieved successfully.`);
+      return rows[0]; // Return the record directly
     } catch (error) {
       logger.error(` Error fetching advising record for ID ${id}:`, error.message);
       throw error;
@@ -156,7 +156,7 @@ class AdvisingModel {
       const [rows] = await pool.execute("SELECT student_email FROM courseadvising WHERE id = ?", [id]);
 
       if (rows.length === 0) {
-        logger.warn(`⚠️ No email found for advising record ID ${id}`);
+        logger.warn(`No email found for advising record ID ${id}`);
         return null;
       }
 

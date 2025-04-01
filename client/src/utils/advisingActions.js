@@ -48,14 +48,14 @@ export async function fetchAllAdvisingRecords() {
     const data = await response.json();
 
     if (!Array.isArray(data)) {
-      console.error("⚠️ Invalid response format: expected an array but got:", data);
+      console.error("Invalid response format: expected an array but got:", data);
       return []; // Return an empty array instead of throwing an error
     }
 
     if (data.length === 0) {
-      console.warn("⚠️ No advising records found.");
+      console.warn("No advising records found.");
     } else {
-      console.log("✅ Successfully fetched advising records:", data);
+      console.log("Successfully fetched advising records:", data);
     }
 
     return data;

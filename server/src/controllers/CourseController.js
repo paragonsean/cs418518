@@ -9,7 +9,7 @@ class CourseController {
       if (!rows.length) {
         return res.status(404).json({ status: 404, message: "No courses found" });
       }
-      logger.info("✅ Retrieved all courses from the pool.");
+      logger.info("Retrieved all courses from the pool.");
       res.status(200).json(rows);
     } catch (error) {
       logger.error(` Error retrieving courses: ${error.message}`);
@@ -26,7 +26,7 @@ class CourseController {
       if (!rows.length) {
         return res.status(404).json({ status: 404, message: "Course not found" });
       }
-      logger.info(`✅ Course found for level: ${level}`);
+      logger.info(`Course found for level: ${level}`);
       res.status(200).json(rows);
     } catch (error) {
       logger.error(` Error retrieving course for level ${req.params.level}: ${error.message}`);
@@ -52,7 +52,7 @@ class CourseController {
       if (result.affectedRows === 0) {
         return res.status(404).json({ status: 404, message: "Course not found" });
       }
-      logger.info(`✅ Course name updated for level: ${level}`);
+      logger.info(`Course name updated for level: ${level}`);
       res.status(200).json({ status: 200, message: "Course name updated successfully" });
     } catch (error) {
       logger.error(` Error updating course name: ${error.message}`);
@@ -78,7 +78,7 @@ class CourseController {
       if (result.affectedRows === 0) {
         return res.status(404).json({ status: 404, message: "Course not found" });
       }
-      logger.info(`✅ Prerequisite updated for level: ${level}`);
+      logger.info(`Prerequisite updated for level: ${level}`);
       res.status(200).json({ status: 200, message: "Prerequisite updated successfully" });
     } catch (error) {
       logger.error(` Error updating prerequisite: ${error.message}`);
@@ -100,7 +100,7 @@ class CourseController {
         [course_name, course_level, prerequisite, course_lvlGroup]
       );
 
-      logger.info(`✅ New course added: ${course_name} (Level: ${course_level})`);
+      logger.info(`New course added: ${course_name} (Level: ${course_level})`);
       res.status(201).json({ status: 201, message: "Course successfully added", courseId: result.insertId });
     } catch (error) {
       logger.error(` Error adding course: ${error.message}`);
@@ -117,7 +117,7 @@ class CourseController {
       if (result.affectedRows === 0) {
         return res.status(404).json({ status: 404, message: "Course not found" });
       }
-      logger.info(`✅ Course deleted: Level ${level}`);
+      logger.info(`Course deleted: Level ${level}`);
       res.status(200).json({ status: 200, message: "Course deleted successfully" });
     } catch (error) {
       logger.error(` Error deleting course: ${error.message}`);
