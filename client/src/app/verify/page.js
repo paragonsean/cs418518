@@ -1,16 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function Verify() {
+function VerifyContent() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Get email from URL params
   useEffect(() => {
     const emailFromParams = searchParams.get("email");
     if (emailFromParams) {
@@ -18,7 +17,6 @@ export default function Verify() {
     }
   }, [searchParams]);
 
-  // Verify the OTP
   const verifyOtp = async () => {
     if (!email || !otp) {
       setMessage("Please enter your OTP.");
@@ -36,7 +34,7 @@ export default function Verify() {
 
       if (res.ok) {
         alert("Verification successful! Redirecting to login...");
-        router.push("/login"); // Redirect to login
+        router.push("/login");
       } else {
         setMessage(data.message || "Verification failed. Please try again.");
       }
@@ -54,7 +52,6 @@ export default function Verify() {
         {message && <p className="text-center font-medium text-red-600">{message}</p>}
 
         <div className="flex flex-col space-y-4">
-          {/* Email (Read-Only) */}
           <input
             type="email"
             value={email}
@@ -62,7 +59,6 @@ export default function Verify() {
             className="form-input bg-gray-100"
           />
 
-          {/* OTP Input */}
           <input
             type="text"
             placeholder="Enter Verification Code"
@@ -71,7 +67,6 @@ export default function Verify() {
             className="form-input"
           />
 
-          {/* Verify Button */}
           <button
             className="btn-primary"
             onClick={verifyOtp}
@@ -81,5 +76,13 @@ export default function Verify() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function Verify() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifyContent />
+    </Suspense>
   );
 }

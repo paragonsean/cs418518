@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
@@ -14,12 +14,8 @@ const AdvisingComparison = () => {
   const [missingPrerequisites, setMissingPrerequisites] = useState({}); // Courses missing prereqs
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchComparisonData();
-  }, []); // Runs once on mount
-
-  // Fetch all data needed for comparison
-  const fetchComparisonData = async () => {
+  // Wrap fetchComparisonData in useCallback to provide a stable reference.
+  const fetchComparisonData = useCallback(async () => {
     setLoading(true);
     try {
       // Fetch prerequisites from all courses
@@ -43,7 +39,11 @@ const AdvisingComparison = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []); // No dependencies
+
+  useEffect(() => {
+    fetchComparisonData();
+  }, [fetchComparisonData]); // Now includes the stable function reference
 
   // Fetch completed courses from backend
   const fetchCompletedCourses = async () => {

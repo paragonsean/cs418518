@@ -59,6 +59,9 @@ const UpdateProfile = () => {
     },
   });
 
+  // Extracting setValues to use as a stable reference.
+  const { setValues } = formik;
+
   // Fetch User Profile on Mount
   useEffect(() => {
     const fetchUser = async () => {
@@ -66,7 +69,7 @@ const UpdateProfile = () => {
       try {
         const userData = await getProfile();
         if (userData.status === "success" && userData.user) {
-          formik.setValues({
+          setValues({
             firstName: userData.user.u_first_name || "",
             lastName: userData.user.u_last_name || "",
             password: "",
@@ -83,7 +86,7 @@ const UpdateProfile = () => {
     };
 
     fetchUser();
-  }, []); // Only run once on mount
+  }, [getProfile, setValues]);
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
