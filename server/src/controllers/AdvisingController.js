@@ -8,7 +8,7 @@ class AdvisingController {
   /**
    * GET /api/advising
    * Retrieves ALL advising records (e.g., for admins).
-   * (If you still want to enforce admin checks, reintroduce that logic.)
+   * ( admin checks, for later )
    */
   static async getAllAdvisingRecords(req, res) {
     try {
@@ -86,7 +86,7 @@ class AdvisingController {
       // Check if user exists
       const existingUser = await UserModel.findByEmail(student_email);
       if (!existingUser) {
-        logger.warn(`🚫 Advising creation failed - User not found: ${student_email}`);
+        logger.warn(`Advising creation failed - User not found: ${student_email}`);
         return res.status(400).json({
           status: "failed",
           message: "User with this email not found.",
@@ -95,7 +95,7 @@ class AdvisingController {
 
       // Log extracted data
       logger.info(`Creating advising record for ${student_email}`);
-      logger.debug(`📌 Data:`, {
+      logger.debug(` Data:`, {
         date: date || "DEFAULT (today)",
         current_term,
         last_term,
