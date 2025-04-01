@@ -1,43 +1,38 @@
-version: "3.8"
+version: '3.8'
+
 services:
-  api:
-    build:
-      context: ./server
-      dockerfile: Dockerfile  # Dockerfile for Express API
-    ports:
-      - "8000:8000"
-    environment:
-      NODE_ENV: production
-      DB_HOST: db
-      DB_USER: root
-      DB_PASSWORD: example
-      DB_NAME: student_portal
-      DB_PORT: 3306
-    depends_on:
-      - db
-
-  client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile  # Dockerfile for Next.js
-    ports:
-      - "3000:3000"
-    environment:
-      NODE_ENV: production
-
-  db:
-    image: mysql:8.0
+  mysql:
+    image: mysql:8
+    container_name: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: rootpass
       MYSQL_DATABASE: courses
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 
-    ports:
-      - "3306:3306"
     volumes:
-      - db_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+      - ./database/courses.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3307:3306"  # 🔧 Host 3307 → Container 3306
+
+  backend:
+    build: ./server
+    container_name: backend
+    restart: always
+    env_file:
+      - ./server/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+
+  frontend:
+    build: ./client
+    container_name: frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
 
 volumes:
-  db_data:
-
+  mysql_data:
