@@ -16,7 +16,8 @@ app.use(cookieParser()); //  Parses cookies
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://wired-visually-marten.ngrok-free.app"
+  "https://wired-visually-marten.ngrok-free.app",
+  "https://92df-128-82-16-4.ngrok-free.app"
 ];
 
 app.use(
