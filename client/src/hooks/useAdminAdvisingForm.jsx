@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { fetchAllCourses, fetchAllAdvisingRecords, fetchCompletedCoursesForUser, updateAdvisingStatus } from "@/utils/advisingApi";
 
 /**
- * Admin Advising Comparison Logic
+ * Admin Advising
  */
 export function useAdminAdvisingComparison() {
   const [allRecords, setAllRecords] = useState([]);

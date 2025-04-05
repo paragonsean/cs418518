@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import { fetchAllCourses, fetchCompletedCourses } from "@/utils/advisingApi"; // Assuming you have the appropriate functions for fetching.
 
 /**
- * Hook #1: Student Advising Form
+ * Hook #1: 
  */
 export function useAdvisingFormLogic() {
   const [availableCourses, setAvailableCourses] = useState([]);
