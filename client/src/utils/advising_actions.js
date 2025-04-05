@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import logger from "@/utils/logger";
+import logger from "@/utils/my_logger";
 import publicRequest from "@/utils/public_request"; // Import the publicRequest helper
 
 /** 
