@@ -1,3 +1,5 @@
+// advisingApi.js
+
 import Cookies from "js-cookie";
 import urlJoin from "url-join";
 
@@ -11,6 +13,26 @@ const getAuthHeaders = () => {
     ? { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
     : { "Content-Type": "application/json" };
 };
+
+/**
+ * Fetch all advising records (Admin Only)
+ */
+export const fetchAllAdvisingRecords = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/advising`, {
+      method: "GET",
+      headers: getAuthHeaders(),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || "Failed to fetch advising records");
+    return data;
+  } catch (error) {
+    console.error("Error fetching all advising records:", error);
+    throw error;
+  }
+};
+
+// Ensure that the `fetchAllAdvisingRecords` is being **exported** correctly.
 
 /**
  * Fetch all courses
