@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import Cookies from "js-cookie";
-import { fetchAllCourses, fetchCompletedCourses } from "@/utils/advisingApi"; // Assuming you have the appropriate functions for fetching.
+import { fetchAllCourses, fetchCompletedCourses } from "@/utils/advising_api"; // Assuming you have the appropriate functions for fetching.
 
 /**
  * Hook #1: 

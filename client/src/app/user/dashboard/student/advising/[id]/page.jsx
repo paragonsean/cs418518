@@ -4,10 +4,10 @@ import { useRouter, useParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { fetchAdvisingRecordById, updateAdvisingRecord } from "@/utils/advisingActions";
-import { useAdvisingFormLogic } from "@/hooks/useAdvisingForm";
-import CoursePlanTable from "@/components/courses/CourseTable";
-import HistoryFields from "@/components/courses/HistoryFields";
+import { fetchAdvisingRecordById, updateAdvisingRecord } from "@/utils/advising_actions";
+import { useAdvisingFormLogic } from '@/hooks/use_advising_form';
+import CoursePlanTable from "@/components/courses/course_table";
+import HistoryFields from "@/components/courses/history_fields";
 
 const EditAdvisingForm = () => {
   const router = useRouter();

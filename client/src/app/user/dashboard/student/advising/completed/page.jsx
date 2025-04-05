@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { fetchAllCourses, fetchAdvisingRecords, fetchCompletedCourses } from "@/utils/advisingApi"; // API functions
-import LoadingErrorState from "@/components/ui/LoadingErrorState"; // New component
-import PrerequisiteTable from "@/components/courses/PrerequisiteTable"; // New component
+import { fetchAllCourses, fetchAdvisingRecords, fetchCompletedCourses } from "@/utils/advising_api"; // API functions
+import LoadingErrorState from "@/components/ui/loading_error_state"; // New component
+import PrerequisiteTable from "@/components/courses/prerequisite_table"; // New component
 
 const AdvisingComparison = () => {
   const [completedCourses, setCompletedCourses] = useState([]); // Student's completed courses

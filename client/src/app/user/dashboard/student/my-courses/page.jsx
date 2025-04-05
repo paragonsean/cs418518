@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
-import publicRequest from "@/utils/publicRequest"; // Import the publicRequest helper
+import publicRequest from "@/utils/public_request"; // Import the publicRequest helper
 
 const CompletedCoursesHistory = () => {
   const router = useRouter();

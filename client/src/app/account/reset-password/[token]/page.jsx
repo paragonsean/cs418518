@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import publicRequest from "../../../../utils/publicRequest";
+import publicRequest from "../../../../utils/public_request";
 
 const ResetPassword = () => {
   const router = useRouter();

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { fetchAllCourses, fetchAllAdvisingRecords, fetchCompletedCoursesForUser, updateAdvisingStatus } from "@/utils/advisingApi";
+import { fetchAllCourses, fetchAllAdvisingRecords, fetchCompletedCoursesForUser, updateAdvisingStatus } from "@/utils/advising_api";
 
 /**
  * Admin Advising

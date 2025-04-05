@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { fetchAdvisingRecords } from "@/utils/advisingActions";
+import { fetchAdvisingRecords } from "@/utils/advising_actions";
 import Cookies from "js-cookie";
 
 const AdvisingHistory = () => {

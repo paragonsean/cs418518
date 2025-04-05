@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Bell, Users, BookOpen, CheckCircle } from "lucide-react";
-import useProfile from "@/hooks/useProfile"; // Import profile hook
+import useProfile from "@/hooks/use_profile"; // Import profile hook
 
 export default function AdvisorDashboard() {
   const { getProfile, loading } = useProfile();

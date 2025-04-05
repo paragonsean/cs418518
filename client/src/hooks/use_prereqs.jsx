@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { getPrereqCourses, getNonPrereqCourses } from "@/utils/advisingApi";
+import { getPrereqCourses, getNonPrereqCourses } from "@/utils/advising_api";
 
 const usePrereqs = () => {
   const [prereqCourses, setPrereqCourses] = useState([]);

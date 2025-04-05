@@ -2,7 +2,7 @@
 import { useFormik } from "formik";
 import { updateProfileSchema } from "@/validation/schemas";
 import { useState, useEffect } from "react";
-import useProfile from "@/hooks/useProfile";
+import useProfile from "@/hooks/use_profile";
 import logger from "@/utils/logger";
 
 const UpdateProfile = () => {

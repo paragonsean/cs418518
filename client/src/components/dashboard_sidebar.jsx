@@ -15,7 +15,7 @@ import {
   LogOut,
   User,
 } from "lucide-react";
-import useProfile from "@/hooks/useProfile";
+import useProfile from "@/hooks/use_profile";
 import UserProfileButton from "@/components/profile/userProfileButton";
 
 export default function DashboardSidebar() {

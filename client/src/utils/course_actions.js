@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import publicRequest from "./publicRequest"; //Always use publicRequest
+import publicRequest from "./public_request"; //Always use publicRequest
 import logger from "@/utils/logger";
 
 // Attach Authorization header

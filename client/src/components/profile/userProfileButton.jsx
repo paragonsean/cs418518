@@ -7,7 +7,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
-import useProfile from "@/hooks/useProfile";
+import useProfile from "@/hooks/use_profile";
 import { useRouter } from "next/navigation";
 
 export default function UserProfileButton() {

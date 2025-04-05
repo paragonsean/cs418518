@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { verifyEmail } from "../utils/authActions";
+import { verifyEmail } from "@/utils/auth_actions";
 
 const VerifyEmailContent = () => {
   const router = useRouter();

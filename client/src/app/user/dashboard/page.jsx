@@ -2,7 +2,7 @@
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import useProfile from "@/hooks/useProfile";
+import useProfile from "@/hooks/use_profile";
 
 export default function StudentDashboard() {
   const { getProfile } = useProfile();

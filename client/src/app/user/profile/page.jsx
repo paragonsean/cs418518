@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import useProfile from "@/hooks/useProfile";
+import useProfile from "@/hooks/use_profile";
 import { Badge } from "@/components/ui/badge"; // ShadCN badge
 import { Card, CardContent, CardHeader } from "@/components/ui/card"; // ShadCN card
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"; // ShadCN avatar

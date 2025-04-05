@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"; // Add TableCell import
-import PlannedCourseRow from "./PlannedCourseRow";
+import PlannedCourseRow from "@/components/courses/planned_course_row";
 
 const PrerequisiteTable = ({ plannedCourses, missingPrerequisites }) => {
   return (

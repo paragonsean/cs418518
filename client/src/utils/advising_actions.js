@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import logger from "@/utils/logger";
-import publicRequest from "@/utils/publicRequest"; // Import the publicRequest helper
+import publicRequest from "@/utils/public_request"; // Import the publicRequest helper
 
 /** 
  * GET /api/advising (Admin Only)

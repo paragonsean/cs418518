@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import publicRequest from "../../../utils/publicRequest";
+import publicRequest from "../../../utils/public_request";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

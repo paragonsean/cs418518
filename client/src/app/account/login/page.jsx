@@ -7,8 +7,8 @@ import { useState } from "react";
 import { loginSchema } from "../../../validation/schemas";
 
 // hooks
-import useAuth from "../../../hooks/useAuth";
-import usePassword from "../../../hooks/usePassword";
+import useAuth from "@/hooks/use_auth";
+import usePassword from "@/hooks/use_password";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);

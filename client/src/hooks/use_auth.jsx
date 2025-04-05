@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { useState } from "react";
 import urlJoin from "url-join";
 import logger from "@/utils/logger"; //  Import logger
-import publicRequest from "@/utils/publicRequest";
+import publicRequest from "@/utils/public_request";
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000";
 

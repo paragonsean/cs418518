@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 // hooks
-import useAuth from "@/hooks/useAuth";
+import useAuth from "@/hooks/use_auth";
 
 const initialValues = {
   firstName: "",

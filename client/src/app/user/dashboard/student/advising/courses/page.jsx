@@ -7,13 +7,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 // Hooks & Utils
-import useProfile from "@/hooks/useProfile";
-import { fetchAdvisingRecords, createAdvisingRecord } from "@/utils/advisingApi";
-import { useAdvisingFormLogic } from "@/hooks/useAdvisingform";
-import CoursePlanTable from "@/components/courses/CourseTable";
+import useProfile from "@/hooks/use_profile";
+import { fetchAdvisingRecords, createAdvisingRecord } from "@/utils/advising_api";
+import { useAdvisingFormLogic } from "@/hooks/use_advising_form";
+import CoursePlanTable from "@/components/courses/course_table";
 
 // Common components
-import HistoryFields from "@/components/courses/HistoryFields";
+import HistoryFields from "@/components/courses/history_fields";
 import  LoadingIndicator  from "@/components/LoadingIndicater";
 
 const AdvisingForm = () => {
