@@ -2,10 +2,10 @@ import {
   hashPassword,
   verifyToken,
   generateToken,
-} from "../utils/auth_service.js";
-import { sendResetPasswordEmail } from "../utils/email_service.js";
-import UserModel from "../models/user_model.js";
-import logger from "../utils/my_logger.js"; //  Import logger
+} from "@/utils/auth_service.js";
+import { sendResetPasswordEmail } from "@/utils/email_service.js";
+import UserModel from "@/models/user_model.js";
+import logger from "@/utils/my_logger.js"; //  Import logger
 
 class PasswordController {
   //  Verify Email

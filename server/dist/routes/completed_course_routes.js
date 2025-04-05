@@ -1,7 +1,7 @@
 // File: src/routes/completedCoursesRoutes.js
 import { Router } from "express";
-import CompletedCoursesController from "../controllers/CompletedCoursesController.js";
-import checkUserAuth from "../middleware/AuthMiddleware.js";
+import CompletedCoursesController from "../controllers/completed_courses_controller.js";
+import checkUserAuth from "../middleware/auth_middleware.js";
 var router = Router();
 
 // GET /api/completed-courses -> Fetch completed courses using authenticated user's email

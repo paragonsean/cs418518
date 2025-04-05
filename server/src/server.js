@@ -6,10 +6,10 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 // Route imports
-import userRoutes from "./routes/userRoutes.js";
-import courseRoutes from "./routes/courseRoutes.js";
-import advisingRoutes from "./routes/advisingRoutes.js";
-import completedCoursesRoutes from "./routes/completedCoursesRoutes.js";
+import userRoutes from "./routes/user_routes.js";
+import courseRoutes from "./routes/course_routes.js";
+import advisingRoutes from "./routes/advising_routes.js";
+import completedCoursesRoutes from "./routes/completed_course_routes.js";
 
 const app = express();
 const port = process.env.PORT || 8000;

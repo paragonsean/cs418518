@@ -2,5 +2,13 @@
   "presets": [
     ["@babel/preset-env", { "modules": false }]
   ],
-  "plugins": ["@babel/plugin-proposal-optional-chaining"]
+  "plugins": [
+    "@babel/plugin-proposal-optional-chaining",
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "@": "./src"
+      }
+    }]
+  ]
 }

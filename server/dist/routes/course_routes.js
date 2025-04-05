@@ -1,5 +1,5 @@
 import express from "express";
-import CourseController from "../controllers/CourseController.js";
+import CourseController from "../controllers/course_controller.js";
 var router = express.Router();
 router.get("/", CourseController.getAllCourses);
 router.get("/:level", CourseController.getCourseByLevel);

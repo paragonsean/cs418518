@@ -3,13 +3,14 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 import nodemailer from "nodemailer";
+import logger from "./my_logger.js"; //  Import logger
 
 //  Generate a 6-digit OTP
 export var generateOTP = function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
-//  Send OTP via Email
+//  Send OTP via Email with Logging
 export var sendOTPEmail = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(email, otp) {
     var transporter, mailOptions;
@@ -17,7 +18,7 @@ export var sendOTPEmail = /*#__PURE__*/function () {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           transporter = nodemailer.createTransport({
-            service: "gmail",
+            service: "Gmail",
             auth: {
               user: process.env.EMAIL_USER,
               pass: process.env.EMAIL_PASS
@@ -33,13 +34,13 @@ export var sendOTPEmail = /*#__PURE__*/function () {
           _context.next = 5;
           return transporter.sendMail(mailOptions);
         case 5:
-          console.log("\uD83D\uDCE9 OTP sent to ".concat(email));
+          logger.info("\uD83D\uDCE9 OTP sent successfully to ".concat(email)); //  Log success
           _context.next = 11;
           break;
         case 8:
           _context.prev = 8;
           _context.t0 = _context["catch"](2);
-          console.error(" Error sending OTP email:", _context.t0);
+          logger.error(" Error sending OTP email to ".concat(email, ": ").concat(_context.t0.message)); //  Log error
         case 11:
         case "end":
           return _context.stop();

@@ -1,5 +1,5 @@
 // File: src/models/CompletedCoursesModel.js
-import db from "../config/connectdb.js"; // Assuming you have a pool connection
+import db from "@/config/connectdb.js"; // Assuming you have a pool connection
 
 class CompletedCoursesModel {
   /**

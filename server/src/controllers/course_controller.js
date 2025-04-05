@@ -1,5 +1,5 @@
-import pool from "../config/connectdb.js"; // Import pool connection
-import logger from "../utils/my_logger.js"; // Import logger
+import pool from "@/config/connectdb.js"; // Import pool connection
+import logger from "@/utils/my_logger.js"; // Import logger
 
 class CourseController {
   //Get all courses

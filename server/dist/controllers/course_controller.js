@@ -13,353 +13,333 @@ function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = 
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-import pool from "../config/connectdb.js";
-import logger from "../utils/logger.js"; // Import logger
-var UserModel = /*#__PURE__*/function () {
-  function UserModel() {
-    _classCallCheck(this, UserModel);
+import pool from "../config/connectdb.js"; // Import pool connection
+import logger from "../utils/my_logger.js"; // Import logger
+var CourseController = /*#__PURE__*/function () {
+  function CourseController() {
+    _classCallCheck(this, CourseController);
   }
-  return _createClass(UserModel, null, [{
-    key: "createUser",
-    value: // Create a New User
+  return _createClass(CourseController, null, [{
+    key: "getAllCourses",
+    value: //Get all courses
     function () {
-      var _createUser = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(_ref) {
-        var firstName, lastName, email, hashedPassword, verificationToken, _yield$pool$execute, _yield$pool$execute2, result;
+      var _getAllCourses = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
+        var _yield$pool$execute, _yield$pool$execute2, rows;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              firstName = _ref.firstName, lastName = _ref.lastName, email = _ref.email, hashedPassword = _ref.hashedPassword, verificationToken = _ref.verificationToken;
-              _context.prev = 1;
-              _context.next = 4;
-              return pool.execute("INSERT INTO user (u_first_name, u_last_name, u_email, u_password, is_verified, verification_token)\n         VALUES (?, ?, ?, ?, ?, ?)", [firstName, lastName, email, hashedPassword, false, verificationToken]);
-            case 4:
+              _context.prev = 0;
+              _context.next = 3;
+              return pool.execute("SELECT * FROM courses");
+            case 3:
               _yield$pool$execute = _context.sent;
               _yield$pool$execute2 = _slicedToArray(_yield$pool$execute, 1);
-              result = _yield$pool$execute2[0];
-              logger.info("New user created: ".concat(email));
-              return _context.abrupt("return", result);
-            case 11:
-              _context.prev = 11;
-              _context.t0 = _context["catch"](1);
-              logger.error("Failed to create user (".concat(email, "): ").concat(_context.t0.message));
-              throw _context.t0;
-            case 15:
+              rows = _yield$pool$execute2[0];
+              if (rows.length) {
+                _context.next = 8;
+                break;
+              }
+              return _context.abrupt("return", res.status(404).json({
+                status: 404,
+                message: "No courses found"
+              }));
+            case 8:
+              logger.info("Retrieved all courses from the pool.");
+              res.status(200).json(rows);
+              _context.next = 16;
+              break;
+            case 12:
+              _context.prev = 12;
+              _context.t0 = _context["catch"](0);
+              logger.error(" Error retrieving courses: ".concat(_context.t0.message));
+              res.status(500).json({
+                status: 500,
+                message: "Internal Server Error"
+              });
+            case 16:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[1, 11]]);
+        }, _callee, null, [[0, 12]]);
       }));
-      function createUser(_x) {
-        return _createUser.apply(this, arguments);
+      function getAllCourses(_x, _x2) {
+        return _getAllCourses.apply(this, arguments);
       }
-      return createUser;
-    }()
+      return getAllCourses;
+    }() //Get course by course level
   }, {
-    key: "getLastUserID",
+    key: "getCourseByLevel",
     value: function () {
-      var _getLastUserID = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var _yield$pool$execute3, _yield$pool$execute4, rows;
+      var _getCourseByLevel = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
+        var level, _yield$pool$execute3, _yield$pool$execute4, rows;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              _context2.next = 3;
-              return pool.execute("SELECT u_id FROM user ORDER BY u_id DESC LIMIT 1");
-            case 3:
+              level = req.params.level;
+              _context2.next = 4;
+              return pool.execute("SELECT * FROM courses WHERE course_level = ?", [level]);
+            case 4:
               _yield$pool$execute3 = _context2.sent;
               _yield$pool$execute4 = _slicedToArray(_yield$pool$execute3, 1);
               rows = _yield$pool$execute4[0];
-              if (!(rows.length > 0)) {
+              if (rows.length) {
                 _context2.next = 9;
                 break;
               }
-              logger.info("User found: ".concat(rows[0].u_id));
-              return _context2.abrupt("return", rows[0].u_id);
+              return _context2.abrupt("return", res.status(404).json({
+                status: 404,
+                message: "Course not found"
+              }));
             case 9:
-              _context2.next = 15;
+              logger.info("Course found for level: ".concat(level));
+              res.status(200).json(rows);
+              _context2.next = 17;
               break;
-            case 11:
-              _context2.prev = 11;
+            case 13:
+              _context2.prev = 13;
               _context2.t0 = _context2["catch"](0);
-              logger.error("Error finding user by email (".concat(email, "): ").concat(_context2.t0.message));
-              throw _context2.t0;
-            case 15:
+              logger.error(" Error retrieving course for level ".concat(req.params.level, ": ").concat(_context2.t0.message));
+              res.status(500).json({
+                status: 500,
+                message: "Internal Server Error"
+              });
+            case 17:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[0, 11]]);
+        }, _callee2, null, [[0, 13]]);
       }));
-      function getLastUserID() {
-        return _getLastUserID.apply(this, arguments);
+      function getCourseByLevel(_x3, _x4) {
+        return _getCourseByLevel.apply(this, arguments);
       }
-      return getLastUserID;
-    }()
+      return getCourseByLevel;
+    }() //Update course name
   }, {
-    key: "getUIN",
+    key: "updateCourseName",
     value: function () {
-      var _getUIN = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(_ref2) {
-        var email, _yield$pool$execute5, _yield$pool$execute6, rows;
+      var _updateCourseName = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+        var level, course_name, _yield$pool$execute5, _yield$pool$execute6, result;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              email = _ref2.email;
-              _context3.prev = 1;
-              _context3.next = 4;
-              return pool.execute("SELECT u_id FROM user WHERE u_email = ?", [email]);
-            case 4:
-              _yield$pool$execute5 = _context3.sent;
-              _yield$pool$execute6 = _slicedToArray(_yield$pool$execute5, 1);
-              rows = _yield$pool$execute6[0];
-              if (!(rows.length > 0)) {
-                _context3.next = 10;
+              _context3.prev = 0;
+              level = req.params.level;
+              course_name = req.body.course_name;
+              if (course_name) {
+                _context3.next = 5;
                 break;
               }
-              logger.info("User found: ".concat(email));
-              return _context3.abrupt("return", rows[0]);
-            case 10:
-              _context3.next = 16;
-              break;
+              return _context3.abrupt("return", res.status(400).json({
+                status: 400,
+                message: "Missing course name"
+              }));
+            case 5:
+              _context3.next = 7;
+              return pool.execute("UPDATE courses SET course_name = ? WHERE course_level = ?", [course_name, level]);
+            case 7:
+              _yield$pool$execute5 = _context3.sent;
+              _yield$pool$execute6 = _slicedToArray(_yield$pool$execute5, 1);
+              result = _yield$pool$execute6[0];
+              if (!(result.affectedRows === 0)) {
+                _context3.next = 12;
+                break;
+              }
+              return _context3.abrupt("return", res.status(404).json({
+                status: 404,
+                message: "Course not found"
+              }));
             case 12:
-              _context3.prev = 12;
-              _context3.t0 = _context3["catch"](1);
-              logger.error("Error finding user by email (".concat(email, "): ").concat(_context3.t0.message));
-              throw _context3.t0;
+              logger.info("Course name updated for level: ".concat(level));
+              res.status(200).json({
+                status: 200,
+                message: "Course name updated successfully"
+              });
+              _context3.next = 20;
+              break;
             case 16:
+              _context3.prev = 16;
+              _context3.t0 = _context3["catch"](0);
+              logger.error(" Error updating course name: ".concat(_context3.t0.message));
+              res.status(500).json({
+                status: 500,
+                message: "Internal Server Error"
+              });
+            case 20:
             case "end":
               return _context3.stop();
           }
-        }, _callee3, null, [[1, 12]]);
+        }, _callee3, null, [[0, 16]]);
       }));
-      function getUIN(_x2) {
-        return _getUIN.apply(this, arguments);
+      function updateCourseName(_x5, _x6) {
+        return _updateCourseName.apply(this, arguments);
       }
-      return getUIN;
-    }() //  Find User by Email
+      return updateCourseName;
+    }() //Update course prerequisite
   }, {
-    key: "findByEmail",
+    key: "updateCoursePrerequisite",
     value: function () {
-      var _findByEmail = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(email) {
-        var _yield$pool$execute7, _yield$pool$execute8, rows;
+      var _updateCoursePrerequisite = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+        var level, prerequisite, _yield$pool$execute7, _yield$pool$execute8, result;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
               _context4.prev = 0;
-              _context4.next = 3;
-              return pool.execute("SELECT * FROM user WHERE u_email = ?", [email]);
-            case 3:
-              _yield$pool$execute7 = _context4.sent;
-              _yield$pool$execute8 = _slicedToArray(_yield$pool$execute7, 1);
-              rows = _yield$pool$execute8[0];
-              if (!(rows.length > 0)) {
-                _context4.next = 11;
+              level = req.params.level;
+              prerequisite = req.body.prerequisite;
+              if (prerequisite) {
+                _context4.next = 5;
                 break;
               }
-              logger.info("User found: ".concat(email));
-              return _context4.abrupt("return", rows[0]);
-            case 11:
-              logger.warn("User not found: ".concat(email));
-              return _context4.abrupt("return", null);
-            case 13:
-              _context4.next = 19;
+              return _context4.abrupt("return", res.status(400).json({
+                status: 400,
+                message: "Missing prerequisite"
+              }));
+            case 5:
+              _context4.next = 7;
+              return pool.execute("UPDATE courses SET prerequisite = ? WHERE course_level = ?", [prerequisite, level]);
+            case 7:
+              _yield$pool$execute7 = _context4.sent;
+              _yield$pool$execute8 = _slicedToArray(_yield$pool$execute7, 1);
+              result = _yield$pool$execute8[0];
+              if (!(result.affectedRows === 0)) {
+                _context4.next = 12;
+                break;
+              }
+              return _context4.abrupt("return", res.status(404).json({
+                status: 404,
+                message: "Course not found"
+              }));
+            case 12:
+              logger.info("Prerequisite updated for level: ".concat(level));
+              res.status(200).json({
+                status: 200,
+                message: "Prerequisite updated successfully"
+              });
+              _context4.next = 20;
               break;
-            case 15:
-              _context4.prev = 15;
+            case 16:
+              _context4.prev = 16;
               _context4.t0 = _context4["catch"](0);
-              logger.error("Error finding user by email (".concat(email, "): ").concat(_context4.t0.message));
-              throw _context4.t0;
-            case 19:
+              logger.error(" Error updating prerequisite: ".concat(_context4.t0.message));
+              res.status(500).json({
+                status: 500,
+                message: "Internal Server Error"
+              });
+            case 20:
             case "end":
               return _context4.stop();
           }
-        }, _callee4, null, [[0, 15]]);
+        }, _callee4, null, [[0, 16]]);
       }));
-      function findByEmail(_x3) {
-        return _findByEmail.apply(this, arguments);
+      function updateCoursePrerequisite(_x7, _x8) {
+        return _updateCoursePrerequisite.apply(this, arguments);
       }
-      return findByEmail;
-    }() // 3️⃣ Find User by ID
+      return updateCoursePrerequisite;
+    }() //Add a new course
   }, {
-    key: "findByUserId",
+    key: "addCourse",
     value: function () {
-      var _findByUserId = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(userId) {
-        var _yield$pool$execute9, _yield$pool$execute10, rows;
+      var _addCourse = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
+        var _req$body, course_name, course_level, prerequisite, course_lvlGroup, _yield$pool$execute9, _yield$pool$execute10, result;
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
               _context5.prev = 0;
-              _context5.next = 3;
-              return pool.execute("SELECT * FROM user WHERE u_id = ?", [userId]);
-            case 3:
-              _yield$pool$execute9 = _context5.sent;
-              _yield$pool$execute10 = _slicedToArray(_yield$pool$execute9, 1);
-              rows = _yield$pool$execute10[0];
-              if (!(rows.length > 0)) {
-                _context5.next = 10;
+              _req$body = req.body, course_name = _req$body.course_name, course_level = _req$body.course_level, prerequisite = _req$body.prerequisite, course_lvlGroup = _req$body.course_lvlGroup;
+              if (!(!course_name || !course_level)) {
+                _context5.next = 4;
                 break;
               }
-              return _context5.abrupt("return", rows[0]);
-            case 10:
-              logger.warn("User not found by ID: ".concat(userId));
-              return _context5.abrupt("return", null);
-            case 12:
-              _context5.next = 18;
+              return _context5.abrupt("return", res.status(400).json({
+                status: 400,
+                message: "Missing required fields"
+              }));
+            case 4:
+              _context5.next = 6;
+              return pool.execute("INSERT INTO courses (course_name, course_level, prerequisite, course_lvlGroup) VALUES (?, ?, ?, ?)", [course_name, course_level, prerequisite, course_lvlGroup]);
+            case 6:
+              _yield$pool$execute9 = _context5.sent;
+              _yield$pool$execute10 = _slicedToArray(_yield$pool$execute9, 1);
+              result = _yield$pool$execute10[0];
+              logger.info("New course added: ".concat(course_name, " (Level: ").concat(course_level, ")"));
+              res.status(201).json({
+                status: 201,
+                message: "Course successfully added",
+                courseId: result.insertId
+              });
+              _context5.next = 17;
               break;
-            case 14:
-              _context5.prev = 14;
+            case 13:
+              _context5.prev = 13;
               _context5.t0 = _context5["catch"](0);
-              logger.error("Error finding user by ID (".concat(userId, "): ").concat(_context5.t0.message));
-              throw _context5.t0;
-            case 18:
+              logger.error(" Error adding course: ".concat(_context5.t0.message));
+              res.status(500).json({
+                status: 500,
+                message: "pool error"
+              });
+            case 17:
             case "end":
               return _context5.stop();
           }
-        }, _callee5, null, [[0, 14]]);
+        }, _callee5, null, [[0, 13]]);
       }));
-      function findByUserId(_x4) {
-        return _findByUserId.apply(this, arguments);
+      function addCourse(_x9, _x10) {
+        return _addCourse.apply(this, arguments);
       }
-      return findByUserId;
-    }() // Update User Profile (First Name & Last Name)
+      return addCourse;
+    }() //Delete a course
   }, {
-    key: "updateUserProfile",
+    key: "deleteCourse",
     value: function () {
-      var _updateUserProfile = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(userId, _ref3) {
-        var firstName, lastName, _yield$pool$execute11, _yield$pool$execute12, result;
+      var _deleteCourse = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
+        var level, _yield$pool$execute11, _yield$pool$execute12, result;
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              firstName = _ref3.firstName, lastName = _ref3.lastName;
-              _context6.prev = 1;
+              _context6.prev = 0;
+              level = req.params.level;
               _context6.next = 4;
-              return pool.execute("UPDATE user SET u_first_name = ?, u_last_name = ? WHERE u_id = ?", [firstName, lastName, userId]);
+              return pool.execute("DELETE FROM courses WHERE course_level = ?", [level]);
             case 4:
               _yield$pool$execute11 = _context6.sent;
               _yield$pool$execute12 = _slicedToArray(_yield$pool$execute11, 1);
               result = _yield$pool$execute12[0];
-              if (!(result.affectedRows > 0)) {
-                _context6.next = 12;
+              if (!(result.affectedRows === 0)) {
+                _context6.next = 9;
                 break;
               }
-              logger.info("Profile updated for user ID: ".concat(userId));
-              return _context6.abrupt("return", {
-                status: "success",
-                message: "Profile updated successfully"
+              return _context6.abrupt("return", res.status(404).json({
+                status: 404,
+                message: "Course not found"
+              }));
+            case 9:
+              logger.info("Course deleted: Level ".concat(level));
+              res.status(200).json({
+                status: 200,
+                message: "Course deleted successfully"
               });
-            case 12:
-              logger.warn("No changes made to profile - User ID: ".concat(userId));
-              return _context6.abrupt("return", {
-                status: "warning",
-                message: "No changes made"
-              });
-            case 14:
-              _context6.next = 20;
+              _context6.next = 17;
               break;
-            case 16:
-              _context6.prev = 16;
-              _context6.t0 = _context6["catch"](1);
-              logger.error("Failed to update profile for User ID (".concat(userId, "): ").concat(_context6.t0.message));
-              throw _context6.t0;
-            case 20:
+            case 13:
+              _context6.prev = 13;
+              _context6.t0 = _context6["catch"](0);
+              logger.error(" Error deleting course: ".concat(_context6.t0.message));
+              res.status(500).json({
+                status: 500,
+                message: "Internal Server Error"
+              });
+            case 17:
             case "end":
               return _context6.stop();
           }
-        }, _callee6, null, [[1, 16]]);
+        }, _callee6, null, [[0, 13]]);
       }));
-      function updateUserProfile(_x5, _x6) {
-        return _updateUserProfile.apply(this, arguments);
+      function deleteCourse(_x11, _x12) {
+        return _deleteCourse.apply(this, arguments);
       }
-      return updateUserProfile;
-    }() // Update Password by User ID
-  }, {
-    key: "updatePasswordByUserId",
-    value: function () {
-      var _updatePasswordByUserId = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7(userId, hashedPassword) {
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
-            case 0:
-              _context7.prev = 0;
-              _context7.next = 3;
-              return pool.execute("UPDATE user SET u_password = ? WHERE u_id = ?", [hashedPassword, userId]);
-            case 3:
-              logger.info("Password updated for user ID: ".concat(userId));
-              _context7.next = 10;
-              break;
-            case 6:
-              _context7.prev = 6;
-              _context7.t0 = _context7["catch"](0);
-              logger.error("Failed to update password for user ID (".concat(userId, "): ").concat(_context7.t0.message));
-              throw _context7.t0;
-            case 10:
-            case "end":
-              return _context7.stop();
-          }
-        }, _callee7, null, [[0, 6]]);
-      }));
-      function updatePasswordByUserId(_x7, _x8) {
-        return _updatePasswordByUserId.apply(this, arguments);
-      }
-      return updatePasswordByUserId;
-    }() // Update Email Verification (Mark is_verified = true, remove verification_token)
-  }, {
-    key: "verifyUserEmail",
-    value: function () {
-      var _verifyUserEmail = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8(email) {
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
-            case 0:
-              _context8.prev = 0;
-              _context8.next = 3;
-              return pool.execute("UPDATE user SET is_verified = ?, verification_token = NULL WHERE u_email = ?", [true, email]);
-            case 3:
-              logger.info("Email verified for user: ".concat(email));
-              _context8.next = 10;
-              break;
-            case 6:
-              _context8.prev = 6;
-              _context8.t0 = _context8["catch"](0);
-              logger.error("Failed to verify email for user (".concat(email, "): ").concat(_context8.t0.message));
-              throw _context8.t0;
-            case 10:
-            case "end":
-              return _context8.stop();
-          }
-        }, _callee8, null, [[0, 6]]);
-      }));
-      function verifyUserEmail(_x9) {
-        return _verifyUserEmail.apply(this, arguments);
-      }
-      return verifyUserEmail;
-    }() // Update Password by Email (For Reset)
-  }, {
-    key: "updatePasswordByEmail",
-    value: function () {
-      var _updatePasswordByEmail = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9(email, hashedPassword) {
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
-            case 0:
-              _context9.prev = 0;
-              _context9.next = 3;
-              return pool.execute("UPDATE user SET u_password = ? WHERE u_email = ?", [hashedPassword, email]);
-            case 3:
-              logger.info("Password updated for email: ".concat(email));
-              _context9.next = 10;
-              break;
-            case 6:
-              _context9.prev = 6;
-              _context9.t0 = _context9["catch"](0);
-              logger.error("Failed to update password for email (".concat(email, "): ").concat(_context9.t0.message));
-              throw _context9.t0;
-            case 10:
-            case "end":
-              return _context9.stop();
-          }
-        }, _callee9, null, [[0, 6]]);
-      }));
-      function updatePasswordByEmail(_x10, _x11) {
-        return _updatePasswordByEmail.apply(this, arguments);
-      }
-      return updatePasswordByEmail;
+      return deleteCourse;
     }()
   }]);
 }();
-export default UserModel;
+export default CourseController;

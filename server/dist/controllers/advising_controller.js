@@ -8,10 +8,10 @@ function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), 
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 // File: src/controllers/AdvisingController.js
-import AdvisingModel from "../models/AdvisingModel.js";
-import UserModel from "../models/UserModel.js";
-import { sendAdvisingEmail } from "../utils/emailService.js";
-import logger from "../utils/logger.js";
+import AdvisingModel from "../models/advising_model.js";
+import UserModel from "../models/user_model.js";
+import { sendAdvisingEmail } from "../utils/email_service.js";
+import logger from "../utils/my_logger.js";
 var AdvisingController = /*#__PURE__*/function () {
   function AdvisingController() {
     _classCallCheck(this, AdvisingController);

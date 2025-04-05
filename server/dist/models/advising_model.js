@@ -13,333 +13,327 @@ function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = 
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-import pool from "../config/connectdb.js"; // Import pool connection
-import logger from "../utils/logger.js"; // Import logger
-var CourseController = /*#__PURE__*/function () {
-  function CourseController() {
-    _classCallCheck(this, CourseController);
+import pool from "../config/connectdb.js";
+import logger from "../utils/my_logger.js";
+var AdvisingModel = /*#__PURE__*/function () {
+  function AdvisingModel() {
+    _classCallCheck(this, AdvisingModel);
   }
-  return _createClass(CourseController, null, [{
-    key: "getAllCourses",
-    value: //Get all courses
+  return _createClass(AdvisingModel, null, [{
+    key: "getAllRecords",
+    value: (
+    /**
+     *Get all advising records
+     */
     function () {
-      var _getAllCourses = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
+      var _getAllRecords = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var _yield$pool$execute, _yield$pool$execute2, rows;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return pool.execute("SELECT * FROM courses");
+              return pool.execute("SELECT * FROM courseadvising ORDER BY date DESC");
             case 3:
               _yield$pool$execute = _context.sent;
               _yield$pool$execute2 = _slicedToArray(_yield$pool$execute, 1);
               rows = _yield$pool$execute2[0];
-              if (rows.length) {
-                _context.next = 8;
-                break;
-              }
-              return _context.abrupt("return", res.status(404).json({
-                status: 404,
-                message: "No courses found"
-              }));
-            case 8:
-              logger.info("Retrieved all courses from the pool.");
-              res.status(200).json(rows);
-              _context.next = 16;
-              break;
-            case 12:
-              _context.prev = 12;
-              _context.t0 = _context["catch"](0);
-              logger.error(" Error retrieving courses: ".concat(_context.t0.message));
-              res.status(500).json({
-                status: 500,
-                message: "Internal Server Error"
+              // Convert `planned_courses` from JSON string to object
+              rows.forEach(function (row) {
+                if (typeof row.planned_courses === "string") {
+                  row.planned_courses = JSON.parse(row.planned_courses);
+                }
               });
-            case 16:
+              logger.info("Retrieved ".concat(rows.length, " advising records."));
+              return _context.abrupt("return", rows);
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](0);
+              logger.error(" Error fetching all advising records:", _context.t0.message);
+              throw _context.t0;
+            case 15:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 12]]);
+        }, _callee, null, [[0, 11]]);
       }));
-      function getAllCourses(_x, _x2) {
-        return _getAllCourses.apply(this, arguments);
+      function getAllRecords() {
+        return _getAllRecords.apply(this, arguments);
       }
-      return getAllCourses;
-    }() //Get course by course level
+      return getAllRecords;
+    }()
+    /**
+     *Get records by student email
+     */
+    )
   }, {
-    key: "getCourseByLevel",
-    value: function () {
-      var _getCourseByLevel = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-        var level, _yield$pool$execute3, _yield$pool$execute4, rows;
+    key: "getRecordsByEmail",
+    value: (function () {
+      var _getRecordsByEmail = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(studentEmail) {
+        var _yield$pool$execute3, _yield$pool$execute4, rows;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              level = req.params.level;
-              _context2.next = 4;
-              return pool.execute("SELECT * FROM courses WHERE course_level = ?", [level]);
-            case 4:
+              _context2.next = 3;
+              return pool.execute("SELECT * FROM courseadvising WHERE student_email = ? ORDER BY date DESC", [studentEmail]);
+            case 3:
               _yield$pool$execute3 = _context2.sent;
               _yield$pool$execute4 = _slicedToArray(_yield$pool$execute3, 1);
               rows = _yield$pool$execute4[0];
-              if (rows.length) {
-                _context2.next = 9;
-                break;
+              if (rows.length === 0) {
+                logger.warn("No advising records found for ".concat(studentEmail));
               }
-              return _context2.abrupt("return", res.status(404).json({
-                status: 404,
-                message: "Course not found"
-              }));
-            case 9:
-              logger.info("Course found for level: ".concat(level));
-              res.status(200).json(rows);
-              _context2.next = 17;
-              break;
-            case 13:
-              _context2.prev = 13;
-              _context2.t0 = _context2["catch"](0);
-              logger.error(" Error retrieving course for level ".concat(req.params.level, ": ").concat(_context2.t0.message));
-              res.status(500).json({
-                status: 500,
-                message: "Internal Server Error"
+
+              // Convert `planned_courses` from JSON string to object
+              rows.forEach(function (row) {
+                if (typeof row.planned_courses === "string") {
+                  row.planned_courses = JSON.parse(row.planned_courses);
+                }
               });
-            case 17:
+              return _context2.abrupt("return", rows);
+            case 11:
+              _context2.prev = 11;
+              _context2.t0 = _context2["catch"](0);
+              logger.error(" Error fetching advising records for ".concat(studentEmail, ":"), _context2.t0.message);
+              throw _context2.t0;
+            case 15:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[0, 13]]);
+        }, _callee2, null, [[0, 11]]);
       }));
-      function getCourseByLevel(_x3, _x4) {
-        return _getCourseByLevel.apply(this, arguments);
+      function getRecordsByEmail(_x) {
+        return _getRecordsByEmail.apply(this, arguments);
       }
-      return getCourseByLevel;
-    }() //Update course name
+      return getRecordsByEmail;
+    }()
+    /**
+     *Create a new advising record
+     */
+    )
   }, {
-    key: "updateCourseName",
-    value: function () {
-      var _updateCourseName = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
-        var level, course_name, _yield$pool$execute5, _yield$pool$execute6, result;
+    key: "createAdvisingRecord",
+    value: (function () {
+      var _createAdvisingRecord = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(_ref) {
+        var date, current_term, last_term, last_gpa, prerequisites, student_name, planned_courses, student_email, _yield$pool$execute5, _yield$pool$execute6, result;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.prev = 0;
-              level = req.params.level;
-              course_name = req.body.course_name;
-              if (course_name) {
-                _context3.next = 5;
+              date = _ref.date, current_term = _ref.current_term, last_term = _ref.last_term, last_gpa = _ref.last_gpa, prerequisites = _ref.prerequisites, student_name = _ref.student_name, planned_courses = _ref.planned_courses, student_email = _ref.student_email;
+              _context3.prev = 1;
+              if (!(!student_email || !current_term || !planned_courses)) {
+                _context3.next = 4;
                 break;
               }
-              return _context3.abrupt("return", res.status(400).json({
-                status: 400,
-                message: "Missing course name"
-              }));
-            case 5:
-              _context3.next = 7;
-              return pool.execute("UPDATE courses SET course_name = ? WHERE course_level = ?", [course_name, level]);
-            case 7:
+              throw new Error(" Missing required fields: student_email, current_term, or planned_courses");
+            case 4:
+              _context3.next = 6;
+              return pool.execute("INSERT INTO courseadvising \n         (date, current_term, status, last_term, last_gpa, prerequisites, \n          student_name, planned_courses, student_email, rejectionReason)\n         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [date || new Date().toISOString().split("T")[0],
+              // Default to today's date
+              current_term, "Pending",
+              // Default status
+              last_term, last_gpa, prerequisites || "None", student_name, JSON.stringify(planned_courses),
+              // Ensure planned_courses is stored as JSON
+              student_email, "N/A" // Default rejection reason
+              ]);
+            case 6:
               _yield$pool$execute5 = _context3.sent;
               _yield$pool$execute6 = _slicedToArray(_yield$pool$execute5, 1);
               result = _yield$pool$execute6[0];
-              if (!(result.affectedRows === 0)) {
-                _context3.next = 12;
-                break;
-              }
-              return _context3.abrupt("return", res.status(404).json({
-                status: 404,
-                message: "Course not found"
-              }));
-            case 12:
-              logger.info("Course name updated for level: ".concat(level));
-              res.status(200).json({
-                status: 200,
-                message: "Course name updated successfully"
+              logger.info("New advising record created for ".concat(student_email, " (ID: ").concat(result.insertId, ")"));
+              return _context3.abrupt("return", {
+                id: result.insertId
               });
-              _context3.next = 20;
-              break;
-            case 16:
-              _context3.prev = 16;
-              _context3.t0 = _context3["catch"](0);
-              logger.error(" Error updating course name: ".concat(_context3.t0.message));
-              res.status(500).json({
-                status: 500,
-                message: "Internal Server Error"
-              });
-            case 20:
+            case 13:
+              _context3.prev = 13;
+              _context3.t0 = _context3["catch"](1);
+              logger.error(" Error creating new advising record:", _context3.t0.message);
+              throw _context3.t0;
+            case 17:
             case "end":
               return _context3.stop();
           }
-        }, _callee3, null, [[0, 16]]);
+        }, _callee3, null, [[1, 13]]);
       }));
-      function updateCourseName(_x5, _x6) {
-        return _updateCourseName.apply(this, arguments);
+      function createAdvisingRecord(_x2) {
+        return _createAdvisingRecord.apply(this, arguments);
       }
-      return updateCourseName;
-    }() //Update course prerequisite
+      return createAdvisingRecord;
+    }() // In your AdvisingModel.js
+    )
   }, {
-    key: "updateCoursePrerequisite",
+    key: "updateRecordById",
     value: function () {
-      var _updateCoursePrerequisite = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
-        var level, prerequisite, _yield$pool$execute7, _yield$pool$execute8, result;
+      var _updateRecordById = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(id, data) {
+        var date, current_term, last_term, last_gpa, prerequisites, student_name, planned_courses, _yield$pool$execute7, _yield$pool$execute8, result;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
               _context4.prev = 0;
-              level = req.params.level;
-              prerequisite = req.body.prerequisite;
-              if (prerequisite) {
-                _context4.next = 5;
-                break;
-              }
-              return _context4.abrupt("return", res.status(400).json({
-                status: 400,
-                message: "Missing prerequisite"
-              }));
-            case 5:
-              _context4.next = 7;
-              return pool.execute("UPDATE courses SET prerequisite = ? WHERE course_level = ?", [prerequisite, level]);
-            case 7:
+              date = data.date, current_term = data.current_term, last_term = data.last_term, last_gpa = data.last_gpa, prerequisites = data.prerequisites, student_name = data.student_name, planned_courses = data.planned_courses;
+              _context4.next = 4;
+              return pool.execute("UPDATE courseadvising \n       SET date = ?, \n           current_term = ?, \n           last_term = ?, \n           last_gpa = ?, \n           prerequisites = ?, \n           student_name = ?, \n           planned_courses = ?\n       WHERE id = ?", [date, current_term, last_term, last_gpa, prerequisites || "None", student_name, JSON.stringify(planned_courses), id]);
+            case 4:
               _yield$pool$execute7 = _context4.sent;
               _yield$pool$execute8 = _slicedToArray(_yield$pool$execute7, 1);
               result = _yield$pool$execute8[0];
-              if (!(result.affectedRows === 0)) {
-                _context4.next = 12;
-                break;
-              }
-              return _context4.abrupt("return", res.status(404).json({
-                status: 404,
-                message: "Course not found"
-              }));
-            case 12:
-              logger.info("Prerequisite updated for level: ".concat(level));
-              res.status(200).json({
-                status: 200,
-                message: "Prerequisite updated successfully"
-              });
-              _context4.next = 20;
-              break;
-            case 16:
-              _context4.prev = 16;
+              return _context4.abrupt("return", result);
+            case 10:
+              _context4.prev = 10;
               _context4.t0 = _context4["catch"](0);
-              logger.error(" Error updating prerequisite: ".concat(_context4.t0.message));
-              res.status(500).json({
-                status: 500,
-                message: "Internal Server Error"
-              });
-            case 20:
+              logger.error("Error updating record ".concat(id, ":"), _context4.t0.message);
+              throw _context4.t0;
+            case 14:
             case "end":
               return _context4.stop();
           }
-        }, _callee4, null, [[0, 16]]);
+        }, _callee4, null, [[0, 10]]);
       }));
-      function updateCoursePrerequisite(_x7, _x8) {
-        return _updateCoursePrerequisite.apply(this, arguments);
+      function updateRecordById(_x3, _x4) {
+        return _updateRecordById.apply(this, arguments);
       }
-      return updateCoursePrerequisite;
-    }() //Add a new course
+      return updateRecordById;
+    }()
+    /**
+     *Update record status (and rejectionReason) by ID
+     */
   }, {
-    key: "addCourse",
-    value: function () {
-      var _addCourse = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
-        var _req$body, course_name, course_level, prerequisite, course_lvlGroup, _yield$pool$execute9, _yield$pool$execute10, result;
+    key: "updateStatusById",
+    value: (function () {
+      var _updateStatusById = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(id, status) {
+        var rejectionReason,
+          _yield$pool$execute9,
+          _yield$pool$execute10,
+          result,
+          _args5 = arguments;
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
-              _context5.prev = 0;
-              _req$body = req.body, course_name = _req$body.course_name, course_level = _req$body.course_level, prerequisite = _req$body.prerequisite, course_lvlGroup = _req$body.course_lvlGroup;
-              if (!(!course_name || !course_level)) {
-                _context5.next = 4;
-                break;
-              }
-              return _context5.abrupt("return", res.status(400).json({
-                status: 400,
-                message: "Missing required fields"
-              }));
+              rejectionReason = _args5.length > 2 && _args5[2] !== undefined ? _args5[2] : "N/A";
+              _context5.prev = 1;
+              _context5.next = 4;
+              return pool.execute("UPDATE courseadvising SET status=?, rejectionReason=? WHERE id=?", [status, rejectionReason, id]);
             case 4:
-              _context5.next = 6;
-              return pool.execute("INSERT INTO courses (course_name, course_level, prerequisite, course_lvlGroup) VALUES (?, ?, ?, ?)", [course_name, course_level, prerequisite, course_lvlGroup]);
-            case 6:
               _yield$pool$execute9 = _context5.sent;
               _yield$pool$execute10 = _slicedToArray(_yield$pool$execute9, 1);
               result = _yield$pool$execute10[0];
-              logger.info("New course added: ".concat(course_name, " (Level: ").concat(course_level, ")"));
-              res.status(201).json({
-                status: 201,
-                message: "Course successfully added",
-                courseId: result.insertId
-              });
-              _context5.next = 17;
-              break;
-            case 13:
-              _context5.prev = 13;
-              _context5.t0 = _context5["catch"](0);
-              logger.error(" Error adding course: ".concat(_context5.t0.message));
-              res.status(500).json({
-                status: 500,
-                message: "pool error"
-              });
-            case 17:
+              if (!(result.affectedRows === 0)) {
+                _context5.next = 10;
+                break;
+              }
+              logger.warn("No advising record found for ID ".concat(id));
+              return _context5.abrupt("return", false);
+            case 10:
+              logger.info("Advising record ID ".concat(id, " updated to status: ").concat(status));
+              return _context5.abrupt("return", true);
+            case 14:
+              _context5.prev = 14;
+              _context5.t0 = _context5["catch"](1);
+              logger.error(" Error updating status for record ".concat(id, ":"), _context5.t0.message);
+              throw _context5.t0;
+            case 18:
             case "end":
               return _context5.stop();
           }
-        }, _callee5, null, [[0, 13]]);
+        }, _callee5, null, [[1, 14]]);
       }));
-      function addCourse(_x9, _x10) {
-        return _addCourse.apply(this, arguments);
+      function updateStatusById(_x5, _x6) {
+        return _updateStatusById.apply(this, arguments);
       }
-      return addCourse;
-    }() //Delete a course
+      return updateStatusById;
+    }()
+    /**
+     *Get an advising record by its ID
+     */
+    )
   }, {
-    key: "deleteCourse",
-    value: function () {
-      var _deleteCourse = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
-        var level, _yield$pool$execute11, _yield$pool$execute12, result;
+    key: "getRecordById",
+    value: (function () {
+      var _getRecordById = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(id) {
+        var _yield$pool$execute11, _yield$pool$execute12, rows;
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
               _context6.prev = 0;
-              level = req.params.level;
-              _context6.next = 4;
-              return pool.execute("DELETE FROM courses WHERE course_level = ?", [level]);
-            case 4:
+              _context6.next = 3;
+              return pool.execute("SELECT * FROM courseadvising WHERE id = ?", [id]);
+            case 3:
               _yield$pool$execute11 = _context6.sent;
               _yield$pool$execute12 = _slicedToArray(_yield$pool$execute11, 1);
-              result = _yield$pool$execute12[0];
-              if (!(result.affectedRows === 0)) {
+              rows = _yield$pool$execute12[0];
+              if (!(rows.length === 0)) {
                 _context6.next = 9;
                 break;
               }
-              return _context6.abrupt("return", res.status(404).json({
-                status: 404,
-                message: "Course not found"
-              }));
+              logger.warn("No advising record found with ID ".concat(id));
+              return _context6.abrupt("return", null);
             case 9:
-              logger.info("Course deleted: Level ".concat(level));
-              res.status(200).json({
-                status: 200,
-                message: "Course deleted successfully"
-              });
-              _context6.next = 17;
-              break;
-            case 13:
-              _context6.prev = 13;
+              // Convert `planned_courses` from JSON string to object
+              if (typeof rows[0].planned_courses === "string") {
+                rows[0].planned_courses = JSON.parse(rows[0].planned_courses);
+              }
+              logger.info("Advising record ID ".concat(id, " retrieved successfully."));
+              return _context6.abrupt("return", rows[0]);
+            case 14:
+              _context6.prev = 14;
               _context6.t0 = _context6["catch"](0);
-              logger.error(" Error deleting course: ".concat(_context6.t0.message));
-              res.status(500).json({
-                status: 500,
-                message: "Internal Server Error"
-              });
-            case 17:
+              logger.error(" Error fetching advising record for ID ".concat(id, ":"), _context6.t0.message);
+              throw _context6.t0;
+            case 18:
             case "end":
               return _context6.stop();
           }
-        }, _callee6, null, [[0, 13]]);
+        }, _callee6, null, [[0, 14]]);
       }));
-      function deleteCourse(_x11, _x12) {
-        return _deleteCourse.apply(this, arguments);
+      function getRecordById(_x7) {
+        return _getRecordById.apply(this, arguments);
       }
-      return deleteCourse;
+      return getRecordById;
     }()
+    /**
+     *Get student email by record ID (for notifications)
+     */
+    )
+  }, {
+    key: "getStudentEmailById",
+    value: (function () {
+      var _getStudentEmailById = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7(id) {
+        var _yield$pool$execute13, _yield$pool$execute14, rows;
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.prev = 0;
+              _context7.next = 3;
+              return pool.execute("SELECT student_email FROM courseadvising WHERE id = ?", [id]);
+            case 3:
+              _yield$pool$execute13 = _context7.sent;
+              _yield$pool$execute14 = _slicedToArray(_yield$pool$execute13, 1);
+              rows = _yield$pool$execute14[0];
+              if (!(rows.length === 0)) {
+                _context7.next = 9;
+                break;
+              }
+              logger.warn("No email found for advising record ID ".concat(id));
+              return _context7.abrupt("return", null);
+            case 9:
+              return _context7.abrupt("return", rows[0].student_email);
+            case 12:
+              _context7.prev = 12;
+              _context7.t0 = _context7["catch"](0);
+              logger.error(" Error retrieving student email for record ".concat(id, ":"), _context7.t0.message);
+              throw _context7.t0;
+            case 16:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7, null, [[0, 12]]);
+      }));
+      function getStudentEmailById(_x8) {
+        return _getStudentEmailById.apply(this, arguments);
+      }
+      return getStudentEmailById;
+    }())
   }]);
 }();
-export default CourseController;
+export default AdvisingModel;

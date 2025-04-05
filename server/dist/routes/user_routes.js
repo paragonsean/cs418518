@@ -1,8 +1,8 @@
 import express from "express";
-import UserController from "../controllers/UserController.js";
-import AuthController from "../controllers/AuthController.js";
-import PasswordController from "../controllers/PasswordController.js";
-import checkUserAuth from "../middleware/AuthMiddleware.js";
+import UserController from "../controllers/user_controller.js";
+import AuthController from "../controllers/auth_controller.js";
+import PasswordController from "../controllers/password_controller.js";
+import checkUserAuth from "../middleware/auth_middleware.js";
 var router = express.Router();
 
 //  Public Routes (No Authentication Required)

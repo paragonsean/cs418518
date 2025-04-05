@@ -14,88 +14,74 @@ function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), 
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 import pool from "../config/connectdb.js";
-import logger from "../utils/logger.js";
-var AdvisingModel = /*#__PURE__*/function () {
-  function AdvisingModel() {
-    _classCallCheck(this, AdvisingModel);
+import logger from "../utils/my_logger.js"; // Import logger
+var UserModel = /*#__PURE__*/function () {
+  function UserModel() {
+    _classCallCheck(this, UserModel);
   }
-  return _createClass(AdvisingModel, null, [{
-    key: "getAllRecords",
-    value: (
-    /**
-     *Get all advising records
-     */
+  return _createClass(UserModel, null, [{
+    key: "createUser",
+    value: // Create a New User
     function () {
-      var _getAllRecords = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var _yield$pool$execute, _yield$pool$execute2, rows;
+      var _createUser = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(_ref) {
+        var firstName, lastName, email, hashedPassword, verificationToken, _yield$pool$execute, _yield$pool$execute2, result;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-              _context.next = 3;
-              return pool.execute("SELECT * FROM courseadvising ORDER BY date DESC");
-            case 3:
+              firstName = _ref.firstName, lastName = _ref.lastName, email = _ref.email, hashedPassword = _ref.hashedPassword, verificationToken = _ref.verificationToken;
+              _context.prev = 1;
+              _context.next = 4;
+              return pool.execute("INSERT INTO user (u_first_name, u_last_name, u_email, u_password, is_verified, verification_token)\n         VALUES (?, ?, ?, ?, ?, ?)", [firstName, lastName, email, hashedPassword, false, verificationToken]);
+            case 4:
               _yield$pool$execute = _context.sent;
               _yield$pool$execute2 = _slicedToArray(_yield$pool$execute, 1);
-              rows = _yield$pool$execute2[0];
-              // Convert `planned_courses` from JSON string to object
-              rows.forEach(function (row) {
-                if (typeof row.planned_courses === "string") {
-                  row.planned_courses = JSON.parse(row.planned_courses);
-                }
-              });
-              logger.info("Retrieved ".concat(rows.length, " advising records."));
-              return _context.abrupt("return", rows);
+              result = _yield$pool$execute2[0];
+              logger.info("New user created: ".concat(email));
+              return _context.abrupt("return", result);
             case 11:
               _context.prev = 11;
-              _context.t0 = _context["catch"](0);
-              logger.error(" Error fetching all advising records:", _context.t0.message);
+              _context.t0 = _context["catch"](1);
+              logger.error("Failed to create user (".concat(email, "): ").concat(_context.t0.message));
               throw _context.t0;
             case 15:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 11]]);
+        }, _callee, null, [[1, 11]]);
       }));
-      function getAllRecords() {
-        return _getAllRecords.apply(this, arguments);
+      function createUser(_x) {
+        return _createUser.apply(this, arguments);
       }
-      return getAllRecords;
+      return createUser;
     }()
-    /**
-     *Get records by student email
-     */
-    )
   }, {
-    key: "getRecordsByEmail",
-    value: (function () {
-      var _getRecordsByEmail = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(studentEmail) {
+    key: "getLastUserID",
+    value: function () {
+      var _getLastUserID = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var _yield$pool$execute3, _yield$pool$execute4, rows;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return pool.execute("SELECT * FROM courseadvising WHERE student_email = ? ORDER BY date DESC", [studentEmail]);
+              return pool.execute("SELECT u_id FROM user ORDER BY u_id DESC LIMIT 1");
             case 3:
               _yield$pool$execute3 = _context2.sent;
               _yield$pool$execute4 = _slicedToArray(_yield$pool$execute3, 1);
               rows = _yield$pool$execute4[0];
-              if (rows.length === 0) {
-                logger.warn("No advising records found for ".concat(studentEmail));
+              if (!(rows.length > 0)) {
+                _context2.next = 9;
+                break;
               }
-
-              // Convert `planned_courses` from JSON string to object
-              rows.forEach(function (row) {
-                if (typeof row.planned_courses === "string") {
-                  row.planned_courses = JSON.parse(row.planned_courses);
-                }
-              });
-              return _context2.abrupt("return", rows);
+              logger.info("User found: ".concat(rows[0].u_id));
+              return _context2.abrupt("return", rows[0].u_id);
+            case 9:
+              _context2.next = 15;
+              break;
             case 11:
               _context2.prev = 11;
               _context2.t0 = _context2["catch"](0);
-              logger.error(" Error fetching advising records for ".concat(studentEmail, ":"), _context2.t0.message);
+              logger.error("Error finding user by email (".concat(email, "): ").concat(_context2.t0.message));
               throw _context2.t0;
             case 15:
             case "end":
@@ -103,237 +89,277 @@ var AdvisingModel = /*#__PURE__*/function () {
           }
         }, _callee2, null, [[0, 11]]);
       }));
-      function getRecordsByEmail(_x) {
-        return _getRecordsByEmail.apply(this, arguments);
+      function getLastUserID() {
+        return _getLastUserID.apply(this, arguments);
       }
-      return getRecordsByEmail;
+      return getLastUserID;
     }()
-    /**
-     *Create a new advising record
-     */
-    )
   }, {
-    key: "createAdvisingRecord",
-    value: (function () {
-      var _createAdvisingRecord = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(_ref) {
-        var date, current_term, last_term, last_gpa, prerequisites, student_name, planned_courses, student_email, _yield$pool$execute5, _yield$pool$execute6, result;
+    key: "getUIN",
+    value: function () {
+      var _getUIN = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(_ref2) {
+        var email, _yield$pool$execute5, _yield$pool$execute6, rows;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              date = _ref.date, current_term = _ref.current_term, last_term = _ref.last_term, last_gpa = _ref.last_gpa, prerequisites = _ref.prerequisites, student_name = _ref.student_name, planned_courses = _ref.planned_courses, student_email = _ref.student_email;
+              email = _ref2.email;
               _context3.prev = 1;
-              if (!(!student_email || !current_term || !planned_courses)) {
-                _context3.next = 4;
-                break;
-              }
-              throw new Error(" Missing required fields: student_email, current_term, or planned_courses");
+              _context3.next = 4;
+              return pool.execute("SELECT u_id FROM user WHERE u_email = ?", [email]);
             case 4:
-              _context3.next = 6;
-              return pool.execute("INSERT INTO courseadvising \n         (date, current_term, status, last_term, last_gpa, prerequisites, \n          student_name, planned_courses, student_email, rejectionReason)\n         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [date || new Date().toISOString().split("T")[0],
-              // Default to today's date
-              current_term, "Pending",
-              // Default status
-              last_term, last_gpa, prerequisites || "None", student_name, JSON.stringify(planned_courses),
-              // Ensure planned_courses is stored as JSON
-              student_email, "N/A" // Default rejection reason
-              ]);
-            case 6:
               _yield$pool$execute5 = _context3.sent;
               _yield$pool$execute6 = _slicedToArray(_yield$pool$execute5, 1);
-              result = _yield$pool$execute6[0];
-              logger.info("New advising record created for ".concat(student_email, " (ID: ").concat(result.insertId, ")"));
-              return _context3.abrupt("return", {
-                id: result.insertId
-              });
-            case 13:
-              _context3.prev = 13;
+              rows = _yield$pool$execute6[0];
+              if (!(rows.length > 0)) {
+                _context3.next = 10;
+                break;
+              }
+              logger.info("User found: ".concat(email));
+              return _context3.abrupt("return", rows[0]);
+            case 10:
+              _context3.next = 16;
+              break;
+            case 12:
+              _context3.prev = 12;
               _context3.t0 = _context3["catch"](1);
-              logger.error(" Error creating new advising record:", _context3.t0.message);
+              logger.error("Error finding user by email (".concat(email, "): ").concat(_context3.t0.message));
               throw _context3.t0;
-            case 17:
+            case 16:
             case "end":
               return _context3.stop();
           }
-        }, _callee3, null, [[1, 13]]);
+        }, _callee3, null, [[1, 12]]);
       }));
-      function createAdvisingRecord(_x2) {
-        return _createAdvisingRecord.apply(this, arguments);
+      function getUIN(_x2) {
+        return _getUIN.apply(this, arguments);
       }
-      return createAdvisingRecord;
-    }() // In your AdvisingModel.js
-    )
+      return getUIN;
+    }() //  Find User by Email
   }, {
-    key: "updateRecordById",
+    key: "findByEmail",
     value: function () {
-      var _updateRecordById = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(id, data) {
-        var date, current_term, last_term, last_gpa, prerequisites, student_name, planned_courses, _yield$pool$execute7, _yield$pool$execute8, result;
+      var _findByEmail = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(email) {
+        var _yield$pool$execute7, _yield$pool$execute8, rows;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
               _context4.prev = 0;
-              date = data.date, current_term = data.current_term, last_term = data.last_term, last_gpa = data.last_gpa, prerequisites = data.prerequisites, student_name = data.student_name, planned_courses = data.planned_courses;
-              _context4.next = 4;
-              return pool.execute("UPDATE courseadvising \n       SET date = ?, \n           current_term = ?, \n           last_term = ?, \n           last_gpa = ?, \n           prerequisites = ?, \n           student_name = ?, \n           planned_courses = ?\n       WHERE id = ?", [date, current_term, last_term, last_gpa, prerequisites || "None", student_name, JSON.stringify(planned_courses), id]);
-            case 4:
+              _context4.next = 3;
+              return pool.execute("SELECT * FROM user WHERE u_email = ?", [email]);
+            case 3:
               _yield$pool$execute7 = _context4.sent;
               _yield$pool$execute8 = _slicedToArray(_yield$pool$execute7, 1);
-              result = _yield$pool$execute8[0];
-              return _context4.abrupt("return", result);
-            case 10:
-              _context4.prev = 10;
+              rows = _yield$pool$execute8[0];
+              if (!(rows.length > 0)) {
+                _context4.next = 11;
+                break;
+              }
+              logger.info("User found: ".concat(email));
+              return _context4.abrupt("return", rows[0]);
+            case 11:
+              logger.warn("User not found: ".concat(email));
+              return _context4.abrupt("return", null);
+            case 13:
+              _context4.next = 19;
+              break;
+            case 15:
+              _context4.prev = 15;
               _context4.t0 = _context4["catch"](0);
-              logger.error("Error updating record ".concat(id, ":"), _context4.t0.message);
+              logger.error("Error finding user by email (".concat(email, "): ").concat(_context4.t0.message));
               throw _context4.t0;
-            case 14:
+            case 19:
             case "end":
               return _context4.stop();
           }
-        }, _callee4, null, [[0, 10]]);
+        }, _callee4, null, [[0, 15]]);
       }));
-      function updateRecordById(_x3, _x4) {
-        return _updateRecordById.apply(this, arguments);
+      function findByEmail(_x3) {
+        return _findByEmail.apply(this, arguments);
       }
-      return updateRecordById;
-    }()
-    /**
-     *Update record status (and rejectionReason) by ID
-     */
+      return findByEmail;
+    }() // 3️⃣ Find User by ID
   }, {
-    key: "updateStatusById",
-    value: (function () {
-      var _updateStatusById = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(id, status) {
-        var rejectionReason,
-          _yield$pool$execute9,
-          _yield$pool$execute10,
-          result,
-          _args5 = arguments;
+    key: "findByUserId",
+    value: function () {
+      var _findByUserId = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(userId) {
+        var _yield$pool$execute9, _yield$pool$execute10, rows;
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
-              rejectionReason = _args5.length > 2 && _args5[2] !== undefined ? _args5[2] : "N/A";
-              _context5.prev = 1;
-              _context5.next = 4;
-              return pool.execute("UPDATE courseadvising SET status=?, rejectionReason=? WHERE id=?", [status, rejectionReason, id]);
-            case 4:
+              _context5.prev = 0;
+              _context5.next = 3;
+              return pool.execute("SELECT * FROM user WHERE u_id = ?", [userId]);
+            case 3:
               _yield$pool$execute9 = _context5.sent;
               _yield$pool$execute10 = _slicedToArray(_yield$pool$execute9, 1);
-              result = _yield$pool$execute10[0];
-              if (!(result.affectedRows === 0)) {
+              rows = _yield$pool$execute10[0];
+              if (!(rows.length > 0)) {
                 _context5.next = 10;
                 break;
               }
-              logger.warn("No advising record found for ID ".concat(id));
-              return _context5.abrupt("return", false);
+              return _context5.abrupt("return", rows[0]);
             case 10:
-              logger.info("Advising record ID ".concat(id, " updated to status: ").concat(status));
-              return _context5.abrupt("return", true);
+              logger.warn("User not found by ID: ".concat(userId));
+              return _context5.abrupt("return", null);
+            case 12:
+              _context5.next = 18;
+              break;
             case 14:
               _context5.prev = 14;
-              _context5.t0 = _context5["catch"](1);
-              logger.error(" Error updating status for record ".concat(id, ":"), _context5.t0.message);
+              _context5.t0 = _context5["catch"](0);
+              logger.error("Error finding user by ID (".concat(userId, "): ").concat(_context5.t0.message));
               throw _context5.t0;
             case 18:
             case "end":
               return _context5.stop();
           }
-        }, _callee5, null, [[1, 14]]);
+        }, _callee5, null, [[0, 14]]);
       }));
-      function updateStatusById(_x5, _x6) {
-        return _updateStatusById.apply(this, arguments);
+      function findByUserId(_x4) {
+        return _findByUserId.apply(this, arguments);
       }
-      return updateStatusById;
-    }()
-    /**
-     *Get an advising record by its ID
-     */
-    )
+      return findByUserId;
+    }() // Update User Profile (First Name & Last Name)
   }, {
-    key: "getRecordById",
-    value: (function () {
-      var _getRecordById = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(id) {
-        var _yield$pool$execute11, _yield$pool$execute12, rows;
+    key: "updateUserProfile",
+    value: function () {
+      var _updateUserProfile = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(userId, _ref3) {
+        var firstName, lastName, _yield$pool$execute11, _yield$pool$execute12, result;
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              _context6.prev = 0;
-              _context6.next = 3;
-              return pool.execute("SELECT * FROM courseadvising WHERE id = ?", [id]);
-            case 3:
+              firstName = _ref3.firstName, lastName = _ref3.lastName;
+              _context6.prev = 1;
+              _context6.next = 4;
+              return pool.execute("UPDATE user SET u_first_name = ?, u_last_name = ? WHERE u_id = ?", [firstName, lastName, userId]);
+            case 4:
               _yield$pool$execute11 = _context6.sent;
               _yield$pool$execute12 = _slicedToArray(_yield$pool$execute11, 1);
-              rows = _yield$pool$execute12[0];
-              if (!(rows.length === 0)) {
-                _context6.next = 9;
+              result = _yield$pool$execute12[0];
+              if (!(result.affectedRows > 0)) {
+                _context6.next = 12;
                 break;
               }
-              logger.warn("No advising record found with ID ".concat(id));
-              return _context6.abrupt("return", null);
-            case 9:
-              // Convert `planned_courses` from JSON string to object
-              if (typeof rows[0].planned_courses === "string") {
-                rows[0].planned_courses = JSON.parse(rows[0].planned_courses);
-              }
-              logger.info("Advising record ID ".concat(id, " retrieved successfully."));
-              return _context6.abrupt("return", rows[0]);
+              logger.info("Profile updated for user ID: ".concat(userId));
+              return _context6.abrupt("return", {
+                status: "success",
+                message: "Profile updated successfully"
+              });
+            case 12:
+              logger.warn("No changes made to profile - User ID: ".concat(userId));
+              return _context6.abrupt("return", {
+                status: "warning",
+                message: "No changes made"
+              });
             case 14:
-              _context6.prev = 14;
-              _context6.t0 = _context6["catch"](0);
-              logger.error(" Error fetching advising record for ID ".concat(id, ":"), _context6.t0.message);
+              _context6.next = 20;
+              break;
+            case 16:
+              _context6.prev = 16;
+              _context6.t0 = _context6["catch"](1);
+              logger.error("Failed to update profile for User ID (".concat(userId, "): ").concat(_context6.t0.message));
               throw _context6.t0;
-            case 18:
+            case 20:
             case "end":
               return _context6.stop();
           }
-        }, _callee6, null, [[0, 14]]);
+        }, _callee6, null, [[1, 16]]);
       }));
-      function getRecordById(_x7) {
-        return _getRecordById.apply(this, arguments);
+      function updateUserProfile(_x5, _x6) {
+        return _updateUserProfile.apply(this, arguments);
       }
-      return getRecordById;
-    }()
-    /**
-     *Get student email by record ID (for notifications)
-     */
-    )
+      return updateUserProfile;
+    }() // Update Password by User ID
   }, {
-    key: "getStudentEmailById",
-    value: (function () {
-      var _getStudentEmailById = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7(id) {
-        var _yield$pool$execute13, _yield$pool$execute14, rows;
+    key: "updatePasswordByUserId",
+    value: function () {
+      var _updatePasswordByUserId = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7(userId, hashedPassword) {
         return _regeneratorRuntime().wrap(function _callee7$(_context7) {
           while (1) switch (_context7.prev = _context7.next) {
             case 0:
               _context7.prev = 0;
               _context7.next = 3;
-              return pool.execute("SELECT student_email FROM courseadvising WHERE id = ?", [id]);
+              return pool.execute("UPDATE user SET u_password = ? WHERE u_id = ?", [hashedPassword, userId]);
             case 3:
-              _yield$pool$execute13 = _context7.sent;
-              _yield$pool$execute14 = _slicedToArray(_yield$pool$execute13, 1);
-              rows = _yield$pool$execute14[0];
-              if (!(rows.length === 0)) {
-                _context7.next = 9;
-                break;
-              }
-              logger.warn("No email found for advising record ID ".concat(id));
-              return _context7.abrupt("return", null);
-            case 9:
-              return _context7.abrupt("return", rows[0].student_email);
-            case 12:
-              _context7.prev = 12;
+              logger.info("Password updated for user ID: ".concat(userId));
+              _context7.next = 10;
+              break;
+            case 6:
+              _context7.prev = 6;
               _context7.t0 = _context7["catch"](0);
-              logger.error(" Error retrieving student email for record ".concat(id, ":"), _context7.t0.message);
+              logger.error("Failed to update password for user ID (".concat(userId, "): ").concat(_context7.t0.message));
               throw _context7.t0;
-            case 16:
+            case 10:
             case "end":
               return _context7.stop();
           }
-        }, _callee7, null, [[0, 12]]);
+        }, _callee7, null, [[0, 6]]);
       }));
-      function getStudentEmailById(_x8) {
-        return _getStudentEmailById.apply(this, arguments);
+      function updatePasswordByUserId(_x7, _x8) {
+        return _updatePasswordByUserId.apply(this, arguments);
       }
-      return getStudentEmailById;
-    }())
+      return updatePasswordByUserId;
+    }() // Update Email Verification (Mark is_verified = true, remove verification_token)
+  }, {
+    key: "verifyUserEmail",
+    value: function () {
+      var _verifyUserEmail = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8(email) {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.prev = 0;
+              _context8.next = 3;
+              return pool.execute("UPDATE user SET is_verified = ?, verification_token = NULL WHERE u_email = ?", [true, email]);
+            case 3:
+              logger.info("Email verified for user: ".concat(email));
+              _context8.next = 10;
+              break;
+            case 6:
+              _context8.prev = 6;
+              _context8.t0 = _context8["catch"](0);
+              logger.error("Failed to verify email for user (".concat(email, "): ").concat(_context8.t0.message));
+              throw _context8.t0;
+            case 10:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8, null, [[0, 6]]);
+      }));
+      function verifyUserEmail(_x9) {
+        return _verifyUserEmail.apply(this, arguments);
+      }
+      return verifyUserEmail;
+    }() // Update Password by Email (For Reset)
+  }, {
+    key: "updatePasswordByEmail",
+    value: function () {
+      var _updatePasswordByEmail = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9(email, hashedPassword) {
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.prev = 0;
+              _context9.next = 3;
+              return pool.execute("UPDATE user SET u_password = ? WHERE u_email = ?", [hashedPassword, email]);
+            case 3:
+              logger.info("Password updated for email: ".concat(email));
+              _context9.next = 10;
+              break;
+            case 6:
+              _context9.prev = 6;
+              _context9.t0 = _context9["catch"](0);
+              logger.error("Failed to update password for email (".concat(email, "): ").concat(_context9.t0.message));
+              throw _context9.t0;
+            case 10:
+            case "end":
+              return _context9.stop();
+          }
+        }, _callee9, null, [[0, 6]]);
+      }));
+      function updatePasswordByEmail(_x10, _x11) {
+        return _updatePasswordByEmail.apply(this, arguments);
+      }
+      return updatePasswordByEmail;
+    }()
   }]);
 }();
-export default AdvisingModel;
+export default UserModel;
