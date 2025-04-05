@@ -1,6 +1,23 @@
-version: "3.8"
+version: '3.8'
 
 services:
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: ngrok
+    restart: always
+    environment:
+      NGROK_AUTHTOKEN: 2v79zWUP1YjCpwK37FgzRwSxA8c_35Vp79iZffaYX9fc9vpQz
+    ports:
+      - "4040:4040" # Ngrok Web Interface
+    entrypoint: /bin/sh -c
+    command: >
+      ngrok http frontend:3000 --subdomain=newstudentportal &
+      ngrok http backend:8000 --subdomain=newstudentportal-backend &
+      wait
+    depends_on:
+      - frontend
+      - backend
+
   mysql:
     image: mysql:8
     container_name: mysql
@@ -12,19 +29,7 @@ services:
       - mysql_data:/var/lib/mysql
       - ./database/courses.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "3307:3306"
-
-  ngrok:
-    image: wernight/ngrok
-    container_name: ngrok
-    restart: always
-    environment:
-      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}  # Ensure this environment variable is set in your environment or .env file
-    volumes:
-      - ./ngrok.yml:/ngrok.yml  # Map your ngrok.yml configuration file
-    ports:
-      - "4040:4040"
-    command: ngrok start --config /ngrok.yml --all  # Start ngrok with the ngrok.yml configuration
+      - "3307:3306"  # 🔧 Host 3307 → Container 3306
 
   backend:
     build: ./server
@@ -36,7 +41,6 @@ services:
       - "8000:8000"
     depends_on:
       - mysql
-      - ngrok
 
   frontend:
     build: ./client
@@ -45,7 +49,7 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - ./client/.env
+      - ./client/.env  # Make sure this loads the client secrets into the frontend service
     depends_on:
       - backend
 

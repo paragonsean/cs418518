@@ -2,7 +2,7 @@
 import Cookies from "js-cookie";
 import { useState } from "react";
 import urlJoin from "url-join";
-import publicRequest from "../utils/publicRequest";
+import publicRequest from "@/utils/publicRequest";
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000";
 const authUrl = urlJoin(baseUrl, "api/user");
