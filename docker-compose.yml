@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mysql:
@@ -12,7 +12,7 @@ services:
       - mysql_data:/var/lib/mysql
       - ./database/courses.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "3307:3306"  # 🔧 Host 3307 → Container 3306
+      - "3307:3306"
 
   ngrok:
     image: wernight/ngrok
@@ -23,7 +23,7 @@ services:
     volumes:
       - ./ngrok.yml:/ngrok.yml  # Map your ngrok.yml configuration file
     ports:
-      - "4040:4040"  # Expose ngrok's web interface to the host
+      - "4040:4040"
     command: ngrok start --config /ngrok.yml --all  # Start ngrok with the ngrok.yml configuration
 
   backend:
@@ -36,7 +36,7 @@ services:
       - "8000:8000"
     depends_on:
       - mysql
-      - ngrok  # Ensure ngrok is started before the backend
+      - ngrok
 
   frontend:
     build: ./client
@@ -45,7 +45,7 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - ./client/.env  # Make sure this loads the client secrets into the frontend service
+      - ./client/.env
     depends_on:
       - backend
 

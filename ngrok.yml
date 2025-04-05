@@ -1,6 +1,4 @@
-version: "3"
-agent:
-  authtoken: 2v79zWUP1YjCpwK37FgzRwSxA8c_35Vp79iZffaYX9fc9vpQz
+authtoken: 2v79zWUP1YjCpwK37FgzRwSxA8c_35Vp79iZffaYX9fc9vpQz
 
 tunnels:
   frontend:
