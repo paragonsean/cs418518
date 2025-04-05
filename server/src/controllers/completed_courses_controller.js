@@ -1,6 +1,6 @@
 // File: src/controllers/CompletedCoursesController.js
 import CompletedCoursesModel from "../models/CompletedCoursesModel.js";
-import checkUserAuth from "../middleware/AuthMiddleware.js";
+import checkUserAuth from "../middleware/auth_middleware.js";
 
 const CompletedCoursesController = {
     async getCompletedCoursesByEmail(req, res) {

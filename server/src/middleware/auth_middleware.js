@@ -1,6 +1,6 @@
-import { verifyToken } from "../utils/authService.js";
-import UserModel from "../models/UserModel.js";
-import logger from "../utils/logger.js";
+import { verifyToken } from "../utils/auth_service.js";
+import UserModel from "../models/user_model.js";
+import logger from "../utils/my_logger.js";
 
 export default async function checkUserAuth(req, res, next) {
   let token =

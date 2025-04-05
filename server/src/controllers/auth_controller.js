@@ -2,14 +2,14 @@ import {
   hashPassword,
   comparePassword,
   generateToken,
-} from "../utils/authService.js";
+} from "../utils/auth_service.js";
 
-import { generateOTP, sendOTPEmail } from "../utils/otpService.js";
-import { sendVerificationEmail } from "../utils/emailService.js";
+import { generateOTP, sendOTPEmail } from "../utils/otp_service.js";
+import { sendVerificationEmail } from "../utils/email_service.js";
 
-import UserModel from "../models/UserModel.js";
+import UserModel from "../models/user_model.js";
 import AuthModel from "../models/AuthModel.js";
-import logger from "../utils/logger.js";
+import logger from "../utils/my_logger.js";
 
 class AuthController {
   // ✅ Register a New User

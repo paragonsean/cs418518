@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import logger from "./logger.js"; //  Import logger
+import logger from "./my_logger.js"; //  Import logger
 
 //  Generate a 6-digit OTP
 export const generateOTP = () => {

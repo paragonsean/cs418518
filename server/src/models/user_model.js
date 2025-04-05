@@ -1,5 +1,5 @@
 import pool from "../config/connectdb.js";
-import logger from "../utils/logger.js"; // Import logger
+import logger from "../utils/my_logger.js"; // Import logger
 
 class UserModel {
   // Create a New User

@@ -1,5 +1,5 @@
 import pool from "../config/connectdb.js";
-import logger from "../utils/logger.js";
+import logger from "../utils/my_logger.js";
 
 class AdvisingModel {
   /**

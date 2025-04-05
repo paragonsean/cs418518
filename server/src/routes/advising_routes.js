@@ -1,6 +1,6 @@
 import { Router } from "express";
-import AdvisingController from "../controllers/AdvisingController.js";
-import checkUserAuth from "../middleware/AuthMiddleware.js"; //Ensure authentication
+import AdvisingController from "../controllers/advising_controller.js";
+import checkUserAuth from "../middleware/auth_middleware.js"; //Ensure authentication
 
 const router = Router();
 

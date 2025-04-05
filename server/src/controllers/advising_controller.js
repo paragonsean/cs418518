@@ -1,8 +1,8 @@
 // File: src/controllers/AdvisingController.js
 import AdvisingModel from "../models/AdvisingModel.js";
-import UserModel from "../models/UserModel.js";
-import { sendAdvisingEmail } from "../utils/emailService.js";
-import logger from "../utils/logger.js";
+import UserModel from "../models/user_model.js";
+import { sendAdvisingEmail } from "../utils/email_service.js";
+import logger from "../utils/my_logger.js";
 
 class AdvisingController {
   /**
