@@ -3,48 +3,50 @@ dotenv.config();
 
 import express from "express";
 import cors from "cors";
-
-import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
-import courseRoutes from "./routes/courseRoutes.js"; // Import classes routes
+
+// Route imports
+import userRoutes from "./routes/userRoutes.js";
+import courseRoutes from "./routes/courseRoutes.js";
 import advisingRoutes from "./routes/advisingRoutes.js";
-import completedCoursesRoutes from "./routes/completedCoursesRoutes.js"; // Import completed courses routes
+import completedCoursesRoutes from "./routes/completedCoursesRoutes.js";
+
 const app = express();
-const port = process.env.PORT || 8000; // Fix: Use correct PORT for Express
+const port = process.env.PORT || 8000;
 
-app.use(cookieParser()); //  Parses cookies
+// Parse and clean allowed origins from .env
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "")
+  .split(",")
+  .map(origin => origin.trim())
+  .filter(Boolean);
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://wired-visually-marten.ngrok-free.app",
-  "https://92df-128-82-16-4.ngrok-free.app"
-];
+console.log("🛡️ Allowed Origins for CORS:", allowedOrigins);
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"), false);
-      }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// ✅ Recommended: Use cors package with dynamic origin validation
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow requests like curl or mobile apps
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      console.warn("❌ Blocked by CORS:", origin);
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // ✅ Important: allow cookies
+}));
 
-
-//  Middleware
+// Other middleware
+app.use(cookieParser());
 app.use(express.json());
-app.use("/api/courses", courseRoutes); // Use classes routes
-app.use("/api/completed-courses", completedCoursesRoutes); // Use completed courses routes
-//  Load Routes (Pass MySQL Pool)
-app.use("/api/user", userRoutes);
-app.use("/api/advising", advisingRoutes);
 
-//  Start Server
+// API routes
+app.use("/api/user", userRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/advising", advisingRoutes);
+app.use("/api/completed-courses", completedCoursesRoutes);
+
+// Boot the server
 app.listen(port, () => {
-  console.log(` Server listening at http://localhost:${port}`);
+  console.log(`🚀 Server listening on port ${port} (${process.env.NODE_ENV || "development"})`);
 });

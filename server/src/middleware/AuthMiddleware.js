@@ -52,7 +52,7 @@ export default async function checkUserAuth(req, res, next) {
       isAdmin: user.is_admin, // Attach admin status
     };
 
-    logger.info(`User authenticated: ${decoded.email}`);
+   
     next(); // Proceed to the next middleware/controller
   } catch (error) {
     logger.error(`Authentication error: ${error.message}`);

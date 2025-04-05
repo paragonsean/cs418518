@@ -50,7 +50,7 @@ const usePassword = () => {
   const handleChangePassword = async (values) => {
     const changePasswordUrl = urlJoin(authUrl, "/changepassword");
     try {
-      const token = Cookies.get("jwt-token");
+      const token = Cookies.get("authToken");
       if (!token) {
         throw new Error("No token found");
       }
@@ -81,7 +81,7 @@ const usePassword = () => {
         { email, otp },
       );
       if (response.status === "success") {
-        Cookies.set("jwt-token", response.token, {
+        Cookies.set("authToken", response.token, {
           secure: true,
           sameSite: "Strict",
         });

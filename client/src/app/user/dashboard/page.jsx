@@ -27,7 +27,7 @@ export default function StudentDashboard() {
         }
       } catch (error) {
         console.error(" Profile Fetch Error:", error);
-        Cookies.remove("jwt-token");
+        Cookies.remove("authToken");
         router.push("/account/login"); // Redirect to login on error
       }
     };

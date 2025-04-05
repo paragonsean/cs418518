@@ -63,7 +63,6 @@ class UserController {
       delete sanitizedUser.u_password;
       delete sanitizedUser.verification_code;
 
-      logger.info(`Retrieved user profile for User ID: ${userId}`);
       return res.status(200).json({ status: "success", user: sanitizedUser });
     } catch (error) {
       logger.error(

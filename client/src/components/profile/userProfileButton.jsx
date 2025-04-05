@@ -18,7 +18,7 @@ export default function UserProfileButton() {
   // Handle Logout
   const handleLogout = () => {
     document.cookie =
-      "jwt-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     router.push("/login");
   };
 

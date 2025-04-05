@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
+import publicRequest from "@/utils/publicRequest"; // Import the publicRequest helper
 
 const CompletedCoursesHistory = () => {
   const router = useRouter();
@@ -20,30 +21,23 @@ const CompletedCoursesHistory = () => {
   // Fetch completed courses from backend with authentication
   const fetchCompletedCourses = async () => {
     try {
-      const token = Cookies.get("jwt-token"); // Retrieve JWT token from cookies
+      const token = Cookies.get("authToken"); // Retrieve JWT token from cookies
       if (!token) {
         console.error("No token found. User is not authenticated.");
         return;
       }
 
-      const response = await fetch("http://localhost:8000/api/completed-courses/", {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`, // Attach the token for authentication
-          "Content-Type": "application/json",
-        },
-      });
+      const data = await publicRequest("/api/completed-courses/", "GET", null, token); // Use publicRequest
 
-      const data = await response.json();
-      if (response.ok) {
-        setCompletedCourses(data);
+      if (data && Array.isArray(data)) {
+        setCompletedCourses(data); // Successfully set the completed courses
       } else {
         console.error("Error fetching completed courses:", data.message);
       }
     } catch (error) {
       console.error("Error fetching completed courses:", error);
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading indicator
     }
   };
 

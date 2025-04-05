@@ -20,7 +20,7 @@ const Profile = () => {
 
       if (profileData.status === "error") {
         setErrorMessage(profileData.message || "Unable to load profile.");
-        Cookies.remove("jwt-token");
+        Cookies.remove("authToken");
         Cookies.remove("email");
         setTimeout(() => router.push("/account/login"), 1500);
       } else {

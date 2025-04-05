@@ -4,7 +4,7 @@ import logger from "@/utils/logger";
 
 // Attach Authorization header
 function getAuthHeaders() {
-  const token = Cookies.get("jwt-token");
+  const token = Cookies.get("authToken");
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 

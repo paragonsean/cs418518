@@ -25,7 +25,7 @@ const useAuth = () => {
         }); //  Log warning
       } else {
         setError(null);
-        Cookies.set("jwt-token", data.token);
+        Cookies.set("authToken", data.token);
         Cookies.set("email", credentials.email);
         logger.info("Login successful", { email: credentials.email }); //  Log success
       }

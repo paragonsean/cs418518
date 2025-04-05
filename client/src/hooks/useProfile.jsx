@@ -10,67 +10,72 @@ const authUrl = urlJoin(baseUrl, "api/user");
 const useProfile = () => {
   const [error, setError] = useState(null);
 
-  //  Change Password
+  const getToken = () => Cookies.get("authToken");
+
+  // Change Password
   const handleChangePassword = async (values) => {
-    setError(null); // Reset error before new request
-    const changePasswordUrl = urlJoin(authUrl, "/changepassword");
+    setError(null);
+    const token = getToken();
+    if (!token) return { status: "error", message: "No token found" };
+
+    const url = urlJoin(authUrl, "changepassword");
 
     try {
-      const token = Cookies.get("jwt-token");
-      if (!token) {throw new Error("No token found");}
-
-      const response = await publicRequest(
-        changePasswordUrl,
-        "POST",
-        values,
-        token,
-      );
-
+      const response = await publicRequest(url, "POST", values, token);
       if (response.status !== "success") {
         setError(response.message || "Failed to change password");
         return { status: "error", message: response.message };
       }
-
       return { status: "success", message: "Password changed successfully" };
-    } catch (error) {
+    } catch (err) {
       setError("An error occurred while changing password");
-      return { status: "error", message: String(error) };
+      return {
+        status: "error",
+        message: err?.response?.data?.message || err.message || "Unexpected error",
+      };
     }
   };
 
   // Get User Profile
   const getProfile = async () => {
-    const token = Cookies.get("jwt-token");
-    if (!token) {
-      console.error("No JWT Token found in cookies!");
-      return { status: "error", message: "No token found" };
-    }
+    const token = getToken();
+    if (!token) return { status: "error", message: "No token found" };
+
+    const url = urlJoin(authUrl, "loggeduser");
 
     try {
-      console.log("📤 Sending profile request with token:", token);
-      const profileUrl = urlJoin(authUrl, "loggeduser");
-      const data = await publicRequest(profileUrl, "GET", null, token);
-
-      console.log("Profile Response:", data);
-      return data;
-    } catch (error) {
-      console.error("Get profile error:", error);
-      return { status: "error", message: "Failed to fetch profile" };
+      const response = await publicRequest(url, "GET", null, token);
+      if (response.status === "success" && response.user) {
+        return { status: "success", user: response.user };
+      } else {
+        return {
+          status: "error",
+          message: response.message || "Unable to load user data",
+        };
+      }
+    } catch (err) {
+      return {
+        status: "error",
+        message: err?.response?.data?.message || "Failed to fetch profile",
+      };
     }
   };
 
-  //  Update User Profile
+  // Update User Profile
   const updateProfile = async (values) => {
-    const updateUrl = "/api/user/updateprofile";
-    try {
-      const token = Cookies.get("jwt-token");
-      if (!token) {throw new Error("No token found");}
+    const token = getToken();
+    if (!token) return { status: "error", message: "No token found" };
 
-      const response = await publicRequest(updateUrl, "PUT", values, token);
+    const url = urlJoin(authUrl, "updateprofile");
+
+    try {
+      const response = await publicRequest(url, "PUT", values, token);
       return response;
-    } catch (error) {
-      console.error("Profile update error:", error);
-      return { status: "error", message: String(error) };
+    } catch (err) {
+      return {
+        status: "error",
+        message: err?.response?.data?.message || err.message || "Update failed",
+      };
     }
   };
 
@@ -79,7 +84,7 @@ const useProfile = () => {
     getProfile,
     handleChangePassword,
     updateProfile,
-    setError, // Exposing setError for better handling
+    setError,
   };
 };
 

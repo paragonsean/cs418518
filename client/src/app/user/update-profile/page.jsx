@@ -1,17 +1,17 @@
 "use client";
 import { useFormik } from "formik";
-import { updateProfileSchema } from "@/validation/schemas"; // Adjust schema import
+import { updateProfileSchema } from "@/validation/schemas";
 import { useState, useEffect } from "react";
-import useProfile from "@/hooks/useProfile"; // Import the custom hook
-import logger from "@/utils/logger"; // Import logger for debugging
+import useProfile from "@/hooks/useProfile";
+import logger from "@/utils/logger";
 
 const UpdateProfile = () => {
   const { handleChangePassword, updateProfile, getProfile } = useProfile();
   const [serverErrorMessage, setServerErrorMessage] = useState("");
   const [serverSuccessMessage, setServerSuccessMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [profileLoading, setProfileLoading] = useState(true); // Initial profile fetch
+  const [submitLoading, setSubmitLoading] = useState(false); // Form submission only
 
-  // Formik Initial Values
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -21,20 +21,18 @@ const UpdateProfile = () => {
     },
     validationSchema: updateProfileSchema,
     onSubmit: async (values) => {
-      setLoading(true);
+      setSubmitLoading(true);
       setServerErrorMessage("");
       setServerSuccessMessage("");
 
       try {
-        // Update Profile Info (Name)
         const profileUpdate = await updateProfile({
           firstName: values.firstName,
           lastName: values.lastName,
         });
 
-        let passwordUpdate = { status: "success" }; // Default to success if no password update
+        let passwordUpdate = { status: "success" };
 
-        // Update Password (if provided)
         if (values.password && values.password_confirmation) {
           passwordUpdate = await handleChangePassword({
             password: values.password,
@@ -48,24 +46,24 @@ const UpdateProfile = () => {
         ) {
           setServerSuccessMessage("Profile updated successfully.");
         } else {
-          setServerErrorMessage(profileUpdate.message || passwordUpdate.message);
+          setServerErrorMessage(
+            profileUpdate.message || passwordUpdate.message
+          );
         }
       } catch (error) {
         logger.error("Error updating profile:", error);
         setServerErrorMessage("An error occurred while updating.");
       } finally {
-        setLoading(false);
+        setSubmitLoading(false);
       }
     },
   });
 
-  // Extracting setValues to use as a stable reference.
   const { setValues } = formik;
 
-  // Fetch User Profile on Mount
+  // Fetch User Info on Mount
   useEffect(() => {
     const fetchUser = async () => {
-      setLoading(true);
       try {
         const userData = await getProfile();
         if (userData.status === "success" && userData.user) {
@@ -81,12 +79,20 @@ const UpdateProfile = () => {
       } catch (error) {
         setServerErrorMessage("Unable to load user profile.");
       } finally {
-        setLoading(false);
+        setProfileLoading(false);
       }
     };
 
     fetchUser();
   }, [getProfile, setValues]);
+
+  if (profileLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-gray-600">Loading profile...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -108,7 +114,9 @@ const UpdateProfile = () => {
               placeholder="Enter first name"
             />
             {formik.errors.firstName && (
-              <p className="text-sm text-red-500">{formik.errors.firstName}</p>
+              <p className="text-sm text-red-500">
+                {formik.errors.firstName}
+              </p>
             )}
           </div>
 
@@ -127,7 +135,9 @@ const UpdateProfile = () => {
               placeholder="Enter last name"
             />
             {formik.errors.lastName && (
-              <p className="text-sm text-red-500">{formik.errors.lastName}</p>
+              <p className="text-sm text-red-500">
+                {formik.errors.lastName}
+              </p>
             )}
           </div>
 
@@ -152,7 +162,10 @@ const UpdateProfile = () => {
 
           {/* Confirm Password */}
           <div className="mb-6">
-            <label htmlFor="password_confirmation" className="block font-medium mb-2">
+            <label
+              htmlFor="password_confirmation"
+              className="block font-medium mb-2"
+            >
               Confirm New Password
             </label>
             <input
@@ -165,7 +178,9 @@ const UpdateProfile = () => {
               placeholder="Confirm new password"
             />
             {formik.errors.password_confirmation && (
-              <p className="text-sm text-red-500">{formik.errors.password_confirmation}</p>
+              <p className="text-sm text-red-500">
+                {formik.errors.password_confirmation}
+              </p>
             )}
           </div>
 
@@ -173,9 +188,9 @@ const UpdateProfile = () => {
           <button
             type="submit"
             className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-indigo-200 disabled:bg-gray-400"
-            disabled={loading}
+            disabled={submitLoading}
           >
-            {loading ? "Updating..." : "Update Profile"}
+            {submitLoading ? "Updating..." : "Update Profile"}
           </button>
         </form>
 

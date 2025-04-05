@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import logger from "@/utils/logger";
 
 import {
   Menu,
@@ -24,45 +23,43 @@ export default function DashboardSidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
   const [profileData, setProfileData] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false); // State for is_admin
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const profileData = await getProfile();
-        console.log("Profile Data:", profileData); // Debugging Log
+        const result = await getProfile();
 
-        if (profileData.status === "error") {
-          setErrorMessage(profileData.message || "Unable to load profile.");
-          Cookies.remove("jwt-token");
+        if (result.status === "error") {
+          setErrorMessage(result.message || "Unable to load profile.");
+          Cookies.remove("authToken");
           Cookies.remove("email");
-          setTimeout(() => router.push("/account/login"), 1500);
+          setTimeout(() => router.replace("/account/login"), 1500);
         } else {
-          setProfileData(profileData.user);
-          setIsAdmin(profileData.user.is_admin); // Store is_admin in state
+          setProfileData(result.user);
+          setIsAdmin(result.user.is_admin);
         }
       } catch (error) {
         console.error("Error fetching profile:", error);
+        setErrorMessage("Unexpected error. Try again.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchProfile();
-  }, [getProfile, router]); // Added getProfile to dependencies
+  }, [getProfile, router]);
 
-  // Handle Logout
   const handleLogout = () => {
-    Cookies.remove("jwt-token");
+    Cookies.remove("authToken");
     Cookies.remove("email");
-    router.push("/login");
+    router.replace("/account/login");
   };
 
   return (
     <div className="flex">
-      {/* Sidebar Toggle Button */}
       <UserProfileButton />
       <button
         className="p-2 fixed top-4 left-4 bg-gray-100 rounded-full shadow-md z-50"
@@ -71,34 +68,28 @@ export default function DashboardSidebar() {
         {isOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
-      {/* Sidebar */}
       <Card
         className={`bg-white shadow-md p-4 flex flex-col min-h-screen transition-all duration-300 ease-in-out ${
           isOpen ? "w-64" : "w-16"
         }`}
       >
-        {/* Sidebar Content */}
-        <div
-          className={`transition-opacity duration-500 ${isOpen ? "opacity-100" : "opacity-0"}`}
-        >
+        <div className={`transition-opacity duration-500 ${isOpen ? "opacity-100" : "opacity-0"}`}>
           {loading ? (
-            <p>Loading...</p>
+            <p className="text-sm text-gray-500">Loading profile...</p>
+          ) : errorMessage ? (
+            <p className="text-sm text-red-500">{errorMessage}</p>
           ) : (
             <>
-              {/* User Info */}
               <div className="flex items-center gap-2 mb-4 p-2 bg-gray-100 rounded-md">
                 <User className="text-gray-700" size={20} />
                 <div className={`${isOpen ? "block" : "hidden"}`}>
                   <p className="text-sm font-semibold">
                     {profileData?.u_first_name} {profileData?.u_last_name}
                   </p>
-                  <p className="text-xs text-gray-500">
-                    {profileData?.u_email}
-                  </p>
+                  <p className="text-xs text-gray-500">{profileData?.u_email}</p>
                 </div>
               </div>
 
-              {/* Role-Based Navigation */}
               {isAdmin ? (
                 <>
                   <SidebarLink
@@ -149,7 +140,6 @@ export default function DashboardSidebar() {
                 </>
               )}
 
-              {/* Logout Button */}
               <div className="mt-auto pt-4">
                 <Button
                   onClick={handleLogout}
@@ -167,12 +157,8 @@ export default function DashboardSidebar() {
   );
 }
 
-// Reusable SidebarLink Component
 const SidebarLink = ({ href, icon, text, isOpen }) => (
-  <Link
-    className="flex items-center py-2 hover:bg-gray-200 px-2 rounded"
-    href={href}
-  >
+  <Link className="flex items-center py-2 hover:bg-gray-200 px-2 rounded" href={href}>
     {icon} {isOpen && <span className="ml-2">{text}</span>}
   </Link>
 );

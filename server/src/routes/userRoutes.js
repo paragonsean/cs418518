@@ -16,10 +16,8 @@ router.post("/verify-otp", AuthController.verifyOTP);
 router.get("/verify-email", PasswordController.verifyEmail);
 router.post("/reset-password/:token", PasswordController.resetPassword);
 
-//  Protected Routes (Require Authentication)
-router.use(checkUserAuth);
+router.post("/changepassword", checkUserAuth, UserController.changeUserPassword);
+router.get("/loggeduser", checkUserAuth, UserController.loggedUser);
+router.put("/updateprofile", checkUserAuth, UserController.updateUserProfile);
 
-router.post("/changepassword", UserController.changeUserPassword);
-router.get("/loggeduser", UserController.loggedUser);
-router.put("/updateprofile", UserController.updateUserProfile);
 export default router;

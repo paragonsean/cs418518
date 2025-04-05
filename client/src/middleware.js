@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import isValidJWT from "./utils/validJwt";
 
 export default async function middleware(request) {
-  const JWT_COOKIE = request.cookies.get("jwt-token");
+  const JWT_COOKIE = request.cookies.get("authToken");
   const JWT_TOKEN = JWT_COOKIE ? JWT_COOKIE.value : null;
   const { pathname } = request.nextUrl;
 

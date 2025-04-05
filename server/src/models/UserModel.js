@@ -80,7 +80,6 @@ class UserModel {
         userId,
       ]);
       if (rows.length > 0) {
-        logger.info(`User found by ID: ${userId}`);
         return rows[0];
       } else {
         logger.warn(`User not found by ID: ${userId}`);
