@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 // Hooks & Utils
 import useProfile from "@/hooks/useProfile";
 import { fetchAdvisingRecords, createAdvisingRecord } from "@/utils/advisingApi";
-import { useAdvisingFormLogic } from "@/hooks/useAdvisingForm";
+import { useAdvisingFormLogic } from "@/hooks/useAdvisingform";
 import CoursePlanTable from "@/components/courses/CourseTable";
 
 // Common components
