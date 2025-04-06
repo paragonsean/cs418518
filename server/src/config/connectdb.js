@@ -1,4 +1,4 @@
-// file: config/connectdb.js
+// config/connectdb.js
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 dotenv.config();
@@ -13,7 +13,6 @@ const {
 
 const MAX_RETRIES = 10;
 const RETRY_DELAY_MS = 2000;
-
 let pool;
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -30,6 +29,7 @@ async function connectWithRetry(retries = MAX_RETRIES) {
         waitForConnections: true,
         connectionLimit: 10,
         queueLimit: 0,
+        charset: "utf8mb4" // ✅ Fix cesu8 errors
       });
 
       const conn = await pool.getConnection();
@@ -49,6 +49,11 @@ async function connectWithRetry(retries = MAX_RETRIES) {
   }
 }
 
-await connectWithRetry();
+// ✅ Prevent DB connection when running Jest
+if (process.env.NODE_ENV !== "test") {
+  (async () => {
+    await connectWithRetry();
+  })();
+}
 
 export default pool;
