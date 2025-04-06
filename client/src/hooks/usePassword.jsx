@@ -10,7 +10,7 @@ const authUrl = urlJoin(baseUrl, "api/user");
 const usePassword = () => {
   const [error, setError] = useState(null);
 
-  // 🔗 Request Reset Password Link
+  // Request Reset Password Link
   const handleResetPasswordLink = async (email) => {
     const resetPasswordLinkUrl = urlJoin(authUrl, "/send-reset-password-email");
     try {
@@ -27,7 +27,7 @@ const usePassword = () => {
     }
   };
 
-  // 🔑 Reset Password
+  // Reset Password
   const handleResetPassword = async (id, token, newPassword) => {
     const resetPasswordUrl = urlJoin(authUrl, `/reset-password/${id}/${token}`);
     try {

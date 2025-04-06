@@ -50,3 +50,6 @@
 ## **Submission**  
 
 Refer to the demo and report deadlines on **Canvas**.  
+
+This can be deployed via docker locally to test. The database will automatically  seed itself, and the server will be located on localhost:3000
+all you need to do is make sure docker is installed and run start.sh.

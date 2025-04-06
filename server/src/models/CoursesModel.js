@@ -77,7 +77,7 @@ class CoursesModel {
     }
   }
 
-  // 5️⃣ Add a new course
+  // Add a new course
   static async addCourse({
     course_name,
     course_level,

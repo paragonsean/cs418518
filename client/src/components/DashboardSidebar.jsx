@@ -24,7 +24,7 @@ export default function DashboardSidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
   const [profileData, setProfileData] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false); // Fix: State for `is_admin`
+  const [isAdmin, setIsAdmin] = useState(false); // State for is_admin
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -41,17 +41,17 @@ export default function DashboardSidebar() {
           setTimeout(() => router.push("/account/login"), 1500);
         } else {
           setProfileData(profileData.user);
-          setIsAdmin(profileData.user.is_admin); // Store `is_admin` in state
+          setIsAdmin(profileData.user.is_admin); // Store is_admin in state
         }
       } catch (error) {
-        console.error(" Error fetching profile:", error);
+        console.error("Error fetching profile:", error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchProfile();
-  }, [router]); // Remove `is_admin` from dependencies
+  }, [getProfile, router]); // Added getProfile to dependencies
 
   // Handle Logout
   const handleLogout = () => {
@@ -123,9 +123,9 @@ export default function DashboardSidebar() {
               ) : (
                 <>
                   <SidebarLink
-                    href="/user/dashboard/student"
+                    href="/user/dashboard/student/advising"
                     icon={<LayoutDashboard size={18} />}
-                    text="Student Dashboard"
+                    text="Advising Dashboard"
                     isOpen={isOpen}
                   />
                   <SidebarLink
@@ -135,9 +135,15 @@ export default function DashboardSidebar() {
                     isOpen={isOpen}
                   />
                   <SidebarLink
-                    href="/user/dashboard/student/enroll"
+                    href="/user/dashboard/student/advising/courses"
                     icon={<Users size={18} />}
-                    text="Enroll"
+                    text="Sign Up for Courses"
+                    isOpen={isOpen}
+                  />
+                  <SidebarLink
+                    href="/user/dashboard/student/advising/history"
+                    icon={<Users size={18} />}
+                    text="View Advising History"
                     isOpen={isOpen}
                   />
                 </>

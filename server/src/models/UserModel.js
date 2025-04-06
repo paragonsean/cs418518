@@ -92,7 +92,7 @@ class UserModel {
     }
   }
 
-  // 4️⃣ Update User Profile (First Name & Last Name)
+  // Update User Profile (First Name & Last Name)
   static async updateUserProfile(userId, { firstName, lastName }) {
     try {
       const [result] = await pool.execute(
@@ -114,7 +114,7 @@ class UserModel {
     }
   }
 
-  // 5️⃣ Update Password by User ID
+  // Update Password by User ID
   static async updatePasswordByUserId(userId, hashedPassword) {
     try {
       await pool.execute("UPDATE user SET u_password = ? WHERE u_id = ?", [
@@ -130,7 +130,7 @@ class UserModel {
     }
   }
 
-  // 6️⃣ Update Email Verification (Mark is_verified = true, remove verification_token)
+  // Update Email Verification (Mark is_verified = true, remove verification_token)
   static async verifyUserEmail(email) {
     try {
       await pool.execute(
@@ -146,7 +146,7 @@ class UserModel {
     }
   }
 
-  // 7️⃣ Update Password by Email (For Reset)
+  // Update Password by Email (For Reset)
   static async updatePasswordByEmail(email, hashedPassword) {
     try {
       await pool.execute("UPDATE user SET u_password = ? WHERE u_email = ?", [

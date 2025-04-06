@@ -57,7 +57,7 @@ const Register = () => {
 
         //  Show error toast notifications
         errorMessages.forEach((err) => {
-          toast.error(`⚠️ ${err}`);
+          toast.error(`${err}`);
         });
       }
 
@@ -223,7 +223,7 @@ const Register = () => {
             {errors.length > 0 && (
               <div className="text-sm text-red-500 font-semibold px-2 text-center mt-2">
                 {errors.map((err, index) => (
-                  <p key={index}>⚠️ {err}</p>
+                  <p key={index}>{err}</p>
                 ))}
               </div>
             )}

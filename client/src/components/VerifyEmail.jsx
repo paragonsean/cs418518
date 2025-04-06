@@ -1,18 +1,20 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { verifyEmail } from "../utils/authActions";
 
-const VerifyEmail = () => {
+const VerifyEmailContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
+
   const [message, setMessage] = useState("Verifying your email...");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!token) {
-      setMessage(" No verification token found.");
+      setMessage("❌ No verification token found.");
       setLoading(false);
       return;
     }
@@ -23,14 +25,14 @@ const VerifyEmail = () => {
         const res = await verifyEmail(token);
 
         if (res.status === "success") {
-          setMessage(" Email verified successfully! Redirecting to login...");
+          setMessage("✅ Email verified successfully! Redirecting to login...");
           setTimeout(() => router.push("/account/login"), 3000);
         } else {
-          setMessage(" Verification failed. Invalid or expired token.");
+          setMessage("❌ Verification failed. Invalid or expired token.");
         }
       } catch (error) {
         console.error("Verification error:", error);
-        setMessage("Error verifying email.");
+        setMessage("❌ Error verifying email.");
       } finally {
         setLoading(false);
       }
@@ -46,9 +48,7 @@ const VerifyEmail = () => {
         {loading ? (
           <p className="text-gray-600">⏳ Verifying your email...</p>
         ) : (
-          <p
-            className={`text-lg ${message.includes("") ? "text-green-600" : "text-red-500"}`}
-          >
+          <p className={`text-lg ${message.startsWith("✅") ? "text-green-600" : "text-red-500"}`}>
             {message}
           </p>
         )}
@@ -56,5 +56,15 @@ const VerifyEmail = () => {
     </div>
   );
 };
+
+const VerifyEmail = () => (
+  <Suspense fallback={
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <p>⏳ Loading...</p>
+    </div>
+  }>
+    <VerifyEmailContent />
+  </Suspense>
+);
 
 export default VerifyEmail;

@@ -17,7 +17,7 @@ const useProfile = () => {
 
     try {
       const token = Cookies.get("jwt-token");
-      if (!token) throw new Error("No token found");
+      if (!token) {throw new Error("No token found");}
 
       const response = await publicRequest(
         changePasswordUrl,
@@ -59,12 +59,12 @@ const useProfile = () => {
     }
   };
 
-  // ✏️ Update User Profile
+  //  Update User Profile
   const updateProfile = async (values) => {
     const updateUrl = "/api/user/updateprofile";
     try {
       const token = Cookies.get("jwt-token");
-      if (!token) throw new Error("No token found");
+      if (!token) {throw new Error("No token found");}
 
       const response = await publicRequest(updateUrl, "PUT", values, token);
       return response;

@@ -7,7 +7,7 @@ import useProfile from "@/hooks/useProfile"; // Import profile hook
 
 export default function AdvisorDashboard() {
   const { getProfile, loading } = useProfile();
-  const [advisorName, setAdvisorName] = useState("Loading..."); // State for advisor name
+  const [advisorName, setAdvisorName] = useState("Loading...");
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -15,17 +15,17 @@ export default function AdvisorDashboard() {
         const profile = await getProfile();
         if (profile?.user) {
           setAdvisorName(
-            `${profile.user.u_first_name} ${profile.user.u_last_name}`,
+            `${profile.user.u_first_name} ${profile.user.u_last_name}`
           );
         }
       } catch (error) {
-        console.error(" Error fetching profile:", error);
+        console.error("Error fetching profile:", error);
         setAdvisorName("Unknown Advisor");
       }
     };
 
     fetchProfile();
-  }, [getProfile]); // Runs on mount
+  }, [getProfile]);
 
   return (
     <div className="mx-auto max-w-5xl py-10 px-4">
@@ -35,8 +35,7 @@ export default function AdvisorDashboard() {
       <section className="mb-8">
         <h2 className="text-xl font-semibold">Welcome, {advisorName}!</h2>
         <p className="text-gray-600">
-          This is your main hub for managing courses, reviewing student
-          enrollments, and handling administrative tasks.
+          This is your main hub for managing courses, reviewing student enrollments, and handling administrative tasks.
         </p>
       </section>
 
@@ -66,8 +65,7 @@ export default function AdvisorDashboard() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600">
-                Check student details, contact information, and academic
-                progress.
+                Check student details, contact information, and academic progress.
               </p>
             </CardContent>
           </Card>
@@ -96,11 +94,10 @@ export default function AdvisorDashboard() {
         </h2>
         <ul className="space-y-3">
           <li className="bg-white p-4 rounded-md shadow-sm hover:bg-gray-50 transition">
-            <strong>New Enrollment Request</strong> from John Doe in "Calculus
-            I"
+            <strong>New Enrollment Request</strong> from John Doe in &quot;Calculus I&quot;
           </li>
           <li className="bg-white p-4 rounded-md shadow-sm hover:bg-gray-50 transition">
-            <strong>Grade Update</strong> for "Physics Lab" - 2 new submissions
+            <strong>Grade Update</strong> for &quot;Physics Lab&quot; - 2 new submissions
           </li>
           <li className="bg-white p-4 rounded-md shadow-sm hover:bg-gray-50 transition">
             <strong>System Maintenance</strong> scheduled on Friday, 8 PM

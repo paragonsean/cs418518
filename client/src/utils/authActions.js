@@ -6,7 +6,7 @@ export const verifyEmail = async (token) => {
   const verifyUrl = `${SERVER_URL}/api/user/verify-email?token=${token}`;
 
   try {
-    console.log("📤 Sending email verification request to:", verifyUrl);
+    console.log("Sending email verification request to:", verifyUrl);
     const data = await publicRequest(verifyUrl, "GET");
     console.log(" Email Verification Response:", data);
     return data;
@@ -22,7 +22,7 @@ export const requestPasswordReset = async (email) => {
   const resetUrl = `${SERVER_URL}/api/user/send-reset-password-email`;
 
   console.log(
-    "📤 Sending password reset request to:",
+    "Sending password reset request to:",
     resetUrl,
     "with email:",
     email,
@@ -40,12 +40,12 @@ export const requestPasswordReset = async (email) => {
 export const getProfile = async () => {
   const token = Cookies.get("jwt-token"); //  Retrieve JWT from cookies
   if (!token) {
-    console.error("🚨 No JWT Token found in cookies!");
+    console.error("No JWT Token found in cookies!");
     return { status: "error", message: "No token found" };
   }
 
   try {
-    console.log("📤 Sending profile request with token:", token);
+    console.log("Sending profile request with token:", token);
     const data = await publicRequest(
       "/api/user/loggeduser",
       "GET",
