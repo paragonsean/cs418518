@@ -1,5 +1,5 @@
 // file: models/UserModel.js
-import pool from "@/config/connectdb.js";
+import pool from "../config/connectdb.js";
 
 class UserModel {
   //   Create a New User

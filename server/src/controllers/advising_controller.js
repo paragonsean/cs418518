@@ -1,8 +1,8 @@
 // File: src/controllers/AdvisingController.js
-import AdvisingModel from "@/models/advising_model.js";
-import UserModel from "@/models/user_model.js";
-import { sendAdvisingEmail } from "@/utils/email_service.js";
-import logger from "@/utils/my_logger.js";
+import AdvisingModel from "../models/advising_model.js";
+import UserModel from "../models/user_model.js";
+import { sendAdvisingEmail } from "../services/email_service.js";
+import logger from "../services/my_logger.js";
 
 class AdvisingController {
   /**
@@ -230,6 +230,28 @@ class AdvisingController {
     } catch (error) {
       logger.error(`Error updating advising record for ID ${req.params.id}:`, error.message);
       return res.status(500).json({ status: "failed", message: "Server Error: Record not updated" });
+    }
+  }
+  /**
+   * GET /api/students
+   * Retrieves a list of all student users.
+   */
+  static async getAllStudents(req, res) {
+    try {
+      // Adjust this logic as needed if you use roles or departments
+      const students = await UserModel.getAllStudents(); // assumes filtering is done inside model
+
+      if (!students || students.length === 0) {
+        return res.status(200).json([]); // return empty array, not 404
+      }
+
+      return res.status(200).json(students);
+    } catch (error) {
+      logger.error("Error retrieving student list:", error.message);
+      return res.status(500).json({
+        status: "failed",
+        message: "Server Error: could not fetch student list",
+      });
     }
   }
 

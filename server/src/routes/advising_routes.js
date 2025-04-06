@@ -1,6 +1,6 @@
 import { Router } from "express";
-import AdvisingController from "@/controllers/advising_controller.js";
-import checkUserAuth from "@/middleware/auth_middleware.js"; //Ensure authentication
+import AdvisingController from "../controllers/advising_controller.js";
+import checkUserAuth from "../middleware/auth_middleware.js"; //Ensure authentication
 
 const router = Router();
 
@@ -9,7 +9,7 @@ router.get("/", checkUserAuth, AdvisingController.getAllAdvisingRecords);
 
 // GET /api/advising/email -> Get advising records for the authenticated user
 router.get("/email", checkUserAuth, AdvisingController.getAdvisingRecordsByEmail);
-
+router.get("/students", checkUserAuth, AdvisingController.getAllStudents);
 // NEW: GET /api/advising/:id -> Fetch a single advising record by ID
 router.get("/:id", checkUserAuth, AdvisingController.getAdvisingRecordById);
 
@@ -17,7 +17,6 @@ router.get("/:id", checkUserAuth, AdvisingController.getAdvisingRecordById);
 router.post("/", checkUserAuth, AdvisingController.createAdvisingRecord);
 
 // PUT /api/advising/:id -> Update a record's status (status update only)
-router.put("/:id", checkUserAuth, AdvisingController.updateAdvisingStatus);
 
 // NEW: PUT /api/advising/record/:id -> Update a full advising record
 router.put("/record/:id", checkUserAuth, AdvisingController.updateAdvisingRecord);

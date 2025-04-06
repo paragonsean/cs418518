@@ -42,7 +42,7 @@ export default function AdvisorDashboard() {
       {/* Dashboard Quick Actions */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Manage Courses */}
-        <Link href="/user/dashboard/admin/manage-courses">
+        <Link href="/user/dashboard/admin/advising/view-students">
           <Card className="hover:bg-gray-50 transition cursor-pointer">
             <CardHeader className="flex items-center gap-3">
               <BookOpen size={20} className="text-blue-600" />

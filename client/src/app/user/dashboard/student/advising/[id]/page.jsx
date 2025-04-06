@@ -4,8 +4,9 @@ import { useRouter, useParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
 import { fetchAdvisingRecordById, updateAdvisingRecord } from "@/utils/advising_actions";
-import { useAdvisingFormLogic } from '@/hooks/use_advising_form';
+import { useAdvisingFormLogic } from "@/hooks/use_advising_form";
 import CoursePlanTable from "@/components/courses/course_table";
 import HistoryFields from "@/components/courses/history_fields";
 
@@ -16,7 +17,6 @@ const EditAdvisingForm = () => {
   const [record, setRecord] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Local form fields
   const [history, setHistory] = useState({
     lastTerm: "",
     lastGPA: "",
@@ -63,7 +63,6 @@ const EditAdvisingForm = () => {
     fetchRecord();
   }, [id]);
 
-  // Pre-fill local states once record and courses are loaded
   useEffect(() => {
     if (record && availableCourses.length > 0) {
       setHistory({
@@ -131,14 +130,12 @@ const EditAdvisingForm = () => {
           <form onSubmit={handleSubmit}>
             <h3 className="text-md font-semibold mb-2">Update Course Plan</h3>
 
-            {/* Use HistoryFields for common inputs */}
             <HistoryFields
               availableTerms={availableTerms}
               history={history}
               setHistory={setHistory}
             />
 
-            {/* Student Name */}
             <div className="mb-4">
               <Input
                 placeholder="Student Name"
@@ -148,7 +145,6 @@ const EditAdvisingForm = () => {
               />
             </div>
 
-            {/* Course Plan Table */}
             <CoursePlanTable
               coursePlan={coursePlan}
               courseLevels={courseLevels}

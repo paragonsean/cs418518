@@ -1,6 +1,6 @@
-import UserModel from "@/models/user_model.js";
-import logger from "@/utils/my_logger.js";
-import { hashPassword } from "@/utils/auth_service.js";  // Ensure correct relative path
+import UserModel from "../models/user_model.js";
+import logger from "../services/my_logger.js";
+import { hashPassword } from "../services/auth_service.js";  // Ensure correct relative path
 
 class UserController {
   // Change User Password (Auth Required)

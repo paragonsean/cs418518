@@ -1,5 +1,5 @@
-import pool from "@/config/connectdb.js";
-import logger from "@/utils/my_logger.js"; // Import logger
+import pool from "../config/connectdb.js";
+import logger from "../services/my_logger.js"; // Import logger
 
 class UserModel {
   // Create a New User
@@ -128,6 +128,22 @@ class UserModel {
       throw error;
     }
   }
+  // Get all users where is_admin is false (i.e., students)
+static async getAllStudents() {
+  try {
+    const [rows] = await pool.execute(
+      `SELECT u_id, u_first_name, u_last_name, u_email
+       FROM user
+       WHERE is_admin = false`
+    );
+    logger.info(`Fetched ${rows.length} students from database.`);
+    return rows;
+  } catch (error) {
+    logger.error(`Failed to retrieve students: ${error.message}`);
+    throw error;
+  }
+}
+
 
   // Update Email Verification (Mark is_verified = true, remove verification_token)
   static async verifyUserEmail(email) {
@@ -161,5 +177,6 @@ class UserModel {
     }
   }
 }
+
 
 export default UserModel;

@@ -10,7 +10,7 @@ import userRoutes from "./routes/user_routes.js";
 import courseRoutes from "./routes/course_routes.js";
 import advisingRoutes from "./routes/advising_routes.js";
 import completedCoursesRoutes from "./routes/completed_course_routes.js";
-
+import adminRoutes from "./routes/admin_routes.js";
 const app = express();
 const port = process.env.PORT || 8000;
 
@@ -45,7 +45,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/advising", advisingRoutes);
 app.use("/api/completed-courses", completedCoursesRoutes);
-
+app.use("/api/admin", adminRoutes);
 // Boot the server
 app.listen(port, () => {
   console.log(`🚀 Server listening on port ${port} (${process.env.NODE_ENV || "development"})`);
