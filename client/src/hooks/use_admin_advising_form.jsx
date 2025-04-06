@@ -1,76 +1,97 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import publicRequest from "@/utils/public_request";
-import urlJoin from "url-join";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import Cookies from "js-cookie";
+import { 
+  fetchAllAdvisingRecords, 
+  fetchAllCourses, 
+  fetchCompletedCoursesForUser 
+} from "@/utils/admin_actions"; // Updated to import admin-related functions
 
-export const useAdminAdvisingComparison = (recordId) => {
+/**
+ * Hook #1: 
+ */
+export function useAdvisingFormLogic() {
   const [availableCourses, setAvailableCourses] = useState([]);
+  const [courseLevels, setCourseLevels] = useState([]);
   const [coursePlan, setCoursePlan] = useState([]);
-  const [loadingCourses, setLoadingCourses] = useState(true);
-  const [loadingRecord, setLoadingRecord] = useState(true);
-  const [record, setRecord] = useState(null);
+  const [coursePrerequisites, setCoursePrerequisites] = useState({});
+  const [completedCourses, setCompletedCourses] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state for fetching data
 
+  // Fetch all courses and completed courses in parallel using admin actions
   useEffect(() => {
-    const fetchCourses = async () => {
+    const fetchCoursesData = async () => {
       try {
-        const url = urlJoin(process.env.NEXT_PUBLIC_SERVER_URL, "/api/admin/courses");
-        const data = await publicRequest(url, "GET");
-        setAvailableCourses(data);
-      } catch (error) {
-        console.error("Error fetching available courses:", error);
+        const [courses, completed] = await Promise.all([
+          fetchAllCourses(), // Admin action to fetch courses
+          fetchCompletedCoursesForUser(), // Admin action to fetch completed courses (you might want to adjust this based on how you're tracking the logged-in user)
+        ]);
+
+        setAvailableCourses(courses);
+        setCompletedCourses(completed);
+
+        const levels = [...new Set(courses.map((c) => c.course_lvlGroup))].sort();
+        setCourseLevels(levels);
+
+        const prereqMap = courses.reduce((acc, course) => {
+          acc[course.course_name] = course.prerequisite ? course.prerequisite.split(", ") : [];
+          return acc;
+        }, {});
+        setCoursePrerequisites(prereqMap);
+      } catch (err) {
+        console.error("Error fetching data:", err);
       } finally {
-        setLoadingCourses(false);
+        setLoading(false); // Set loading to false once data is fetched
       }
     };
 
-    fetchCourses();
-  }, []);
+    fetchCoursesData();
+  }, []); // Empty dependency array ensures this runs only once
 
-  useEffect(() => {
-    const fetchRecord = async () => {
-      if (!recordId) return;
-      try {
-        const token = localStorage.getItem("token"); // Or your token retrieval method
-        const url = urlJoin(process.env.NEXT_PUBLIC_SERVER_URL, `/api/admin/advising/${recordId}`);
-        const data = await publicRequest(url, "GET", null, token);
-        setRecord(data);
-      } catch (error) {
-        console.error("Error fetching advising record:", error);
-      } finally {
-        setLoadingRecord(false);
+  const handleAddCourse = () => {
+    setCoursePlan((prev) => [...prev, { level: "", courseLevel: "", name: "" }]);
+  };
+
+  const handleCourseChange = (index, field, value) => {
+    setCoursePlan((prev) => {
+      const updated = [...prev];
+      updated[index][field] = value;
+
+      // Reset related fields based on course plan logic
+      if (field === "level") {
+        updated[index].courseLevel = "";
+        updated[index].name = "";
+      } else if (field === "courseLevel") {
+        updated[index].name = "";
       }
+      return updated;
+    });
+  };
+
+  // Memoizing filter function to prevent re-renders if availableCourses doesn't change
+  const filterAvailableCourses = useMemo(() => {
+    return (level) => {
+      return availableCourses.filter((c) => String(c.course_lvlGroup) === String(level));
     };
+  }, [availableCourses]);
 
-    fetchRecord();
-  }, [recordId]);
+  const formatPlannedCourses = () => coursePlan.map((c) => c.courseLevel).join(", ");
+  const formatPrerequisites = () =>
+    coursePlan.flatMap((c) => coursePrerequisites[c.name] || []).join(", ");
 
-  useEffect(() => {
-    if (!record || availableCourses.length === 0) return;
-
-    if (record.planned_courses) {
-      const plannedLevels = Array.isArray(record.planned_courses)
-        ? record.planned_courses
-        : record.planned_courses.split(",").map((s) => s.trim());
-
-      const prepopulatedPlan = plannedLevels.map((levelVal) => {
-        const found = availableCourses.find((c) => c.course_level === levelVal);
-        return found
-          ? {
-              level: found.course_lvlGroup,
-              courseLevel: found.course_level,
-              name: found.course_name,
-            }
-          : { level: "", courseLevel: levelVal, name: "" };
-      });
-
-      setCoursePlan(prepopulatedPlan);
-    } else {
-      setCoursePlan([]); // Initialize as empty array if no planned courses
-    }
-  }, [record, availableCourses]);
-
-  const loading = loadingCourses || loadingRecord;
-
-  return { availableCourses, coursePlan, setCoursePlan, loading, record };
-};
+  return {
+    loading,
+    coursePlan,
+    setCoursePlan,
+    courseLevels,
+    availableCourses,
+    completedCourses,
+    coursePrerequisites,
+    handleAddCourse,
+    handleCourseChange,
+    filterAvailableCourses,
+    formatPlannedCourses,
+    formatPrerequisites,
+  };
+}

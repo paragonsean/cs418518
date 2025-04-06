@@ -82,31 +82,40 @@ class AdminAdvisingController {
    * PUT /api/admin/advising/:id
    * Updates an advising record's status and sends an email.
    */
+  // Existing method to update advising status and send email
   static async updateAdvisingStatus(req, res) {
     try {
       const advisingId = req.params.id;
-      const { status, rejectionReason } = req.body;
+      const { status, rejectionReason, feedback } = req.body;  // Assuming feedback is passed as well
 
-      const result = await AdvisingModel.updateStatusById(advisingId, status, rejectionReason);
+      // Step 1: Update the advising record status
+      const result = await AdvisingModel.updateStatusById(advisingId, status, rejectionReason, feedback);
       if (result.affectedRows === 0) {
         return res.status(404).json({ status: "failed", message: "Record not found" });
       }
 
+      // Step 2: Retrieve the student's email
       const studentEmail = await AdvisingModel.getStudentEmailById(advisingId);
+      console.log("Student email:", studentEmail);
+
       if (!studentEmail) {
         return res.status(500).json({
           status: "failed",
           message: "Error retrieving student's email",
         });
       }
+      console.log("Student email retrieved:", studentEmail);
+      console.log("Status:", status);
+      // Step 3: Send the email to the student
+      sendAdvisingEmail(studentEmail, status, feedback)  // Pass the status and feedback to the email service
+        .catch((err) => {
+          logger.error("Email sending failed:", err.message);
+        });
 
-      sendAdvisingEmail(studentEmail).catch((err) =>
-        logger.error("Email sending failed:", err.message)
-      );
-
+      // Step 4: Return success response
       return res.status(200).json({
         status: "success",
-        message: "Status updated successfully",
+        message: "Status updated successfully, email sent to student",
       });
     } catch (error) {
       logger.error(`Error updating advising status for ID ${req.params.id}:`, error.message);

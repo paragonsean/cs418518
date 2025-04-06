@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { loginSchema } from "../../../validation/schemas";
 
 // hooks
@@ -14,16 +14,35 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
+  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
+
 
   const { handleLogin } = useAuth();
   const { handleVerifyOTP } = usePassword();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!window.grecaptcha) {
+      const script = document.createElement("script");
+      script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => setRecaptchaLoaded(true);
+      document.head.appendChild(script);
+    } else {
+      setRecaptchaLoaded(true);
+    }
+  }, []);
+  
+
+
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
       otp: "",
+      recaptchaToken: "", // Add reCAPTCHA token to form values
     },
     validationSchema: loginSchema,
     onSubmit: async (values, { setSubmitting }) => {
@@ -32,10 +51,29 @@ const Login = () => {
 
       try {
         if (step === 1) {
-          // Step 1: Login
+          // ✅ Step 1: reCAPTCHA Token
+          if (!recaptchaLoaded) {
+            setErrorMessage("reCAPTCHA not loaded. Please try again.");
+            setLoading(false);
+            return;
+          }
+
+          const recaptchaToken = await new Promise((resolve, reject) => {
+            window.grecaptcha.ready(() => {
+              window.grecaptcha
+                .execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, {
+                  action: "login",
+                })
+                .then(resolve)
+                .catch(reject);
+            });
+          });
+            values.recaptchaToken = recaptchaToken;
+
           const res = await handleLogin({
             email: values.email,
             password: values.password,
+            recaptchaToken: values.recaptchaToken,
           });
 
           if (res.status === "pending_otp") {
@@ -64,6 +102,8 @@ const Login = () => {
       }
     },
   });
+
+
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">

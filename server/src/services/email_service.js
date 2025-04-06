@@ -62,7 +62,8 @@ export const sendResetPasswordEmail = async (email, token) => {
 /**
  * Sends an email to the student when there is a status change in their course plan
  */
-export const sendAdvisingEmail = async (studentEmail) => {
+// sendAdvisingEmail now takes status and feedback as arguments
+export const sendAdvisingEmail = async (studentEmail, status, feedback) => {
   const transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
@@ -78,8 +79,9 @@ export const sendAdvisingEmail = async (studentEmail) => {
     html: `
       <p>Dear student,</p>
       <p>You are receiving this email because there has been a change to the status 
-      of one or more of your previously submitted course plans. To view this change, 
-      please log into your account and navigate to the Course Advising Form webpage.</p>
+      of one or more of your previously submitted course plans. The updated status is: <strong>${status}</strong>.</p>
+      <p>Feedback: ${feedback}</p>
+      <p>To view the details of the change, please log into your account and navigate to the Course Advising Form webpage.</p>
       <p>Thank you.</p>
     `,
   };

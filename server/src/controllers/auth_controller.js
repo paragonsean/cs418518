@@ -10,6 +10,7 @@ import { sendVerificationEmail } from "../services/email_service.js";
 import UserModel from "../models/user_model.js";
 import AuthModel from "../models/auth_model.js";
 import logger from "../services/my_logger.js";
+import { verifyRecaptcha } from "../services/verify_recaptcha.js";
 
 class AuthController {
   // ✅ Register a New User
@@ -63,16 +64,28 @@ class AuthController {
     }
   }
 
-  // ✅ Login (Generate OTP)
+  // ✅ Login (Generate OTP) with reCAPTCHA verification
   static async userLogin(req, res) {
-    const { email, password } = req.body;
+    const { email, password, recaptchaToken } = req.body;
 
-    if (!email || !password) {
+    if (!email || !password || !recaptchaToken) {
       logger.warn(`Login attempt failed - Missing fields (email: ${email})`);
-      return res.status(400).json({ status: "failed", message: "All fields are required" });
+      return res.status(400).json({ status: "failed", message: "All fields are required including reCAPTCHA" });
+    }
+
+    // 🛡️ Step 1: Verify reCAPTCHA token
+    const recaptcha = await verifyRecaptcha(recaptchaToken);
+
+    if (!recaptcha.success || recaptcha.score < 0.5) {
+      logger.warn(`reCAPTCHA failed for ${email} — score: ${recaptcha.score}`);
+      return res.status(403).json({
+        status: "failed",
+        message: "reCAPTCHA verification failed. Are you human?",
+      });
     }
 
     try {
+      // 🔐 Step 2: Find user and check credentials
       const user = await UserModel.findByEmail(email);
       if (!user) {
         logger.warn(`Login failed - User not found (email: ${email})`);
@@ -93,9 +106,9 @@ class AuthController {
         });
       }
 
+      // 🔐 Step 3: Generate OTP and send email
       const otp = generateOTP();
       const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 mins
-
       await AuthModel.updateOTP(user.u_id, otp, otpExpiresAt);
       logger.info(`OTP generated and stored for ${email}`);
 
@@ -139,9 +152,9 @@ class AuthController {
 
       res.cookie("authtoken", token, {
         httpOnly: true,
-        secure: isProduction,                       // true for HTTPS/ngrok
-        sameSite: isProduction ? "none" : "lax",    // required for cross-origin cookies
-        maxAge: 7 * 24 * 60 * 60 * 1000,            // 7 days
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
       logger.info(`OTP verification successful - User logged in: ${email}`);
@@ -149,7 +162,7 @@ class AuthController {
       return res.status(200).json({
         status: "success",
         message: "Login successful!",
-        token, // optional - frontend may read from cookie only
+        token,
       });
     } catch (error) {
       logger.error(`Error verifying OTP for ${email}: ${error.message}`);

@@ -1,29 +1,51 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import publicRequest from "@/utils/public_request";
 import urlJoin from "url-join";
-import { getToken } from "@/lib/token_utils";
-import { useAdminAdvisingComparison } from "@/hooks/use_admin_advising_form"; // Import the correct hook
+import { getToken } from "@/lib/token_utils"; // Helper to get JWT
 
 const ReviewAdvisingRecord = () => {
   const { id } = useParams();
   const router = useRouter();
 
-  const { availableCourses, coursePlan, setCoursePlan, loading, record } = useAdminAdvisingComparison(id);
+  const [record, setRecord] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState("Pending");
   const [feedback, setFeedback] = useState("");
 
-  // Update status and feedback when record changes (in case of initial load)
   useEffect(() => {
-    if (record) {
-      setStatus(record.status || "Pending");
-      setFeedback(record.feedback || "");
+    const fetchRecord = async () => {
+      try {
+        const token = getToken();
+        const url = urlJoin(process.env.NEXT_PUBLIC_SERVER_URL, `/api/admin/advising/${id}`);
+        const data = await publicRequest(url, "GET", null, token);
+        setRecord(data);
+        setStatus(data.status || "Pending");
+        setFeedback(data.feedback || "");
+      } catch (err) {
+        console.error("Failed to load advising record", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) fetchRecord();
+  }, [id]);
+
+  // Convert planned_courses to an array if it's not already
+  const getPlannedCoursesArray = (planned_courses) => {
+    if (Array.isArray(planned_courses)) {
+      return planned_courses;  // It's already an array
+    } else if (typeof planned_courses === "string") {
+      return planned_courses.split(",").map((s) => s.trim());  // Convert string to an array
     }
-  }, [record]);
+    return [];  // Return an empty array if it's neither an array nor a string
+  };
 
   const handleSubmit = async () => {
     try {
@@ -31,6 +53,7 @@ const ReviewAdvisingRecord = () => {
       const url = urlJoin(process.env.NEXT_PUBLIC_SERVER_URL, `/api/admin/advising/${id}`);
       const payload = { status, feedback };
       const result = await publicRequest(url, "PUT", payload, token);
+
       if (result.status === "error") {
         alert("Failed to update record.");
       } else {
@@ -43,8 +66,10 @@ const ReviewAdvisingRecord = () => {
     }
   };
 
-  if (loading) return <p className="text-center">Loading...</p>;
-  if (!record) return <p className="text-center">Advising record not found.</p>;
+  if (loading || !record) return <p className="text-center">Loading...</p>;
+
+  // Use the helper function to get planned courses as an array
+  const plannedCoursesArray = getPlannedCoursesArray(record.planned_courses);
 
   return (
     <div className="container mx-auto mt-8 p-4">
@@ -74,13 +99,11 @@ const ReviewAdvisingRecord = () => {
 
           {/* Course Plan Section */}
           <h3 className="font-semibold mb-2">Planned Courses</h3>
-          {Array.isArray(coursePlan) && coursePlan.length > 0 ? (
+          {plannedCoursesArray.length > 0 ? (
             <div className="space-y-2 mb-6">
-              {coursePlan.map((course, idx) => (
-                <div key={`${course.courseLevel}-${idx}`} className="grid grid-cols-3 gap-4">
-                  <input value={course.level} disabled className="border px-2 py-1 rounded bg-gray-100" />
-                  <input value={course.courseLevel} disabled className="border px-2 py-1 rounded bg-gray-100" />
-                  <input value={course.name} disabled className="border px-2 py-1 rounded bg-gray-100" />
+              {plannedCoursesArray.map((course, idx) => (
+                <div key={`${course}-${idx}`} className="grid grid-cols-3 gap-4">
+                  <input value={course} disabled className="border px-2 py-1 rounded bg-gray-100" />
                 </div>
               ))}
             </div>

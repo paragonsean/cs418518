@@ -14,67 +14,6 @@ function getAuthToken() {
 }
 
 //////////////////////////////////////////////////////////
-// 📘 STUDENT ENDPOINTS (/api/advising)
-//////////////////////////////////////////////////////////
-
-/**
- * GET /api/advising/email
- * Fetch advising records for the logged-in student
- */
-export async function fetchAdvisingRecords() {
-  try {
-    const token = getAuthToken();
-    const data = await publicRequest("/api/advising/email", "GET", null, token);
-    return Array.isArray(data) ? data : [];
-  } catch (error) {
-    logger.error("Error fetching student advising records:", error);
-    return [];
-  }
-}
-
-/**
- * POST /api/advising
- * Create a new advising record
- */
-export async function createAdvisingRecord(recordData) {
-  try {
-    const token = getAuthToken();
-    return await publicRequest("/api/advising", "POST", recordData, token);
-  } catch (error) {
-    logger.error("Error creating advising record:", error);
-    throw error;
-  }
-}
-
-/**
- * GET /api/advising/:id
- * Fetch an advising record by ID (used on student side)
- */
-export async function fetchAdvisingRecordById(id) {
-  try {
-    const token = getAuthToken();
-    return await publicRequest(`/api/advising/${id}`, "GET", null, token);
-  } catch (error) {
-    logger.error("Error fetching advising record by ID:", error);
-    throw error;
-  }
-}
-
-/**
- * PUT /api/advising/record/:id
- * Full update of a student advising record
- */
-export async function updateAdvisingRecord(id, updatedData) {
-  try {
-    const token = getAuthToken();
-    return await publicRequest(`/api/advising/record/${id}`, "PUT", updatedData, token);
-  } catch (error) {
-    logger.error("Error updating advising record:", error);
-    throw error;
-  }
-}
-
-//////////////////////////////////////////////////////////
 // 👨‍💼 ADMIN ENDPOINTS (/api/admin/advising)
 //////////////////////////////////////////////////////////
 
@@ -131,6 +70,20 @@ export async function updateAdvisingRecordByAdmin(id, updatedData) {
     return await publicRequest(`/api/admin/advising/record/${id}`, "PUT", updatedData, token);
   } catch (error) {
     logger.error(`Error updating advising record ${id} (admin):`, error);
+    throw error;
+  }
+}
+
+/**
+ * DELETE /api/admin/advising/:id
+ * Delete an advising record (admin only)
+ */
+export async function deleteAdvisingRecordByAdmin(id) {
+  try {
+    const token = getAuthToken();
+    return await publicRequest(`/api/admin/advising/${id}`, "DELETE", null, token);
+  } catch (error) {
+    logger.error(`Error deleting advising record ID ${id} (admin):`, error);
     throw error;
   }
 }

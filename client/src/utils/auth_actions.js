@@ -1,4 +1,3 @@
-// utils/authAPI.js
 import publicRequest from "./public_request";
 
 // 📧 Verify Email via Token

@@ -157,47 +157,6 @@ class AdvisingController {
     }
   }
 
-  /**
-   * PUT /api/advising/:id
-   * Updates an advising record's status by its ID.
-   * In many apps, only Admin or certain roles can do this.
-   */
-  static async updateAdvisingStatus(req, res) {
-    try {
-      const advisingId = req.params.id;
-      const { status, rejectionReason } = req.body;
-
-      // Update status in DB
-      const result = await AdvisingModel.updateStatusById(advisingId, status, rejectionReason);
-      if (result.affectedRows === 0) {
-        return res
-          .status(404)
-          .json({ status: "failed", message: "Record not found" });
-      }
-
-      // Retrieve student email for notification
-      const studentEmail = await AdvisingModel.getStudentEmailById(advisingId);
-      if (!studentEmail) {
-        return res
-          .status(500)
-          .json({ status: "failed", message: "Error retrieving student's email" });
-      }
-
-      // Send email notification (async)
-      sendAdvisingEmail(studentEmail).catch((err) =>
-        logger.error("Email sending failed:", err.message)
-      );
-
-      return res
-        .status(200)
-        .json({ status: "success", message: "Status updated successfully" });
-    } catch (error) {
-      logger.error(`Error updating advising status for ID ${req.params.id}:`, error.message);
-      return res
-        .status(500)
-        .json({ status: "failed", message: "Server Error: Status not updated" });
-    }
-  }
   static async updateAdvisingRecord(req, res) {
     try {
       const advisingId = req.params.id;
