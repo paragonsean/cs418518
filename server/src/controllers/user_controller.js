@@ -1,48 +1,40 @@
 import UserModel from "../models/user_model.js";
 import logger from "../services/my_logger.js";
 import { hashPassword } from "../services/auth_service.js";  // Ensure correct relative path
-
+import  { isStrongPassword } from "../services/password_validator.js"; // Ensure correct relative path
 class UserController {
   // Change User Password (Auth Required)
   static async changeUserPassword(req, res) {
     const { password, password_confirmation } = req.body;
-
+  
     if (!password || !password_confirmation) {
-      logger.warn(
-        `Password change failed - Missing fields (User ID: ${req.user?.userId || "unknown"})`
-      );
-      return res
-        .status(400)
-        .json({ status: "failed", message: "All fields are required" });
+      logger.warn(`Password change failed - Missing fields (User ID: ${req.user?.userId || "unknown"})`);
+      return res.status(400).json({ status: "failed", message: "All fields are required" });
     }
-
+  
     if (password !== password_confirmation) {
-      logger.warn(
-        `Password change failed - Passwords do not match (User ID: ${req.user?.userId || "unknown"})`
-      );
-      return res
-        .status(400)
-        .json({ status: "failed", message: "Passwords do not match" });
+      logger.warn(`Password change failed - Passwords do not match (User ID: ${req.user?.userId || "unknown"})`);
+      return res.status(400).json({ status: "failed", message: "Passwords do not match" });
     }
-
+  
+    if (!isStrongPassword(password)) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character",
+      });
+    }
+  
     try {
       const hashedPassword = await hashPassword(password);
       await UserModel.updatePasswordByUserId(req.user.userId, hashedPassword);
       logger.info(`Password changed successfully for User ID: ${req.user.userId}`);
-
-      return res
-        .status(200)
-        .json({ status: "success", message: "Password changed successfully" });
+  
+      return res.status(200).json({ status: "success", message: "Password changed successfully" });
     } catch (error) {
-      logger.error(
-        `Error changing password for User ID ${req.user?.userId || "unknown"}: ${error.message}`
-      );
-      return res
-        .status(500)
-        .json({ status: "failed", message: "Server error" });
+      logger.error(`Error changing password for User ID ${req.user?.userId || "unknown"}: ${error.message}`);
+      return res.status(500).json({ status: "failed", message: "Server error" });
     }
   }
-
   // Fetch Logged-in User Data
   static async loggedUser(req, res) {
     try {

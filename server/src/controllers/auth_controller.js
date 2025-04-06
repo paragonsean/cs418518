@@ -11,7 +11,7 @@ import UserModel from "../models/user_model.js";
 import AuthModel from "../models/auth_model.js";
 import logger from "../services/my_logger.js";
 import { verifyRecaptcha } from "../services/verify_recaptcha.js";
-
+import { isStrongPassword } from "../services/password_validator.js";
 class AuthController {
   // ✅ Register a New User
   static async register(req, res) {
@@ -29,7 +29,14 @@ class AuthController {
       logger.warn(`Registration failed - Passwords do not match (email: ${email})`);
       return res.status(400).json({ status: "failed", message: "Passwords do not match" });
     }
-
+    if (!isStrongPassword(password)) {
+      logger.warn(`Registration failed - Weak password for email: ${email}`);
+      return res.status(400).json({
+        status: "failed",
+        message:
+          "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character",
+      });
+    }
     try {
       const existingUser = await UserModel.findByEmail(email);
       if (existingUser) {
