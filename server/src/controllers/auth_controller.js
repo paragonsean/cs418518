@@ -141,7 +141,7 @@ class AuthController {
       logger.info(`OTP generated and stored for ${email}`);
 
       try {
-        await sendOTPEmail(user.u_email, otp);
+        sendOTPEmail(user.u_email, otp);
         logger.info(`OTP email sent to ${user.u_email}`);
       } catch (emailErr) {
         logger.error(`Error sending OTP email: ${emailErr.message}`);
