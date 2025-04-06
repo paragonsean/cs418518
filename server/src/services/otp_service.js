@@ -3,7 +3,7 @@ import logger from "./my_logger.js"; //  Import logger
 
 //  Generate a 6-digit OTP
 export const generateOTP = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+  return "123456"; //  Replace with actual OTP generation logic
 };
 
 //  Send OTP via Email with Logging
