@@ -59,6 +59,19 @@ export async function updateAdvisingStatus(id, status, rejectionReason = "N/A") 
     throw error;
   }
 }
+/**
+ * POST /api/admin/advising/:id/update-courses
+ * Convert planned_courses into completed_courses for a student
+ */
+export async function updateCoursesFromAdvising(id) {
+  try {
+    const token = getAuthToken();
+    return await publicRequest(`/api/admin/advising/${id}/update-courses`, "POST", null, token);
+  } catch (error) {
+    logger.error(`Error updating courses from advising ID ${id}:`, error);
+    throw error;
+  }
+}
 
 /**
  * PUT /api/admin/advising/record/:id

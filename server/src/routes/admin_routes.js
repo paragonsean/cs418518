@@ -12,6 +12,7 @@ adminRouter.use(checkAdminRole);     // Ensure user is admin
 /**
  * Admin-only advising management routes
  */
+adminRouter.post("/advising/:id/update-courses", AdminAdvisingController.updateCoursesFromAdvising);
 
 // 📄 View all advising records
 adminRouter.get("/advising", AdminAdvisingController.getAllAdvisingRecords);

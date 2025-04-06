@@ -1,12 +1,11 @@
 "use client";
+
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { registerSchema } from "../../../validation/schemas";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
-
-// hooks
 import useAuth from "@/hooks/use_auth";
 
 const initialValues = {
@@ -15,14 +14,30 @@ const initialValues = {
   email: "",
   password: "",
   password_confirmation: "",
+  recaptchaToken: "", // Add a field to store the recaptcha token
 };
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState([]); //  Fix: Track multiple errors
+  const [errors, setErrors] = useState([]); // Track multiple errors
   const [successMessage, setSuccessMessage] = useState("");
   const { handleRegister, error } = useAuth();
   const router = useRouter();
+  const [recaptchaResponse, setRecaptchaResponse] = useState(""); // Store reCAPTCHA response
+
+  useEffect(() => {
+    // Dynamically load the reCAPTCHA v3 script
+    const script = document.createElement("script");
+    script.src = "https://www.google.com/recaptcha/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+
+    // Cleanup when the component unmounts
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const formik = useFormik({
     initialValues,
@@ -32,20 +47,37 @@ const Register = () => {
       setErrors([]); // Clear previous errors
       setSuccessMessage("");
 
+      // Verify reCAPTCHA v3 and get the token
+      const recaptchaToken = await new Promise((resolve, reject) => {
+        if (window.grecaptcha) {
+          window.grecaptcha.ready(() => {
+            window.grecaptcha
+              .execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, {
+                action: "register", // Action for registration
+              })
+              .then(resolve)
+              .catch(reject);
+          });
+        } else {
+          reject("reCAPTCHA not loaded");
+        }
+      });
+
+      // Add reCAPTCHA token to form values
+      values.recaptchaToken = recaptchaToken;
+
       const data = await handleRegister(values);
 
-      console.log("🔄 Registration Response:", data);
-
       if (data.status === "success") {
-        setSuccessMessage(" Registration successful! Please check your email.");
+        setSuccessMessage("Registration successful! Please check your email.");
         setErrors([]);
 
-        //  Show success toast notification
+        // Show success toast notification
         toast.success(
-          "🎉 Registration successful! Check your email to verify your account.",
+          "🎉 Registration successful! Check your email to verify your account."
         );
 
-        //  Redirect to login after 3 seconds
+        // Redirect to login after 3 seconds
         setTimeout(() => {
           router.push("/account/login");
         }, 3000);
@@ -55,7 +87,7 @@ const Register = () => {
           : [data.message];
         setErrors(errorMessages);
 
-        //  Show error toast notifications
+        // Show error toast notifications
         errorMessages.forEach((err) => {
           toast.error(`${err}`);
         });
@@ -77,7 +109,7 @@ const Register = () => {
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
         {successMessage ? (
-          //  Show success message instead of form after registration
+          // Show success message instead of form after registration
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-4">Check Your Email 📩</h2>
             <p className="text-gray-700 mb-4">{successMessage}</p>

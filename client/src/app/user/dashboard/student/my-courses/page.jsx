@@ -12,13 +12,14 @@ const CompletedCoursesHistory = () => {
   const router = useRouter();
   const [completedCourses, setCompletedCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");  // Added error state
 
   useEffect(() => {
     const fetchCompletedCourses = async () => {
       try {
         const token = Cookies.get("authToken");
         if (!token) {
-          console.error("No token found. User is not authenticated.");
+          setError("User is not authenticated. Please log in.");
           return;
         }
 
@@ -27,10 +28,10 @@ const CompletedCoursesHistory = () => {
         if (data && Array.isArray(data)) {
           setCompletedCourses(data);
         } else {
-          console.error("Unexpected response while fetching completed courses:", data);
+          setError("Unexpected response while fetching completed courses.");
         }
       } catch (error) {
-        console.error("Error fetching completed courses:", error);
+        setError("Error fetching completed courses.");
       } finally {
         setLoading(false);
       }
@@ -48,6 +49,8 @@ const CompletedCoursesHistory = () => {
         <CardContent>
           {loading ? (
             <p className="text-center text-gray-500">Loading...</p>
+          ) : error ? (
+            <p className="text-center text-red-500">{error}</p>
           ) : completedCourses.length === 0 ? (
             <p className="text-center text-gray-500">No Completed Courses Found</p>
           ) : (

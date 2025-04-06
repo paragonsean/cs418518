@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import publicRequest from "@/utils/public_request";
 import urlJoin from "url-join";
 import { getToken } from "@/lib/token_utils"; // Helper to get JWT
+import  { updateCoursesFromAdvising } from "@/utils/advising_api"; // Add this import at the top
 
 const ReviewAdvisingRecord = () => {
   const { id } = useParams();
@@ -47,16 +48,27 @@ const ReviewAdvisingRecord = () => {
     return [];  // Return an empty array if it's neither an array nor a string
   };
 
+
   const handleSubmit = async () => {
     try {
       const token = getToken();
       const url = urlJoin(process.env.NEXT_PUBLIC_SERVER_URL, `/api/admin/advising/${id}`);
       const payload = { status, feedback };
       const result = await publicRequest(url, "PUT", payload, token);
-
+  
       if (result.status === "error") {
         alert("Failed to update record.");
       } else {
+        // 👉 Trigger course completion update if approved
+        if (status === "Approved") {
+          try {
+            const updateResult = await updateCoursesFromAdvising(id);
+            console.log("Courses added:", updateResult);
+          } catch (err) {
+            console.error("Failed to add completed courses:", err);
+          }
+        }
+  
         alert("Decision submitted!");
         router.push("/user/dashboard/admin/view-students");
       }
@@ -65,6 +77,7 @@ const ReviewAdvisingRecord = () => {
       alert("Something went wrong.");
     }
   };
+  
 
   if (loading || !record) return <p className="text-center">Loading...</p>;
 

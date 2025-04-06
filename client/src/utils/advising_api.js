@@ -1,7 +1,7 @@
-// advisingApi.js
-
 import Cookies from "js-cookie";
 import urlJoin from "url-join";
+import  publicRequest  from "@/utils/public_request"; // ✅ Correct
+import  { getToken }  from "@/lib/token_utils"; // ✅ Add this if missing
 
 // Base URL for the API from environment variables
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000";
@@ -13,6 +13,13 @@ const getAuthHeaders = () => {
     ? { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
     : { "Content-Type": "application/json" };
 };
+
+export async function updateCoursesFromAdvising(advisingId) {
+  const token = getToken();
+  const url = urlJoin(BASE_URL, `/api/admin/advising/${advisingId}/update-courses`);
+  return await publicRequest(url, "POST", null, token); // ✅ OK with your new backend
+}
+
 
 /**
  * Fetch all advising records (Admin Only)
@@ -148,6 +155,67 @@ export const createAdvisingRecord = async (recordData) => {
     return data;
   } catch (error) {
     console.error("Error creating advising record:", error);
+    throw error;
+  }
+};
+/**
+ * Admin: Fetch completed courses for a specific student by their ID
+ */
+export const fetchCompletedCoursesByStudentId = async (studentId) => {
+  try {
+    const token = Cookies.get("authToken");
+    if (!token) {
+      console.error("No token found. Admin not authenticated.");
+      return [];
+    }
+
+    const url = urlJoin(BASE_URL, `/api/completed-courses/${studentId}`);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to fetch completed courses for student");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching completed courses for student ID ${studentId}:`, error);
+    throw error;
+  }
+};
+/**
+ * Admin: Fetch completed courses for a student by email
+ */
+export const fetchCompletedCoursesByStudentEmail = async (email) => {
+  try {
+    const token = Cookies.get("authToken");
+    if (!token) {
+      console.error("No token found. Admin not authenticated.");
+      return [];
+    }
+
+    const response = await fetch(`${BASE_URL}/api/completed-courses/email/${email}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to fetch completed courses for student");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching completed courses for email ${email}:`, error);
     throw error;
   }
 };

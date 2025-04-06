@@ -1,11 +1,13 @@
-// File: src/routes/completedCoursesRoutes.js
-import { Router } from "express";
-import CompletedCoursesController from "../controllers/completed_courses_controller.js";
 import checkUserAuth from "../middleware/auth_middleware.js";
+import checkAdminRole from "../middleware/admin_middleware.js";
+import CompletedCoursesController from "../controllers/completed_courses_controller.js";
+import { Router } from "express";
 
 const router = Router();
 
-// GET /api/completed-courses -> Fetch completed courses using authenticated user's email
 router.get("/", checkUserAuth, CompletedCoursesController.getCompletedCoursesByEmail);
+
+// ✅ Admin route using student email instead of ID
+router.get("/email/:email", checkUserAuth, checkAdminRole, CompletedCoursesController.getCompletedCoursesByEmailParam);
 
 export default router;

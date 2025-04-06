@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
@@ -8,6 +9,7 @@ import useProfile from "@/hooks/use_profile";
 import { fetchAdvisingRecords, createAdvisingRecord } from "@/utils/advising_actions";
 import { fetchAllCourses } from "@/utils/course_actions";
 import Cookies from "js-cookie";
+import { fetchCompletedCourses } from "@/utils/advising_api";  // Importing the function
 
 const AdvisingForm = () => {
   const { getProfile } = useProfile();
@@ -20,6 +22,7 @@ const AdvisingForm = () => {
   const [coursePrerequisites, setCoursePrerequisites] = useState({});
   const [typedStudentName, setTypedStudentName] = useState("");
   const [completedCourses, setCompletedCourses] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const todaysDate = new Date().toISOString().split("T")[0];
 
@@ -72,22 +75,18 @@ const AdvisingForm = () => {
     fetchCourses();
   }, []);
 
+  // Using the imported function to fetch completed courses
   useEffect(() => {
-    const fetchCompletedCourses = async () => {
+    const fetchCompletedCoursesData = async () => {
       try {
-        const token = Cookies.get("authToken");
-        if (!token) return console.error("User is not authenticated.");
-        const response = await fetch("/api/completed-courses", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await response.json();
-        if (response.ok) setCompletedCourses(data);
-        else console.error("Error fetching completed courses:", data.message);
+        const completedData = await fetchCompletedCourses();  // Use the imported method
+        setCompletedCourses(completedData);
       } catch (error) {
+        setErrorMessage("Error fetching completed courses.");
         console.error("Error fetching completed courses:", error);
       }
     };
-    fetchCompletedCourses();
+    fetchCompletedCoursesData();
   }, []);
 
   const handleAddCourse = () => setCoursePlan([...coursePlan, { level: "", courseLevel: "", name: "" }]);
@@ -141,6 +140,7 @@ const AdvisingForm = () => {
         </CardHeader>
 
         <CardContent>
+          {errorMessage && <p className="text-center text-red-500">{errorMessage}</p>}
           <form
             onSubmit={(e) => {
               e.preventDefault();

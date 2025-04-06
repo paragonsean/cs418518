@@ -32,12 +32,11 @@ class CompletedCoursesModel {
         throw new Error("Missing required fields");
       }
 
-      // Optional: Validate grade format if needed (e.g., A, B+, etc.)
-      const validGrades = ["A", "B", "C", "D", "F", "A+", "B-", "C+"];
+      const validGrades = ["A", "B", "C", "D", "F", "A+", "B-", "C+", "IP", "In Progress"];
       if (!validGrades.includes(grade)) {
-        throw new Error("Invalid grade format");
+        throw new Error(`Invalid grade format: ${grade}`);
       }
-
+      
       // Query to insert the completed course record into the database
       const query = `
         INSERT INTO completed_courses (student_email, course_name, term, grade)

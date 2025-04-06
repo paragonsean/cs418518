@@ -28,14 +28,17 @@ export const sendVerificationEmail = async (
     `,
   };
 
-  await transporter.sendMail(mailOptions);
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Verification email sent successfully!");
+  } catch (error) {
+    console.error("Error sending verification email:", error);
+    throw new Error("Error sending verification email.");
+  }
 };
 
-/**
- * Sends a password reset email with a secure reset link
- */
 export const sendResetPasswordEmail = async (email, token) => {
-  const resetLink = `http://localhost:3000/account/reset-password/${token}`; // Adjust as needed for your frontend URL
+  const resetLink = `${process.env.FRONTEND_URL}/account/reset-password/${token}`; // Use FRONTEND_URL
 
   const transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -56,7 +59,13 @@ export const sendResetPasswordEmail = async (email, token) => {
     `,
   };
 
-  await transporter.sendMail(mailOptions);
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Password reset email sent successfully!");
+  } catch (error) {
+    console.error("Error sending password reset email:", error);
+    throw new Error("Error sending password reset email.");
+  }
 };
 
 /**

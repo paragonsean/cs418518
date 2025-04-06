@@ -8,9 +8,6 @@ const BASE_URL =
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 const publicRequest = async (url, method = "GET", data = null, token = null) => {
@@ -18,11 +15,14 @@ const publicRequest = async (url, method = "GET", data = null, token = null) => 
     const config = {
       method,
       url,
-      data,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: {},
     };
+
+    // Attach body only if data is provided
+    if (data !== null && data !== undefined) {
+      config.data = data;
+      config.headers["Content-Type"] = "application/json";
+    }
 
     // Attach token if available
     if (token) {
@@ -33,7 +33,7 @@ const publicRequest = async (url, method = "GET", data = null, token = null) => 
     return response.data;
   } catch (error) {
     if (!error.response) {
-      console.error("❌ Network Error:", error.message); // No response means server didn't reply
+      console.error("❌ Network Error:", error.message);
     } else {
       console.error("❌ Server responded with error:", {
         status: error.response.status,
