@@ -1,11 +1,11 @@
-import pool from "../config/connectdb.js";
+import {executeQuery} from "../config/connectdb.js";
 import logger from "../services/my_logger.js"; //  Import logger
 
 class CoursesModel {
   //  Get all courses
   static async getAllCourses() {
     try {
-      const [rows] = await pool.execute("SELECT * FROM courses");
+      const [rows] = await executeQuery("SELECT * FROM courses");
       logger.info(" Retrieved all courses from the database.");
       return rows;
     } catch (error) {
@@ -17,7 +17,7 @@ class CoursesModel {
   // Get course by level
   static async getCourseByLevel(level) {
     try {
-      const [rows] = await pool.execute(
+      const [rows] = await executeQuery(
         "SELECT * FROM courses WHERE course_level = ?",
         [level],
       );
@@ -38,7 +38,7 @@ class CoursesModel {
   // Update course name
   static async updateCourseName(level, courseName) {
     try {
-      const [result] = await pool.execute(
+      const [result] = await executeQuery(
         "UPDATE courses SET course_name=? WHERE course_level=?",
         [courseName, level],
       );
@@ -59,7 +59,7 @@ class CoursesModel {
   // Update course prerequisite
   static async updateCoursePrerequisite(level, prerequisite) {
     try {
-      const [result] = await pool.execute(
+      const [result] = await executeQuery(
         "UPDATE courses SET prerequisite=? WHERE course_level=?",
         [prerequisite, level],
       );
@@ -90,7 +90,7 @@ class CoursesModel {
     }
 
     try {
-      const [result] = await pool.execute(
+      const [result] = await executeQuery(
         "INSERT INTO courses (course_name, course_level, prerequisite, course_lvlGroup) VALUES (?, ?, ?, ?)",
         [course_name, course_level, prerequisite, course_lvlGroup],
       );
@@ -107,7 +107,7 @@ class CoursesModel {
   // 6️⃣ Delete course
   static async deleteCourse(level) {
     try {
-      const [result] = await pool.execute(
+      const [result] = await executeQuery(
         "DELETE FROM courses WHERE course_level=?",
         [level],
       );

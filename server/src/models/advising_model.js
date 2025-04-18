@@ -1,4 +1,4 @@
-import pool from "../config/connectdb.js";
+import {executeQuery} from "../config/connectdb.js";
 import logger from "../services/my_logger.js";
 
 class AdvisingModel {
@@ -7,7 +7,7 @@ class AdvisingModel {
    */
   static async getAllRecords() {
     try {
-      const [rows] = await pool.execute("SELECT * FROM courseadvising ORDER BY date DESC");
+      const [rows] = await executeQuery("SELECT * FROM courseadvising ORDER BY date DESC");
 
       // Convert `planned_courses` from JSON string to object
       rows.forEach((row) => {
@@ -29,7 +29,7 @@ class AdvisingModel {
    */
   static async getRecordsByEmail(studentEmail) {
     try {
-      const [rows] = await pool.execute(
+      const [rows] = await executeQuery(
         "SELECT * FROM courseadvising WHERE student_email = ? ORDER BY date DESC",
         [studentEmail]
       );
@@ -70,7 +70,7 @@ class AdvisingModel {
         throw new Error(" Missing required fields: student_email, current_term, or planned_courses");
       }
 
-      const [result] = await pool.execute(
+      const [result] = await executeQuery(
         `INSERT INTO courseadvising 
          (date, current_term, status, last_term, last_gpa, prerequisites, 
           student_name, planned_courses, student_email, rejectionReason)
@@ -101,7 +101,7 @@ class AdvisingModel {
   static async updateRecordById(id, data) {
     try {
       const { date, current_term, last_term, last_gpa, prerequisites, student_name, planned_courses } = data;
-      const [result] = await pool.execute(
+      const [result] = await executeQuery(
         `UPDATE courseadvising 
        SET date = ?, 
            current_term = ?, 
@@ -134,7 +134,7 @@ class AdvisingModel {
    */
   static async updateStatusById(id, status, rejectionReason = "N/A") {
     try {
-      const [result] = await pool.execute(
+      const [result] = await executeQuery(
         "UPDATE courseadvising SET status=?, rejectionReason=? WHERE id=?",
         [status, rejectionReason, id]
       );
@@ -157,7 +157,7 @@ class AdvisingModel {
    */
   static async getRecordById(id) {
     try {
-      const [rows] = await pool.execute(
+      const [rows] = await executeQuery(
         "SELECT * FROM courseadvising WHERE id = ?",
         [id]
       );
@@ -185,7 +185,7 @@ class AdvisingModel {
    */
   static async getStudentEmailById(id) {
     try {
-      const [rows] = await pool.execute("SELECT student_email FROM courseadvising WHERE id = ?", [id]);
+      const [rows] = await executeQuery("SELECT student_email FROM courseadvising WHERE id = ?", [id]);
 
       if (rows.length === 0) {
         logger.warn(`No email found for advising record ID ${id}`);

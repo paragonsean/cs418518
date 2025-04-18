@@ -10,62 +10,45 @@ import { sendVerificationEmail } from "../services/email_service.js";
 import UserModel from "../models/user_model.js";
 import AuthModel from "../models/auth_model.js";
 import logger from "../services/my_logger.js";
-import { verifyRecaptcha } from "../services/verify_recaptcha.js"; // Ensure this is implemented properly
-import { isStrongPassword } from "../services/password_validator.js";
+import { verifyRecaptcha } from "../services/verify_recaptcha.js";
 
 class AuthController {
   // ✅ Register a New User
   static async register(req, res) {
-    console.log("Received Registration Payload:", req.body);
-    logger.info(`Registration Payload: ${JSON.stringify(req.body)}`);
-
     const { firstName, lastName, email, password, password_confirmation, recaptchaToken } = req.body;
 
-    // Ensure all required fields are present
+    logger.info(`Registration attempt: ${email}`);
+
     if (!firstName || !lastName || !email || !password || !password_confirmation || !recaptchaToken) {
       logger.warn(`Registration failed - Missing fields (email: ${email})`);
       return res.status(400).json({ status: "failed", message: "All fields are required" });
     }
 
-    // Check if the passwords match
     if (password !== password_confirmation) {
       logger.warn(`Registration failed - Passwords do not match (email: ${email})`);
       return res.status(400).json({ status: "failed", message: "Passwords do not match" });
     }
 
-    // Validate password strength
-    if (!isStrongPassword(password)) {
-      logger.warn(`Registration failed - Weak password for email: ${email}`);
-      return res.status(400).json({
-        status: "failed",
-        message:
-          "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character",
-      });
-    }
-
-    // Verify reCAPTCHA
-    const recaptchaVerified = await verifyRecaptcha(recaptchaToken);  // Call verifyRecaptcha here
-    if (!recaptchaVerified.success || recaptchaVerified.score < 0.5) {
-      logger.warn(`Registration failed - reCAPTCHA validation failed for email: ${email}`);
-      return res.status(400).json({
+    // 🔐 Verify reCAPTCHA
+    const recaptchaResult = await verifyRecaptcha(recaptchaToken);
+    if (!recaptchaResult.success || recaptchaResult.score < 0.5) {
+      logger.warn(`reCAPTCHA failed for ${email} — score: ${recaptchaResult.score}`);
+      return res.status(403).json({
         status: "failed",
         message: "reCAPTCHA verification failed. Are you human?",
       });
     }
 
     try {
-      // Check if the user already exists
       const existingUser = await UserModel.findByEmail(email);
       if (existingUser) {
         logger.warn(`Registration failed - Email already exists: ${email}`);
         return res.status(400).json({ status: "failed", message: "Email already exists" });
       }
 
-      // Hash the password and generate a verification token
       const hashedPassword = await hashPassword(password);
       const verificationToken = generateToken({ email }, "1d");
 
-      // Create the new user in the database
       await UserModel.createUser({
         firstName,
         lastName,
@@ -76,12 +59,10 @@ class AuthController {
 
       const u_id = await UserModel.getLastUserID();
 
-      // Send verification email
       await sendVerificationEmail(email, verificationToken, u_id, firstName, lastName);
 
       logger.info(`Registration successful - Verification email sent to ${email}`);
 
-      // Respond with success
       return res.status(201).json({
         status: "success",
         message: "Registration successful! Check your email for verification.",
@@ -92,18 +73,17 @@ class AuthController {
     }
   }
 
-  // ✅ Login (Generate OTP) with reCAPTCHA verification
+  // ✅ Login (Generate OTP)
   static async userLogin(req, res) {
     const { email, password, recaptchaToken } = req.body;
 
     if (!email || !password || !recaptchaToken) {
       logger.warn(`Login attempt failed - Missing fields (email: ${email})`);
-      return res.status(400).json({ status: "failed", message: "All fields are required including reCAPTCHA" });
+      return res.status(400).json({ status: "failed", message: "All fields are required" });
     }
 
-    // 🛡️ Step 1: Verify reCAPTCHA token
+    // 🛡️ Verify reCAPTCHA
     const recaptcha = await verifyRecaptcha(recaptchaToken);
-
     if (!recaptcha.success || recaptcha.score < 0.5) {
       logger.warn(`reCAPTCHA failed for ${email} — score: ${recaptcha.score}`);
       return res.status(403).json({
@@ -113,11 +93,15 @@ class AuthController {
     }
 
     try {
-      // 🔐 Step 2: Find user and check credentials
       const user = await UserModel.findByEmail(email);
       if (!user) {
         logger.warn(`Login failed - User not found (email: ${email})`);
         return res.status(401).json({ status: "failed", message: "Invalid email or password" });
+      }
+
+      if (!user.u_password) {
+        logger.error(`User found but missing password field: ${JSON.stringify(user)}`);
+        return res.status(500).json({ status: "failed", message: "User data corrupted" });
       }
 
       const isMatch = await comparePassword(password, user.u_password);
@@ -134,14 +118,14 @@ class AuthController {
         });
       }
 
-      // 🔐 Step 3: Generate OTP and send email
       const otp = generateOTP();
-      const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 mins
+      const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000);
+
       await AuthModel.updateOTP(user.u_id, otp, otpExpiresAt);
       logger.info(`OTP generated and stored for ${email}`);
 
       try {
-        sendOTPEmail(user.u_email, otp);
+        await sendOTPEmail(user.u_email, otp);
         logger.info(`OTP email sent to ${user.u_email}`);
       } catch (emailErr) {
         logger.error(`Error sending OTP email: ${emailErr.message}`);
@@ -182,7 +166,7 @@ class AuthController {
         httpOnly: true,
         secure: isProduction,
         sameSite: isProduction ? "none" : "lax",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
       logger.info(`OTP verification successful - User logged in: ${email}`);

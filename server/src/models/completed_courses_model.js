@@ -1,4 +1,4 @@
-import db from "../config/connectdb.js"; // Assuming you have a pool connection
+import { executeQuery } from "../config/connectdb.js"; // Assuming you have a pool connection
 
 class CompletedCoursesModel {
   /**
@@ -10,7 +10,7 @@ class CompletedCoursesModel {
         SELECT * FROM completed_courses
         WHERE student_email = ?
       `;
-      const [rows] = await db.execute(query, [email]);
+      const [rows] = await executeQuery(query, [email]);
       return rows;
     } catch (error) {
       console.error("Error fetching completed courses from DB:", error);
@@ -42,7 +42,7 @@ class CompletedCoursesModel {
         INSERT INTO completed_courses (student_email, course_name, term, grade)
         VALUES (?, ?, ?, ?)
       `;
-      const [result] = await db.execute(query, [email, courseName, term, grade]);
+      const [result] = await executeQuery(query, [email, courseName, term, grade]);
 
       if (result.affectedRows === 0) {
         throw new Error("Failed to add the completed course");
