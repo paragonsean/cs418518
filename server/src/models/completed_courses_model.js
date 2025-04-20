@@ -22,13 +22,13 @@ class CompletedCoursesModel {
    * Add a completed course to the database for a student
    * @param {string} email - The student's email
    * @param {string} courseName - The name of the completed course
-   * @param {string} term - The academic term in which the course was completed
+   * @param {string} current_term - The academic current_term in which the course was completed
    * @param {string} grade - The grade received in the course
    */
-  static async setCompletedCourse(email, courseName, term, grade) {
+  static async setCompletedCourse(email, courseName, current_term, grade) {
     try {
       // Ensure that all required fields are provided
-      if (!email || !courseName || !term || !grade) {
+      if (!email || !courseName || !current_term || !grade) {
         throw new Error("Missing required fields");
       }
 
@@ -39,10 +39,10 @@ class CompletedCoursesModel {
       
       // Query to insert the completed course record into the database
       const query = `
-        INSERT INTO completed_courses (student_email, course_name, term, grade)
+        INSERT INTO completed_courses (student_email, course_name, current_term, grade)
         VALUES (?, ?, ?, ?)
       `;
-      const [result] = await executeQuery(query, [email, courseName, term, grade]);
+      const [result] = await executeQuery(query, [email, courseName, current_term, grade]);
 
       if (result.affectedRows === 0) {
         throw new Error("Failed to add the completed course");
@@ -52,7 +52,7 @@ class CompletedCoursesModel {
       const courseId = result.insertId;
 
       // Return a success message along with the inserted course details
-      return { message: "Completed course added successfully", courseId, email, courseName, term, grade };
+      return { message: "Completed course added successfully", courseId, email, courseName, current_term, grade };
     } catch (error) {
       console.error("Error adding completed course to DB:", error);
       throw new Error("Database query failed while adding completed course");
