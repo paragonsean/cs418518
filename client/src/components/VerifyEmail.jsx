@@ -2,7 +2,8 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { verifyEmail } from "../utils/authActions";
+import { verifyEmail } from "@/utils/auth_actions";
+import ReCaptcha from "@/components/re_captcha"; // Import your ReCaptcha component
 
 const VerifyEmailContent = () => {
   const router = useRouter();
@@ -11,6 +12,7 @@ const VerifyEmailContent = () => {
 
   const [message, setMessage] = useState("Verifying your email...");
   const [loading, setLoading] = useState(true);
+  const [recaptchaToken, setRecaptchaToken] = useState(""); // State for reCAPTCHA token
 
   useEffect(() => {
     if (!token) {
@@ -20,9 +22,15 @@ const VerifyEmailContent = () => {
     }
 
     const verifyUserEmail = async () => {
+      if (!recaptchaToken) {
+        setMessage("❌ Please complete the reCAPTCHA.");
+        setLoading(false);
+        return;
+      }
+
       try {
         console.log("📤 Verifying token:", token);
-        const res = await verifyEmail(token);
+        const res = await verifyEmail(token, recaptchaToken); // Pass recaptcha token for verification
 
         if (res.status === "success") {
           setMessage("✅ Email verified successfully! Redirecting to login...");
@@ -39,7 +47,11 @@ const VerifyEmailContent = () => {
     };
 
     verifyUserEmail();
-  }, [token, router]);
+  }, [token, recaptchaToken, router]);
+
+  const handleRecaptchaToken = (token) => {
+    setRecaptchaToken(token); // Set the reCAPTCHA token
+  };
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -52,6 +64,9 @@ const VerifyEmailContent = () => {
             {message}
           </p>
         )}
+
+        {/* Include the ReCaptcha component */}
+        <ReCaptcha action="email_verification" onTokenReceived={handleRecaptchaToken} />
       </div>
     </div>
   );

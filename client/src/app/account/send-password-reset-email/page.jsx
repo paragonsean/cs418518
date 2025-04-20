@@ -1,34 +1,48 @@
 "use client";
+
 import { useState } from "react";
-import publicRequest from "../../../utils/publicRequest";
+import publicRequest from "@/utils/public_request";
+import ReCaptcha from "@/components/re_captcha"; // Assuming ReCaptcha component is here
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
 
+    // Ensure reCAPTCHA token is available before proceeding
+    if (!recaptchaToken) {
+      setMessage("Please verify that you are not a robot.");
+      setLoading(false);
+      return;
+    }
+
     try {
       const res = await publicRequest(
         "/api/user/send-reset-password-email",
         "POST",
-        { email },
+        { email, recaptchaToken }  // Send reCAPTCHA token with the email
       );
 
       if (res.status === "success") {
-        setMessage(" Reset link sent! Check your email.");
+        setMessage("Reset link sent! Check your email.");
       } else {
         setMessage(" " + res.message);
       }
     } catch (error) {
-      setMessage(" Error sending reset link.");
+      setMessage("Error sending reset link.");
     }
 
     setLoading(false);
+  };
+
+  const handleRecaptchaTokenReceived = (token) => {
+    setRecaptchaToken(token); // Store the reCAPTCHA token
   };
 
   return (
@@ -53,6 +67,9 @@ const ForgotPassword = () => {
           </button>
         </form>
         {message && <p className="mt-4 text-gray-700">{message}</p>}
+
+        {/* Include ReCaptcha component */}
+        <ReCaptcha action="forgot_password" onTokenReceived={handleRecaptchaTokenReceived} />
       </div>
     </div>
   );

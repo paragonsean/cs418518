@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { BookOpen, PlusCircle, BarChart, Bell } from "lucide-react"; // Import icons
-import useProfile from "@/hooks/useProfile"; // Fetch user data dynamically
+import useProfile from "@/hooks/use_profile"; // Fetch user data dynamically
 
 export default function StudentDashboard() {
   const { getProfile, loading } = useProfile();

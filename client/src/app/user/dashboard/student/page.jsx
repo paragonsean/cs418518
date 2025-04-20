@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { BookOpen, PlusCircle, BarChart, Bell } from "lucide-react"; // Icons
-import useProfile from "@/hooks/useProfile"; // fetch user data
+import useProfile from "@/hooks/use_profile"; // fetch user data
 
 export default function StudentDashboard() {
   const { getProfile } = useProfile();

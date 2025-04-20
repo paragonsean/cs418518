@@ -13,12 +13,12 @@ const Navbar = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    const authCookie = Cookies.get("jwt-token");
+    const authCookie = Cookies.get("authToken");
     setIsAuth(!!authCookie);
   }, [pathname]);
 
   const handleLogout = () => {
-    Cookies.remove("jwt-token");
+    Cookies.remove("authToken");
     Cookies.remove("email");
     setIsAuth(false);
     router.refresh();
