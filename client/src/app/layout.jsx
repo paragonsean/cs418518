@@ -1,7 +1,7 @@
 // File: app/layout.js
 import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import Script from "next/script"; // ✅ Required for dynamic script injection
+import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
@@ -16,7 +16,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* ✅ reCAPTCHA v3 Script: Don't use v2's api.js */}
+        {/* ✅ Favicon explicitly set */}
+        <link rel="icon" type="image/png" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+
+        {/* ✅ reCAPTCHA v3 Script */}
         <Script
           src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
           strategy="afterInteractive"
