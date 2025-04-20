@@ -53,3 +53,76 @@ Refer to the demo and report deadlines on **Canvas**.
 
 This can be deployed via docker locally to test. The database will automatically  seed itself, and the server will be located on localhost:3000
 all you need to do is make sure docker is installed and run start.sh.
+# CS418/518 Project – Milestone 3
+
+In this milestone, you will build the **course advising functionality**.
+
+---
+
+## ✅ Security and UI Enhancements
+
+1. **Add reCAPTCHA to the login page**
+   - Verify the reCAPTCHA before login.
+   - Only allow the user to log in once reCAPTCHA verification is successful.
+
+2. **Prevent clickjacking attacks**
+   - Implement clickjacking prevention using appropriate HTTP headers.
+   - Demonstrate this prevention using a `.html` form.
+
+3. **Add a favicon to the website**
+
+4. **Enforce secure password rules**
+   - Use a regular expression to require:
+     - At least one **uppercase** letter
+     - At least one **lowercase** letter
+     - At least one **special character**
+     - At least one **number**
+     - Minimum **8 characters** in total
+
+5. **Create and execute backend test cases**
+   - Implement **at least 3 test cases** in the backend application.
+
+---
+
+## 🛠️ Admin Portal Functionality
+
+6. **Develop a screen to display advising forms submitted by CS department students**, including:
+   - **Student Name**
+   - **Term**
+   - **Status**
+
+   **Example Table:**
+
+   | Student | Term      | Status   |
+   |---------|-----------|----------|
+   | Adam    | Fall 2024 | Pending  |
+   | John    | Fall 2024 | Approved |
+   | Alex    | Fall 2024 | Rejected |
+   | Kim     | Fall 2024 | Pending  |
+
+7. **Clicking a student's name** should redirect to their **advising record page**:
+   - Admin can **approve or reject** the record.
+   - Admin must **provide a feedback message**.
+   - After submission:
+     - The system redirects to the **Advising History** screen.
+     - The student’s status is **updated** accordingly.
+
+8. **Status update functionality** should reflect changes after admin decision.
+
+9. **Email notification to students** (Extra Credit – *5 points*):
+   - Upon submission, student receives an email with:
+     - Their **new status**
+     - The **admin's message**
+
+---
+
+## 🎓 Student Portal Functionality
+
+10. Students can view the **updated status** of their advising sheet in the **Course Advising History** form.
+
+---
+
+## 📤 Submission
+
+1. **All source code** must be committed to GitHub **by the deadline** (as listed on Canvas).
+2. **Final project report** must be submitted to **Canvas by the deadline**.
