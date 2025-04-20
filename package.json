@@ -1,18 +1,17 @@
 {
-  "name": "course-portal-root",
-  "private": true,
-  "scripts": {
-    "install:all": "pnpm --filter ./server... install && pnpm --filter ./client... install",
-    "dev": "concurrently \"pnpm --filter ./server... dev\" \"pnpm --filter ./client... dev\"",
-    "build": "pnpm --filter ./server... build && pnpm --filter ./client... build",
-    "start": "pnpm --filter ./server... serve && pnpm --filter ./client... start",
-    "lint": "pnpm --filter ./client... lint",
-    "test": "pnpm --filter ./server... test"
-  },
-  "devDependencies": {
-    "concurrently": "^8.2.2"
-  },
-  "dependencies": {
-    "prisma": "^6.6.0"
+
+    "name": "course-portal-root",
+    "private": true,
+    "scripts": {
+      "install:all": "pnpm --filter ./server... install && pnpm --filter ./client... install",
+      "dev": "concurrently \"pnpm --filter ./server... dev\" \"pnpm --filter ./client... dev\"",
+      "build": "pnpm --filter ./server... build && pnpm --filter ./client... build",
+      "start": "pnpm --filter ./server... serve && pnpm --filter ./client... start",
+      "lint": "pnpm --filter ./client... lint",
+      "test": "pnpm --filter ./server... test"
+    },
+    "devDependencies": {
+      "concurrently": "^8.2.2"
+    }
   }
 }
