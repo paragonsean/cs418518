@@ -2,75 +2,44 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import Cookies from "js-cookie";
-import { fetchAllCourses } from "@/utils/courseActions"; // Fetch all courses
-import { fetchAdvisingRecords } from "@/utils/advisingActions"; // Fetch planned courses
+import { fetchAllCourses, fetchAdvisingRecords, fetchCompletedCourses } from "@/utils/advising_api"; // API functions
+import LoadingErrorState from "@/components/ui/loading_error_state"; // New component
+import PrerequisiteTable from "@/components/courses/prerequisite_table"; // New component
 
 const AdvisingComparison = () => {
   const [completedCourses, setCompletedCourses] = useState([]); // Student's completed courses
   const [plannedCourses, setPlannedCourses] = useState([]); // Courses they plan to take
   const [missingPrerequisites, setMissingPrerequisites] = useState({}); // Courses missing prereqs
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // For handling errors
 
-  // Wrap fetchComparisonData in useCallback to provide a stable reference.
   const fetchComparisonData = useCallback(async () => {
     setLoading(true);
+    setError(null); // Reset error state before fetching
     try {
-      // Fetch prerequisites from all courses
       const courses = await fetchAllCourses();
       const prerequisitesMap = buildPrerequisiteMap(courses);
-
-      // Fetch planned courses
       const advisingRecords = await fetchAdvisingRecords();
       const studentPlannedCourses = advisingRecords.flatMap((record) => record.planned_courses);
       setPlannedCourses(studentPlannedCourses);
 
-      // Fetch completed courses
       const completedCoursesData = await fetchCompletedCourses();
       setCompletedCourses(completedCoursesData);
 
-      // Compare prerequisites
       const missingPrereqs = findMissingPrerequisites(studentPlannedCourses, prerequisitesMap, completedCoursesData);
       setMissingPrerequisites(missingPrereqs);
     } catch (error) {
       console.error("Error fetching comparison data:", error);
+      setError("Failed to fetch data. Please try again later.");
     } finally {
       setLoading(false);
     }
-  }, []); // No dependencies
+  }, []);
 
   useEffect(() => {
     fetchComparisonData();
-  }, [fetchComparisonData]); // Now includes the stable function reference
+  }, [fetchComparisonData]);
 
-  // Fetch completed courses from backend
-  const fetchCompletedCourses = async () => {
-    try {
-      const token = Cookies.get("jwt-token");
-      if (!token) {
-        console.error("No token found. User is not authenticated.");
-        return [];
-      }
-
-      const response = await fetch("http://localhost:8000/api/completed-courses/", {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) throw new Error("Failed to fetch completed courses.");
-      return await response.json();
-    } catch (error) {
-      console.error("Error fetching completed courses:", error);
-      return [];
-    }
-  };
-
-  // Build a map of prerequisites for all courses
   const buildPrerequisiteMap = (courses) => {
     const map = {};
     courses.forEach((course) => {
@@ -79,7 +48,6 @@ const AdvisingComparison = () => {
     return map;
   };
 
-  // Compare prerequisites against completed courses
   const findMissingPrerequisites = (planned, prerequisitesMap, completed) => {
     const completedCourseNames = completed.map((c) => c.course_name);
     const missing = {};
@@ -103,41 +71,12 @@ const AdvisingComparison = () => {
           <CardTitle className="text-lg font-bold">Prerequisite Check for Planned Courses</CardTitle>
         </CardHeader>
         <CardContent>
-          {loading ? (
-            <p className="text-center text-gray-500">Loading...</p>
-          ) : (
-            <Table>
-              <TableHeader>
-                <TableRow className="bg-gray-200">
-                  <TableHead>Planned Course</TableHead>
-                  <TableHead>Missing Prerequisites</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {plannedCourses.length > 0 ? (
-                  plannedCourses.map((course, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{course}</TableCell>
-                      <TableCell>
-                        {missingPrerequisites[course]?.length > 0 ? (
-                          <span className="text-red-500">
-                            {missingPrerequisites[course].join(", ")}
-                          </span>
-                        ) : (
-                          <span className="text-green-500">All prerequisites met ✅</span>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={2} className="text-center text-gray-500">
-                      No planned courses found.
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
+          <LoadingErrorState loading={loading} error={error} />
+          {!loading && !error && (
+            <PrerequisiteTable
+              plannedCourses={plannedCourses}
+              missingPrerequisites={missingPrerequisites}
+            />
           )}
         </CardContent>
       </Card>

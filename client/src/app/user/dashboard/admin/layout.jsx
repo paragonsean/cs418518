@@ -1,5 +1,5 @@
 "use client";
-import DashboardSidebar from "@/components/DashboardSidebar"; // Example import
+import DashboardSidebar from "@/components/dashboard_sidebar"; // Example import
 
 export default function DashboardLayout({ children }) {
   return (

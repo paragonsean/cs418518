@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { fetchAdvisingRecords } from "@/utils/advisingActions";
+import { fetchAdvisingRecords } from "@/utils/advising_actions";
 import Cookies from "js-cookie";
 
 const AdvisingHistory = () => {
@@ -74,24 +74,28 @@ const AdvisingHistory = () => {
                     <TableCell>{record.last_gpa}</TableCell>
                     <TableCell>
                       <span
-                        className={`px-2 py-1 rounded ${
-                          record.status === "Approved"
+                        className={`px-2 py-1 rounded ${record.status === "Approved"
                             ? "bg-green-500 text-white"
                             : record.status === "Rejected"
-                            ? "bg-red-500 text-white"
-                            : "bg-yellow-500 text-white"
-                        }`}
+                              ? "bg-red-500 text-white"
+                              : "bg-yellow-500 text-white"
+                          }`}
                       >
                         {record.status}
                       </span>
                     </TableCell>
                     <TableCell>
-                      <Button
-                        onClick={() => router.push(`/user/dashboard/student//advising/${record.id}`)}
-                      >
-                        View / Edit
-                      </Button>
+                      {record.status === "Pending" ? (
+                        <Button
+                          onClick={() => router.push(`/user/dashboard/student/advising/${record.id}`)}
+                        >
+                          View / Edit
+                        </Button>
+                      ) : (
+                        <span className="text-sm text-gray-400 italic">Locked</span>
+                      )}
                     </TableCell>
+
                   </TableRow>
                 ))}
               </TableBody>

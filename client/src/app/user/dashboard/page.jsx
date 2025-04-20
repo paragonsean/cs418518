@@ -2,7 +2,7 @@
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import useProfile from "@/hooks/useProfile";
+import useProfile from "@/hooks/use_profile";
 
 export default function StudentDashboard() {
   const { getProfile } = useProfile();
@@ -27,7 +27,7 @@ export default function StudentDashboard() {
         }
       } catch (error) {
         console.error(" Profile Fetch Error:", error);
-        Cookies.remove("jwt-token");
+        Cookies.remove("authToken");
         router.push("/account/login"); // Redirect to login on error
       }
     };
