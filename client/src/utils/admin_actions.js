@@ -60,6 +60,20 @@ export async function updateAdvisingStatus(id, status, rejectionReason = "N/A") 
   }
 }
 /**
+ * DELETE /api/admin/advising/:id/delete-courses
+ * Remove completed_courses previously created from this advising record
+ */
+export async function deleteCoursesFromAdvising(id) {
+  try {
+    const token = getToken();
+    return await publicRequest(`/api/admin/advising/${id}/delete-courses`, "DELETE", null, token);
+  } catch (error) {
+    logger.error(`Error deleting courses from advising ID ${id}:`, error);
+    throw error;
+  }
+}
+
+/**
  * POST /api/admin/advising/:id/update-courses
  * Convert planned_courses into completed_courses for a student
  */

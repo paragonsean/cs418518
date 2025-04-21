@@ -10,9 +10,9 @@ class AuthModel {
     `;
     try {
       await executeQuery(sql, [otp, userId]);
-      logger.info(`✅ OTP updated for user ID ${userId} with DB-managed expiration`);
+      logger.info(`OTP updated for user ID ${userId} with DB-managed expiration`);
     } catch (error) {
-      logger.error(`❌ Failed to update OTP for user ID ${userId}: ${error.message}`);
+      logger.error(`Failed to update OTP for user ID ${userId}: ${error.message}`);
       throw error;
     }
   }
@@ -30,14 +30,14 @@ class AuthModel {
     try {
       const [rows] = await executeQuery(sql, [email, otp]);
       if (rows.length > 0) {
-        logger.info(`✅ Valid OTP for email: ${email}`);
+        logger.info(`Valid OTP for email: ${email}`);
         return rows[0];
       } else {
-        logger.warn(`⚠️ No valid OTP (expired or incorrect) for email: ${email}`);
+        logger.warn(` No valid OTP (expired or incorrect) for email: ${email}`);
         return null;
       }
     } catch (error) {
-      logger.error(`❌ Error checking OTP for ${email}: ${error.message}`);
+      logger.error(`Error checking OTP for ${email}: ${error.message}`);
       throw error;
     }
   }
@@ -46,9 +46,9 @@ class AuthModel {
     const sql = "UPDATE user SET verification_code = NULL, otp_expires_at = NULL WHERE u_id = ?";
     try {
       await executeQuery(sql, [userId]);
-      logger.info(`✅ OTP cleared for user ID: ${userId}`);
+      logger.info(`OTP cleared for user ID: ${userId}`);
     } catch (error) {
-      logger.error(`❌ Error clearing OTP for user ID ${userId}: ${error.message}`);
+      logger.error(`Error clearing OTP for user ID ${userId}: ${error.message}`);
       throw error;
     }
   }
@@ -57,9 +57,9 @@ class AuthModel {
     const sql = "UPDATE user SET verification_token = ?, updated_at = NOW() WHERE u_email = ?";
     try {
       await executeQuery(sql, [token, email]);
-      logger.info(`✅ Verification token set for ${email}`);
+      logger.info(`Verification token set for ${email}`);
     } catch (error) {
-      logger.error(`❌ Failed to update verification token for ${email}: ${error.message}`);
+      logger.error(`Failed to update verification token for ${email}: ${error.message}`);
       throw error;
     }
   }
@@ -69,12 +69,12 @@ class AuthModel {
     try {
       const [result] = await executeQuery(sql, [email]);
       if (result.affectedRows === 0) {
-        logger.warn(`⚠️ No user found to verify for email: ${email}`);
+        logger.warn(` No user found to verify for email: ${email}`);
         throw new Error("User not found");
       }
-      logger.info(`✅ User verified for email: ${email}`);
+      logger.info(`User verified for email: ${email}`);
     } catch (error) {
-      logger.error(`❌ Error verifying user ${email}: ${error.message}`);
+      logger.error(`Error verifying user ${email}: ${error.message}`);
       throw error;
     }
   }
@@ -83,9 +83,9 @@ class AuthModel {
     const sql = "UPDATE user SET u_password = ?, updated_at = NOW() WHERE u_id = ?";
     try {
       await executeQuery(sql, [hashedPassword, userId]);
-      logger.info(`✅ Password updated for user ID: ${userId}`);
+      logger.info(`Password updated for user ID: ${userId}`);
     } catch (error) {
-      logger.error(`❌ Error updating password for user ID ${userId}: ${error.message}`);
+      logger.error(`Error updating password for user ID ${userId}: ${error.message}`);
       throw error;
     }
   }
@@ -94,9 +94,9 @@ class AuthModel {
     const sql = "UPDATE user SET u_password = ?, updated_at = NOW() WHERE u_email = ?";
     try {
       await executeQuery(sql, [hashedPassword, email]);
-      logger.info(`✅ Password updated for email: ${email}`);
+      logger.info(`Password updated for email: ${email}`);
     } catch (error) {
-      logger.error(`❌ Error updating password for email ${email}: ${error.message}`);
+      logger.error(`Error updating password for email ${email}: ${error.message}`);
       throw error;
     }
   }

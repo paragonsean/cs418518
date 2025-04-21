@@ -1,12 +1,12 @@
 import Cookies from "js-cookie";
 import urlJoin from "url-join";
-import  publicRequest  from "@/utils/public_request"; // ✅ Correct
-import  { getToken }  from "@/lib/token_utils"; // ✅ Add this if missing
+import publicRequest from "@/utils/public_request";
+import { getToken } from "@/lib/token_utils";
+import { fetchJson } from "@/utils/fetch_wrapper"; // Import our centralized wrapper
 
-// Base URL for the API from environment variables
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000";
 
-// Attach Authorization header
+// Auth Header Builder
 const getAuthHeaders = () => {
   const token = Cookies.get("authToken");
   return token
@@ -14,236 +14,105 @@ const getAuthHeaders = () => {
     : { "Content-Type": "application/json" };
 };
 
+// POST to update courses for an advising record
 export async function updateCoursesFromAdvising(advisingId) {
   const token = getToken();
   const url = urlJoin(BASE_URL, `/api/admin/advising/${advisingId}/update-courses`);
-  return await publicRequest(url, "POST", null, token); // ✅ OK with your new backend
+  return await publicRequest(url, "POST", null, token);
 }
 
+// Admin: Fetch all advising records
+export const fetchAllAdvisingRecords = async () =>
+  await fetchJson(`${BASE_URL}/api/advising`, {
+    method: "GET",
+    headers: getAuthHeaders(),
+  });
 
-/**
- * Fetch all advising records (Admin Only)
- */
-export const fetchAllAdvisingRecords = async () => {
-  try {
-    const response = await fetch(`${BASE_URL}/api/advising`, {
-      method: "GET",
-      headers: getAuthHeaders(),
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Failed to fetch advising records");
-    return data;
-  } catch (error) {
-    console.error("Error fetching all advising records:", error);
-    throw error;
-  }
-};
+// Fetch all courses
+export const fetchAllCourses = async () =>
+  await fetchJson(`${BASE_URL}/api/courses`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
 
-// Ensure that the `fetchAllAdvisingRecords` is being **exported** correctly.
+// Fetch advising records for logged-in user
+export const fetchAdvisingRecords = async () =>
+  await fetchJson(`${BASE_URL}/api/advising/email`, {
+    method: "GET",
+    headers: getAuthHeaders(),
+  });
 
-/**
- * Fetch all courses
- */
-export const fetchAllCourses = async () => {
-  try {
-    const response = await fetch(`${BASE_URL}/api/courses`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Failed to fetch courses");
-    return data;
-  } catch (error) {
-    console.error("Error fetching courses:", error);
-    throw error;
-  }
-};
+// Fetch specific advising record
+export const fetchAdvisingRecordById = async (id) =>
+  await fetchJson(`${BASE_URL}/api/advising/${id}`, {
+    method: "GET",
+    headers: getAuthHeaders(),
+  });
 
-/**
- * Fetch completed courses for a specific user
- */
+// Update advising status
+export const updateAdvisingStatus = async (id, status) =>
+  await fetchJson(`${BASE_URL}/api/advising/${id}`, {
+    method: "PUT",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ status }),
+  });
+
+// Create advising record
+export const createAdvisingRecord = async (recordData) =>
+  await fetchJson(`${BASE_URL}/api/advising`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(recordData),
+  });
+
+// Fetch completed courses for the current user
 export const fetchCompletedCourses = async () => {
-  try {
-    const token = Cookies.get("authToken");
-    if (!token) {
-      console.error("No token found. User is not authenticated.");
-      return [];
-    }
-    const response = await fetch(`${BASE_URL}/api/completed-courses/`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Failed to fetch completed courses");
-    return data;
-  } catch (error) {
-    console.error("Error fetching completed courses:", error);
-    throw error;
-  }
+  const token = Cookies.get("authToken");
+  if (!token) return [];
+  return await fetchJson(`${BASE_URL}/api/completed-courses/`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
 };
 
-/**
- * Fetch advising records for a specific user
- */
-export const fetchAdvisingRecords = async () => {
-  try {
-    const response = await fetch(`${BASE_URL}/api/advising/email`, {
-      method: "GET",
-      headers: getAuthHeaders(),
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Failed to fetch advising records");
-    return data;
-  } catch (error) {
-    console.error("Error fetching advising records:", error);
-    throw error;
-  }
-};
-
-/**
- * Fetch advising record by ID
- */
-export const fetchAdvisingRecordById = async (id) => {
-  try {
-    const response = await fetch(`${BASE_URL}/api/advising/${id}`, {
-      method: "GET",
-      headers: getAuthHeaders(),
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Failed to fetch advising record");
-    return data;
-  } catch (error) {
-    console.error("Error fetching advising record:", error);
-    throw error;
-  }
-};
-
-/**
- * Update advising record's status
- */
-export const updateAdvisingStatus = async (id, status) => {
-  try {
-    const response = await fetch(`${BASE_URL}/api/advising/${id}`, {
-      method: "PUT",
-      headers: getAuthHeaders(),
-      body: JSON.stringify({ status }),
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Failed to update advising record status");
-    return data;
-  } catch (error) {
-    console.error(`Error updating advising record with ID ${id}:`, error);
-    throw error;
-  }
-};
-
-/**
- * Create a new advising record
- */
-export const createAdvisingRecord = async (recordData) => {
-  try {
-    const response = await fetch(`${BASE_URL}/api/advising`, {
-      method: "POST",
-      headers: getAuthHeaders(),
-      body: JSON.stringify(recordData),
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Failed to create advising record");
-    return data;
-  } catch (error) {
-    console.error("Error creating advising record:", error);
-    throw error;
-  }
-};
-/**
- * Admin: Fetch completed courses for a specific student by their ID
- */
+// Admin: Fetch completed courses by student ID
 export const fetchCompletedCoursesByStudentId = async (studentId) => {
-  try {
-    const token = Cookies.get("authToken");
-    if (!token) {
-      console.error("No token found. Admin not authenticated.");
-      return [];
-    }
-
-    const url = urlJoin(BASE_URL, `/api/completed-courses/${studentId}`);
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to fetch completed courses for student");
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error(`Error fetching completed courses for student ID ${studentId}:`, error);
-    throw error;
-  }
+  const token = Cookies.get("authToken");
+  if (!token) return [];
+  return await fetchJson(urlJoin(BASE_URL, `/api/completed-courses/${studentId}`), {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
 };
-/**
- * Admin: Fetch completed courses for a student by email
- */
+
+// Admin: Fetch completed courses by student email
 export const fetchCompletedCoursesByStudentEmail = async (email) => {
-  try {
-    const token = Cookies.get("authToken");
-    if (!token) {
-      console.error("No token found. Admin not authenticated.");
-      return [];
-    }
-
-    const response = await fetch(`${BASE_URL}/api/completed-courses/email/${email}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to fetch completed courses for student");
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error(`Error fetching completed courses for email ${email}:`, error);
-    throw error;
-  }
+  const token = Cookies.get("authToken");
+  if (!token) return [];
+  return await fetchJson(`${BASE_URL}/api/completed-courses/email/${email}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
 };
 
-/**
- * Fetch completed courses for a specific user by email
- */
+// User: Fetch completed courses by email
 export const fetchCompletedCoursesForUser = async (email) => {
-  try {
-    const token = Cookies.get("authToken");
-    if (!token) {
-      console.error("No token found. User is not authenticated.");
-      return [];
-    }
-
-    const url = urlJoin(BASE_URL, `/api/completed-courses/email/${email}`);
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) throw new Error("Failed to fetch user completed courses.");
-    return await response.json();
-  } catch (error) {
-    console.error(`Error fetching completed courses for ${email}:`, error);
-    return [];
-  }
+  const token = Cookies.get("authToken");
+  if (!token) return [];
+  return await fetchJson(`${BASE_URL}/api/completed-courses/email/${email}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
 };

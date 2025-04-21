@@ -36,10 +36,9 @@ export const generateToken = (user) => {
  */
 export const verifyToken = (token) => {
   try {
-    return jwt.verify(token, process.env.TOKEN_SECRET_KEY, { ignoreExpiration: true });
+    return jwt.verify(token, process.env.TOKEN_SECRET_KEY);
   } catch (error) {
     console.error(" JWT Verification Failed:", error.message);
-    return null;
+    return null; //  Prevents app crashes on invalid tokens
   }
 };
-

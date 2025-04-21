@@ -8,7 +8,7 @@ import UserModel from "../models/user_model.js";
 import logger from "../services/my_logger.js";
 
 class PasswordController {
-  // ✅ Verify Email
+  //  Verify Email
   static async verifyEmail(req, res) {
     const { token } = req.query;
 
@@ -52,7 +52,7 @@ class PasswordController {
     }
   }
 
-  // ✅ Send Password Reset Email
+  //  Send Password Reset Email
   static async sendUserPasswordResetEmail(req, res) {
     const { email } = req.body;
 
@@ -89,7 +89,7 @@ class PasswordController {
     }
   }
 
-  // ✅ Reset Password via Token
+  //  Reset Password via Token
   static async resetPassword(req, res) {
     const { token } = req.params;
     const { newPassword } = req.body;
