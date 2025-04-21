@@ -135,7 +135,7 @@ class UserModel {
     try {
       await executeQuery(
         "UPDATE user SET is_verified = ?, verification_token = NULL WHERE u_email = ?",
-        [true, email]
+        [1, email]
       );
       logger.info(`Email verified for user: ${email}`);
     } catch (error) {

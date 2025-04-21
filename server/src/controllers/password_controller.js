@@ -5,54 +5,38 @@ import {
 } from "../services/auth_service.js";
 import { sendResetPasswordEmail } from "../services/email_service.js";
 import UserModel from "../models/user_model.js";
-import logger from "../services/my_logger.js"; // Import logger
-import { verifyRecaptcha } from "../services/verify_recaptcha.js"; // Import the reCAPTCHA verification service
+import logger from "../services/my_logger.js";
 
 class PasswordController {
   // ✅ Verify Email
   static async verifyEmail(req, res) {
     const { token } = req.query;
-    const { recaptchaToken } = req.body; // reCAPTCHA token from frontend
 
-    if (!token || !recaptchaToken) {
-      logger.warn("Email verification failed - Missing verification token or reCAPTCHA token");
+    if (!token) {
+      logger.warn("Email verification failed - Missing verification token");
       return res
         .status(400)
-        .json({ status: "failed", message: "Missing verification token or reCAPTCHA token" });
+        .json({ status: "failed", message: "Missing verification token" });
     }
 
     try {
-      // Step 1: Verify reCAPTCHA
-      const recaptchaVerified = await verifyRecaptcha(recaptchaToken);
-      if (!recaptchaVerified.success || recaptchaVerified.score < 0.5) {
-        logger.warn("reCAPTCHA validation failed for email verification");
-        return res.status(400).json({
-          status: "failed",
-          message: "reCAPTCHA verification failed. Are you human?",
-        });
-      }
-
-      // Step 2: Proceed with the email verification process
       const decoded = verifyToken(token);
       if (!decoded || !decoded.email) {
-        logger.warn("Email verification failed - Invalid or expired token");
+        logger.warn("Email verification failed - Invalid token");
         return res
           .status(400)
-          .json({ status: "failed", message: "Invalid or expired token" });
+          .json({ status: "failed", message: "Invalid token" });
       }
 
       const { email } = decoded;
       const user = await UserModel.findByEmail(email);
       if (!user) {
-        logger.warn(
-          `Email verification failed - No user found (email: ${email})`,
-        );
+        logger.warn(`Email verification failed - No user found: ${email}`);
         return res
           .status(400)
-          .json({ status: "failed", message: "Invalid or expired token" });
+          .json({ status: "failed", message: "Invalid token" });
       }
 
-      // Mark user as verified
       await UserModel.verifyUserEmail(email);
       logger.info(`Email verified successfully for ${email}`);
 
@@ -64,48 +48,32 @@ class PasswordController {
       logger.error(`JWT Verification Error: ${error.message}`);
       return res
         .status(400)
-        .json({ status: "failed", message: "Invalid or expired token" });
+        .json({ status: "failed", message: "Invalid token" });
     }
   }
 
   // ✅ Send Password Reset Email
   static async sendUserPasswordResetEmail(req, res) {
-    const { email, recaptchaToken } = req.body; // Accept reCAPTCHA token
+    const { email } = req.body;
 
-    if (!email || !recaptchaToken) {
-      logger.warn("Password reset request failed - Missing email or reCAPTCHA token");
+    if (!email) {
+      logger.warn("Password reset request failed - Missing email");
       return res
         .status(400)
-        .json({ status: "failed", message: "Email and reCAPTCHA token are required" });
+        .json({ status: "failed", message: "Email is required" });
     }
 
     try {
-      // Step 1: Verify reCAPTCHA
-      const recaptchaVerified = await verifyRecaptcha(recaptchaToken);
-      if (!recaptchaVerified.success || recaptchaVerified.score < 0.5) {
-        logger.warn(`reCAPTCHA validation failed for email: ${email}`);
-        return res.status(400).json({
-          status: "failed",
-          message: "reCAPTCHA verification failed. Are you human?",
-        });
-      }
-
-      // Step 2: Proceed with the password reset email process
       const user = await UserModel.findByEmail(email);
       if (!user) {
-        logger.warn(
-          `Password reset request failed - No user found (email: ${email})`,
-        );
+        logger.warn(`Password reset request failed - No user found: ${email}`);
         return res.status(400).json({
           status: "failed",
           message: "No account found with this email",
         });
       }
 
-      // Generate Reset Token (1 hour)
-      const resetToken = generateToken({ email }, "1h");
-
-      // Send Reset Email
+      const resetToken = generateToken({ email }); // no expiration
       await sendResetPasswordEmail(email, resetToken);
       logger.info(`Password reset email sent to ${email}`);
 
@@ -114,9 +82,7 @@ class PasswordController {
         message: "Password reset email sent!",
       });
     } catch (error) {
-      logger.error(
-        `Error sending password reset email to ${email}: ${error.message}`,
-      );
+      logger.error(`Error sending reset email to ${email}: ${error.message}`);
       return res
         .status(500)
         .json({ status: "failed", message: "Server error" });
@@ -126,38 +92,26 @@ class PasswordController {
   // ✅ Reset Password via Token
   static async resetPassword(req, res) {
     const { token } = req.params;
-    const { newPassword, recaptchaToken } = req.body; // Accept reCAPTCHA token
+    const { newPassword } = req.body;
 
-    if (!token || !newPassword || !recaptchaToken) {
-      logger.warn("Password reset failed - Missing token, password, or reCAPTCHA token");
+    if (!token || !newPassword) {
+      logger.warn("Password reset failed - Missing token or new password");
       return res.status(400).json({
         status: "failed",
-        message: "Token, new password, and reCAPTCHA token are required",
+        message: "Token and new password are required",
       });
     }
 
     try {
-      // Step 1: Verify reCAPTCHA
-      const recaptchaVerified = await verifyRecaptcha(recaptchaToken);
-      if (!recaptchaVerified.success || recaptchaVerified.score < 0.5) {
-        logger.warn("reCAPTCHA validation failed for password reset");
-        return res.status(400).json({
-          status: "failed",
-          message: "reCAPTCHA verification failed. Are you human?",
-        });
-      }
-
-      // Step 2: Verify the reset token
       const decoded = verifyToken(token);
       if (!decoded || !decoded.email) {
-        logger.warn("Password reset failed - Invalid or expired token");
+        logger.warn("Password reset failed - Invalid token");
         return res.status(400).json({
           status: "failed",
-          message: "Invalid or expired token",
+          message: "Invalid token",
         });
       }
 
-      // Step 3: Hash the new password and update it
       const hashedPassword = await hashPassword(newPassword);
       await UserModel.updatePasswordByEmail(decoded.email, hashedPassword);
       logger.info(`Password successfully reset for ${decoded.email}`);
@@ -167,12 +121,10 @@ class PasswordController {
         message: "Password reset successfully!",
       });
     } catch (error) {
-      logger.error(
-        `Error resetting password for ${decoded.email}: ${error.message}`,
-      );
+      logger.error(`Error resetting password: ${error.message}`);
       return res
         .status(400)
-        .json({ status: "failed", message: "Invalid or expired token" });
+        .json({ status: "failed", message: "Invalid token" });
     }
   }
 }
