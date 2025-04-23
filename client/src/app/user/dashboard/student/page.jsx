@@ -97,21 +97,6 @@ export default function StudentDashboard() {
             </CardContent>
           </Card>
         </Link>
-
-        {/* 5) Advising History */}
-        <Link href="/user/dashboard/student/advising/history">
-          <Card className="hover:bg-gray-50 transition cursor-pointer">
-            <CardHeader className="flex items-center gap-3">
-              <BarChart size={20} className="text-yellow-600" />
-              <h3 className="text-lg font-semibold">Advising History</h3>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600">
-                Review previous advising records and recommended plans.
-              </p>
-            </CardContent>
-          </Card>
-        </Link>
       </section>
 
       {/* Important Updates Section */}

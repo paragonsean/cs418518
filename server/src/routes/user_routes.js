@@ -28,11 +28,9 @@ router.post(
 );
 
 router.post("/verify-otp", AuthController.verifyOTP);
-router.get("/verify-email", PasswordController.verifyEmail);
+router.get("/verify-email",  PasswordController.verifyEmail);
 router.post("/reset-password/:token", PasswordController.resetPassword);
 
-// Protected Routes (Require Valid JWT Cookie)
-// ─────────────────────────────────────────────
 router.post(
   "/changepassword",
   checkUserAuth,

@@ -104,7 +104,7 @@ class CoursesModel {
     }
   }
 
-  // 6️⃣ Delete course
+  // Delete course
   static async deleteCourse(level) {
     try {
       const [result] = await executeQuery(

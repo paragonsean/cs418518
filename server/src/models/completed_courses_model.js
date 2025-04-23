@@ -1,4 +1,4 @@
-import { executeQuery } from "../config/connectdb.js"; // Assuming you have a pool connection
+import { executeQuery } from "../config/connectdb.js";
 
 class CompletedCoursesModel {
   /**
@@ -19,15 +19,57 @@ class CompletedCoursesModel {
   }
 
   /**
+   * Fetch all unique completed courses (no duplicates)
+   */
+  static async getAllUniqueCompletedCourses() {
+    try {
+      const query = `
+        SELECT DISTINCT course_name
+        FROM completed_courses
+        ORDER BY course_name
+      `;
+      const [rows] = await executeQuery(query);
+      return rows;
+    } catch (error) {
+      console.error("Error fetching unique completed courses from DB:", error);
+      throw new Error("Database query failed while fetching unique completed courses");
+    }
+  }
+  /**
+ * Delete a completed course for a specific student
+ * @param {string} email - The student's email
+ * @param {string} courseName - The name of the course to delete
+ * @param {string} term - The academic term the course was completed
+ */
+static async deleteCompletedCourse(email, courseName, term) {
+  try {
+    if (!email || !courseName || !term) {
+      throw new Error("Missing required fields for course deletion");
+    }
+
+    const query = `
+      DELETE FROM completed_courses
+      WHERE student_email = ? AND course_name = ? AND term = ?
+    `;
+
+    const [result] = await executeQuery(query, [email, courseName, term]);
+
+    if (result.affectedRows === 0) {
+      throw new Error("No matching course found to delete");
+    }
+
+    return { message: "Completed course deleted successfully", email, courseName, term };
+  } catch (error) {
+    console.error("Error deleting completed course from DB:", error);
+    throw new Error("Database query failed while deleting completed course");
+  }
+}
+
+  /**
    * Add a completed course to the database for a student
-   * @param {string} email - The student's email
-   * @param {string} courseName - The name of the completed course
-   * @param {string} current_term - The academic current_term in which the course was completed
-   * @param {string} grade - The grade received in the course
    */
   static async setCompletedCourse(email, courseName, current_term, grade) {
     try {
-      // Ensure that all required fields are provided
       if (!email || !courseName || !current_term || !grade) {
         throw new Error("Missing required fields");
       }
@@ -36,10 +78,9 @@ class CompletedCoursesModel {
       if (!validGrades.includes(grade)) {
         throw new Error(`Invalid grade format: ${grade}`);
       }
-      
-      // Query to insert the completed course record into the database
+
       const query = `
-        INSERT INTO completed_courses (student_email, course_name, current_term, grade)
+        INSERT INTO completed_courses (student_email, course_name, term, grade)
         VALUES (?, ?, ?, ?)
       `;
       const [result] = await executeQuery(query, [email, courseName, current_term, grade]);
@@ -48,10 +89,7 @@ class CompletedCoursesModel {
         throw new Error("Failed to add the completed course");
       }
 
-      // Optionally, retrieve the ID of the inserted course
       const courseId = result.insertId;
-
-      // Return a success message along with the inserted course details
       return { message: "Completed course added successfully", courseId, email, courseName, current_term, grade };
     } catch (error) {
       console.error("Error adding completed course to DB:", error);

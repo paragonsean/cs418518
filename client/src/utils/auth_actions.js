@@ -1,5 +1,14 @@
 import publicRequest from "./public_request";
 
+function getAuthToken() {
+  const token = Cookies.get("authToken");
+  if (!token) {
+    console.error("Missing auth token.");
+    window.location.href = "/login";
+    throw new Error("No auth token.");
+  }
+  return token;
+}
 // 📧 Verify Email via Token
 export const verifyEmail = async (token) => {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000";

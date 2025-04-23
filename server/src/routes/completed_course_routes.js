@@ -5,9 +5,13 @@ import { Router } from "express";
 
 const router = Router();
 
+// 👇 Fetch authenticated user's completed courses
 router.get("/", checkUserAuth, CompletedCoursesController.getCompletedCoursesByEmail);
 
-// ✅ Admin route using student email instead of ID
+// 👇 Admin route: fetch by any email
 router.get("/email/:email", checkUserAuth, checkAdminRole, CompletedCoursesController.getCompletedCoursesByEmailParam);
+
+// ✅ NEW: Delete a specific course for the authenticated user
+router.delete("/", checkUserAuth, CompletedCoursesController.deleteCompletedCourse);
 
 export default router;

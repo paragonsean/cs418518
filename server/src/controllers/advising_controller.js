@@ -117,7 +117,7 @@ class AdvisingController {
         student_email,
       });
 
-      logger.info(`🎉 Advising record successfully created! ID: ${newRecord.id}`);
+      logger.info(`Advising record successfully created! ID: ${newRecord.id}`);
 
       return res.status(201).json({
         status: "success",

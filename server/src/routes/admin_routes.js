@@ -23,10 +23,13 @@ adminRouter.get("/students", AdminAdvisingController.getAllStudents);
 // 🔍 View single advising record by ID
 adminRouter.get("/advising/:id", AdminAdvisingController.getAdvisingRecordById);
 
-// ✅ Approve or reject advising form (with feedback)
+//  Approve or reject advising form (with feedback)
 adminRouter.put("/advising/:id", AdminAdvisingController.updateAdvisingStatus);
+// 🗑️ Delete completed courses linked to this advising record
+adminRouter.delete("/advising/:id/delete-courses", AdminAdvisingController.deleteCoursesFromAdvising);
 
 // 🛠 Full edit to an advising record
 adminRouter.put("/advising/record/:id", AdminAdvisingController.updateAdvisingRecord);
+// 🗑️ Delete completed courses linked to this advising record
 
 export default adminRouter;

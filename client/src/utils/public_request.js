@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") || "http://localhost:8000";
+  process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000";
 
 // Create singleton axios instance
 const axiosInstance = axios.create({
