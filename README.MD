@@ -1,3 +1,4 @@
+https://youtu.be/EUqcXiNvK_Q
 ## **Milestone 2: Course Advising Functionality**  
 
 ### **Student Portal Functionality**  
